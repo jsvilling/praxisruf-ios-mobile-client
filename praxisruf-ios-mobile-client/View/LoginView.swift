@@ -16,25 +16,32 @@ struct LoginView: View {
         VStack {
             WelcomeText()
             PraxisImage()
-         
+        
             List {
-                TextField(NSLocalizedString("username", comment: "username"), text: $username)
-                    .padding()
-                    .cornerRadius(5.0)
-                SecureField(NSLocalizedString("password", comment: "password"), text: $password)
+                HStack {
+                    Image(systemName: "person")
+                    TextField(NSLocalizedString("username", comment: "username"), text: $username)
                         .padding()
-                        .cornerRadius(25.0)
-            }
-            .frame(width: 440, height: 220)
-            .foregroundColor(.white)
+                        
+                }
 
+                HStack {
+                    Image(systemName: "key")
+                    SecureField(NSLocalizedString("password", comment: "password"), text: $password)
+                            .padding()
+                }
+            }
+            .listStyle(PlainListStyle())
+            .frame(width: 440, height: 135)
+            .padding(.bottom, 40)
+            
             Button(action: {print("Logging in")}) {
                 Text(NSLocalizedString("login", comment: "login button text, all caps"))
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
                     .frame(width: 220, height: 60)
-                    .background(Color.blue)
+                    .background(Color.accentColor)
                     .cornerRadius(15.0)
             }
         }
