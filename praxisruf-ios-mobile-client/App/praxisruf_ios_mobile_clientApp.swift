@@ -11,7 +11,7 @@ import SwiftUI
 struct praxisruf_ios_mobile_clientApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginView()
         }
     }
 }
