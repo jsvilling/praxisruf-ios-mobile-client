@@ -14,6 +14,7 @@
 		CE1D5C99271C4AAB007EA5AC /* praxisruf_ios_mobile_clientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5C98271C4AAB007EA5AC /* praxisruf_ios_mobile_clientTests.swift */; };
 		CE1D5CA3271C4AAB007EA5AC /* praxisruf_ios_mobile_clientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5CA2271C4AAB007EA5AC /* praxisruf_ios_mobile_clientUITests.swift */; };
 		CE1D5CA5271C4AAB007EA5AC /* praxisruf_ios_mobile_clientUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5CA4271C4AAB007EA5AC /* praxisruf_ios_mobile_clientUITestsLaunchTests.swift */; };
+		CE1D5CB5271C4E88007EA5AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1D5CB4271C4E88007EA5AC /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		CE1D5C9E271C4AAB007EA5AC /* praxisruf-ios-mobile-clientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "praxisruf-ios-mobile-clientUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1D5CA2271C4AAB007EA5AC /* praxisruf_ios_mobile_clientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = praxisruf_ios_mobile_clientUITests.swift; sourceTree = "<group>"; };
 		CE1D5CA4271C4AAB007EA5AC /* praxisruf_ios_mobile_clientUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = praxisruf_ios_mobile_clientUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CE1D5CB4271C4E88007EA5AC /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +96,10 @@
 		CE1D5C86271C4AAA007EA5AC /* praxisruf-ios-mobile-client */ = {
 			isa = PBXGroup;
 			children = (
-				CE1D5C87271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift */,
-				CE1D5C89271C4AAA007EA5AC /* ContentView.swift */,
+				CE1D5CB1271C4C79007EA5AC /* View */,
+				CE1D5CB2271C4C83007EA5AC /* Model */,
+				CE1D5CB3271C4C8C007EA5AC /* App */,
+				CE1D5CB6271C4E8E007EA5AC /* Resources */,
 				CE1D5C8B271C4AAB007EA5AC /* Assets.xcassets */,
 				CE1D5C8D271C4AAB007EA5AC /* Preview Content */,
 			);
@@ -125,6 +129,37 @@
 				CE1D5CA4271C4AAB007EA5AC /* praxisruf_ios_mobile_clientUITestsLaunchTests.swift */,
 			);
 			path = "praxisruf-ios-mobile-clientUITests";
+			sourceTree = "<group>";
+		};
+		CE1D5CB1271C4C79007EA5AC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE1D5C89271C4AAA007EA5AC /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CE1D5CB2271C4C83007EA5AC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CE1D5CB3271C4C8C007EA5AC /* App */ = {
+			isa = PBXGroup;
+			children = (
+				CE1D5C87271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		CE1D5CB6271C4E8E007EA5AC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CE1D5CB4271C4E88007EA5AC /* Localizable.strings */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE1D5C8F271C4AAB007EA5AC /* Preview Assets.xcassets in Resources */,
+				CE1D5CB5271C4E88007EA5AC /* Localizable.strings in Resources */,
 				CE1D5C8C271C4AAB007EA5AC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
