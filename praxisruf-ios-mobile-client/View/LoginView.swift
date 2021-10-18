@@ -11,6 +11,7 @@ struct LoginView: View {
     
     @State var username = ""
     @State var password = ""
+    @State var isLoggedIn = false
     
     var body: some View {
         VStack {
@@ -22,20 +23,22 @@ struct LoginView: View {
                     Image(systemName: "person")
                     TextField(NSLocalizedString("username", comment: "username"), text: $username)
                         .padding()
-                        
                 }
-
                 HStack {
                     Image(systemName: "key")
                     SecureField(NSLocalizedString("password", comment: "password"), text: $password)
                             .padding()
                 }
+                NavigationLink(destination: IntercomView(), isActive: $isLoggedIn) {EmptyView()}.hidden()
             }
             .listStyle(PlainListStyle())
             .frame(width: 440, height: 135)
             .padding(.bottom, 40)
             
-            Button(action: {print("Logging in")}) {
+            Button(action: {
+                print("Logging in with \(self.username) \(self.password)")
+                self.isLoggedIn = true
+            }) {
                 Text(NSLocalizedString("login", comment: "login button text, all caps"))
                     .font(.headline)
                     .foregroundColor(.white)
