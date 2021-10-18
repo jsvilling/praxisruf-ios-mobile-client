@@ -11,7 +11,10 @@ import SwiftUI
 struct praxisruf_ios_mobile_clientApp: App {
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            NavigationView {
+                LoginView()
+            }
+            .navigationViewStyle(.stack)
         }
     }
 }

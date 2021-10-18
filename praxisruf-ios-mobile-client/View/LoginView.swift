@@ -16,7 +16,7 @@ struct LoginView: View {
         VStack {
             WelcomeText()
             PraxisImage()
-        
+            
             List {
                 HStack {
                     Image(systemName: "person")
@@ -49,13 +49,6 @@ struct LoginView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
-            .previewDevice("iPad (9th generation)")
-    }
-}
-
 struct WelcomeText: View {
     var body: some View {
         Text(NSLocalizedString("welcome", comment: "welcome message"))
@@ -74,4 +67,17 @@ struct PraxisImage: View {
             .clipped()
             .cornerRadius(150)
     }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            LoginView()
+                .previewDevice("iPad (9th generation)")
+            }
+        .navigationViewStyle(.stack)
+        .previewDevice("iPad (9th generation)")
+
+    }
+    
 }
