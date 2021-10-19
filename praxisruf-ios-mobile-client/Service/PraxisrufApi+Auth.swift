@@ -2,7 +2,7 @@
 //  PraxisrufApi+Auth.swift
 //  praxisruf-ios-mobile-client
 //
-//  Created by user on 19.10.21.
+//  Created by J. Villing on 19.10.21.
 //
 
 import Foundation

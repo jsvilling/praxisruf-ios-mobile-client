@@ -52,7 +52,7 @@ struct LoginForm: View {
                 SecureField(NSLocalizedString("password", comment: "password"), text: $loginVM.password)
                         .padding()
             }
-            NavigationLink(destination: IntercomView(), isActive: $loginVM.isAuthenticated) {EmptyView()}.hidden()
+            NavigationLink(destination: ClientSelectView(), isActive: $loginVM.isAuthenticated) {EmptyView()}.hidden()
         }
         .listStyle(PlainListStyle())
         .frame(width: 440, height: 135)

@@ -9,8 +9,8 @@ import Foundation
 
 class LoginViewModel: ObservableObject {
     
-    var username: String = ""
-    var password: String = ""
+    var username: String = "admin"
+    var password: String = "admin"
     @Published var isAuthenticated: Bool = false
     
     func login() {
@@ -21,7 +21,7 @@ class LoginViewModel: ObservableObject {
                     defaults.setValue(token, forKey: "jwt")
                     defaults.setValue(self.username, forKey: "username")
                     DispatchQueue.main.async {
-                        self.isAuthenticated = true
+                        self.isAuthenticated = false
                     }
                 case .failure(let error):
                     print(error.localizedDescription)
