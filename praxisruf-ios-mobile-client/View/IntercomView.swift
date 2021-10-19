@@ -8,27 +8,28 @@
 import SwiftUI
 
 struct IntercomView: View {
+    
+    @StateObject var intercomVM = IntercomViewModel()
+    
     var body: some View {
         let clientName = UserDefaults.standard.string(forKey: "clientName") ?? "clientName"
-        VStack {
-            List {
-                Section() {
-                    Text("notifications")
-                }
-                Section {
-                    Text("intercom")
-                }
-            }
+        List(intercomVM.notificationTypes) { notificationType in
+            Button(notificationType.title, action: {
+                print("Send notification \(notificationType)")
+            })
         }
         .navigationTitle(clientName)
-        .navigationBarBackButtonHidden(true)
+        //.navigationBarBackButtonHidden(true)
+        .onAppear {
+            intercomVM.getNotificationTypes()
+        }
     }
 }
 
 struct IntercomHomeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            IntercomView()
+            IntercomView(intercomVM: IntercomViewModel(notificationTypes: NotificationType.data))
         }
         .navigationViewStyle(.stack)
     }
