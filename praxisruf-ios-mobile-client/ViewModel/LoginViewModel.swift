@@ -21,7 +21,7 @@ class LoginViewModel: ObservableObject {
                     defaults.setValue(token, forKey: "jwt")
                     defaults.setValue(self.username, forKey: "username")
                     DispatchQueue.main.async {
-                        self.isAuthenticated = false
+                        self.isAuthenticated = true
                     }
                 case .failure(let error):
                     print(error.localizedDescription)
