@@ -50,7 +50,6 @@
 		CE1D5CA2271C4AAB007EA5AC /* praxisruf_ios_mobile_clientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = praxisruf_ios_mobile_clientUITests.swift; sourceTree = "<group>"; };
 		CE1D5CA4271C4AAB007EA5AC /* praxisruf_ios_mobile_clientUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = praxisruf_ios_mobile_clientUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		CE1D5CB4271C4E88007EA5AC /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
-		CE1D5CBD271C6AE5007EA5AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CE53ABDE271DA1FE00BAD1F1 /* IntercomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomView.swift; sourceTree = "<group>"; };
 		CE53ABE0271DA32300BAD1F1 /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
 		CE53ABE2271DA56300BAD1F1 /* PraxisrufApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PraxisrufApi.swift; sourceTree = "<group>"; };
@@ -105,7 +104,6 @@
 		CE1D5C86271C4AAA007EA5AC /* praxisruf-ios-mobile-client */ = {
 			isa = PBXGroup;
 			children = (
-				CE1D5CBD271C6AE5007EA5AC /* Info.plist */,
 				CE1D5CB3271C4C8C007EA5AC /* App */,
 				CE1D5CB2271C4C83007EA5AC /* Model */,
 				CE1D5CB6271C4E8E007EA5AC /* Resources */,

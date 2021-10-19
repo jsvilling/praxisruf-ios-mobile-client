@@ -37,32 +37,28 @@ struct PraxisImage: View {
 }
 
 struct LoginForm: View {
-    @State var username = ""
-    @State var password = ""
-    @State var isLoggedIn = false
     
+    @StateObject private var loginVM = LoginViewModel()
+        
     var body: some View {
         List {
             HStack {
                 Image(systemName: "person")
-                TextField(NSLocalizedString("username", comment: "username"), text: $username)
+                TextField(NSLocalizedString("username", comment: "username"), text: $loginVM.username)
                     .padding()
             }
             HStack {
                 Image(systemName: "key")
-                SecureField(NSLocalizedString("password", comment: "password"), text: $password)
+                SecureField(NSLocalizedString("password", comment: "password"), text: $loginVM.password)
                         .padding()
             }
-            NavigationLink(destination: IntercomView(), isActive: $isLoggedIn) {EmptyView()}.hidden()
+            NavigationLink(destination: IntercomView(), isActive: $loginVM.isAuthenticated) {EmptyView()}.hidden()
         }
         .listStyle(PlainListStyle())
         .frame(width: 440, height: 135)
         .padding(.bottom, 40)
         
-        Button(action: {
-            PraxisrufApi().login(username: self.username, password: self.password)
-            self.isLoggedIn = true
-        }) {
+        Button(action: loginVM.login) {
             Text(NSLocalizedString("login", comment: "login button text, all caps"))
                 .font(.headline)
                 .foregroundColor(.white)

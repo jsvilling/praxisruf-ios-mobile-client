@@ -9,11 +9,14 @@ import Foundation
 
 class PraxisrufApi : ObservableObject {
     
-    @Published var token = String()
-    
+    enum ApiError: Error {
+        case invalidCredentials
+        case custom(errorMessage: String)
+    }
+        
     let baseUrlValue = "https://www.praxisruf.ch/api"
     
-    func login(username: String, password: String) {
+    func login(username: String, password: String, completion: @escaping (Result<String, ApiError>) -> Void) {
         print("Logging in with: \(username) \(password)")
         guard let url = URL(string: "\(baseUrlValue)/users/login") else {
             print("Invalid url")
@@ -31,28 +34,19 @@ class PraxisrufApi : ObservableObject {
         request.httpMethod = "GET"
         request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
         
-        URLSession.shared.dataTask(with: request) { data, response,     error in
+        URLSession.shared.dataTask(with: request) { data, response, error in
             guard let httpResponse = response as? HTTPURLResponse,(200...299).contains(httpResponse.statusCode) else {
-                print("Error reponse code ")
+                completion(.failure(.custom(errorMessage: "Error Response received")))
                 return
             }
             
-            guard let receivedAuthToken = httpResponse.value(forHTTPHeaderField: "Authorization") else {
-                print("Empty token")
+            guard let token = httpResponse.value(forHTTPHeaderField: "Authorization") else {
+                completion(.failure(.custom(errorMessage: "No token received")))
                 return
             }
             
-            print(receivedAuthToken)
-            
-            guard let da = data else {
-                return
-            }
-            
-            print(da)
-            
-            DispatchQueue.main.async {
-                self.token = receivedAuthToken
-            }
+            completion(.success(token))
+
         }.resume()
     }
 }
