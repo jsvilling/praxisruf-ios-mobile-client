@@ -27,6 +27,7 @@
 		CE53ABFD271EF9D700BAD1F1 /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABFC271EF9D700BAD1F1 /* NotificationType.swift */; };
 		CE53ABFF271EFAFC00BAD1F1 /* IntercomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABFE271EFAFC00BAD1F1 /* IntercomViewModel.swift */; };
 		CE53AC12271F124300BAD1F1 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = CE53AC11271F124300BAD1F1 /* FirebaseMessaging */; };
+		CE53AC15271F1BD600BAD1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE53AC14271F1BC300BAD1F1 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		CE53ABFE271EFAFC00BAD1F1 /* IntercomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomViewModel.swift; sourceTree = "<group>"; };
 		CE53AC0D271F115700BAD1F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE53AC13271F134600BAD1F1 /* praxisruf-ios-mobile-client.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "praxisruf-ios-mobile-client.entitlements"; sourceTree = "<group>"; };
+		CE53AC14271F1BC300BAD1F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +194,7 @@
 		CE1D5CB6271C4E8E007EA5AC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CE53AC14271F1BC300BAD1F1 /* GoogleService-Info.plist */,
 				CE1D5CB4271C4E88007EA5AC /* Localizable.strings */,
 			);
 			path = Resources;
@@ -328,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE1D5C8F271C4AAB007EA5AC /* Preview Assets.xcassets in Resources */,
+				CE53AC15271F1BD600BAD1F1 /* GoogleService-Info.plist in Resources */,
 				CE1D5CB5271C4E88007EA5AC /* Localizable.strings in Resources */,
 				CE1D5C8C271C4AAB007EA5AC /* Assets.xcassets in Resources */,
 			);
