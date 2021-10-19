@@ -7,4 +7,5 @@
 "notifications" = "Benachrichtigungen";
 "intercom" = "Gegensprechanlage";
 "inbox" = "Inbox";
-"clientSelection" = "Aktives Zimmer";
+"clientSelection" = "Zimmer";
+"finish" = "Fertig";

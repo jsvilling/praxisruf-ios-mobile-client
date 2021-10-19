@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Client: Decodable, Identifiable {
+struct Client: Decodable, Identifiable, Hashable {
     let id: UUID
     let name: String
 }

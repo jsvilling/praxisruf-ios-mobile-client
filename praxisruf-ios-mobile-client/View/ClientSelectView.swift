@@ -16,12 +16,15 @@ struct ClientSelectView: View {
             if (clientSelectVM.availableClients.count < 1) {
                 Text("noClients")
             } else {
-                List(clientSelectVM.availableClients) { client in
+                List(clientSelectVM.availableClients, selection: $clientSelectVM.selectedClientId) { client in
                     Text("\(client.name)")
                 }
             }
         }
+        .environment(\.editMode, $clientSelectVM.isEditMode)
         .navigationTitle("clientSelection")
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(trailing: Button("finish", action: {print(clientSelectVM.selectedClientId)}))
         .onAppear() {
             clientSelectVM.getAvailableClients()
         }

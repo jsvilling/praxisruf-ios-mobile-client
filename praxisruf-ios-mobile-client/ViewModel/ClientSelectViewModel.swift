@@ -9,6 +9,9 @@ import Foundation
 
 class ClientSelectViewModel: ObservableObject {
     
+    var selectedClientId: UUID?
+    var isEditMode: EditMode = .active
+    
     @Published var availableClients: [Client]
     
     init(availableClients: [Client] = []) {
