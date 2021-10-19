@@ -26,7 +26,6 @@
 		CE53ABF5271EB30100BAD1F1 /* ClientSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABF4271EB30100BAD1F1 /* ClientSelectViewModel.swift */; };
 		CE53ABFD271EF9D700BAD1F1 /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABFC271EF9D700BAD1F1 /* NotificationType.swift */; };
 		CE53ABFF271EFAFC00BAD1F1 /* IntercomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABFE271EFAFC00BAD1F1 /* IntercomViewModel.swift */; };
-		CE53AC01271F035B00BAD1F1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE53AC00271F035B00BAD1F1 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +68,7 @@
 		CE53ABF4271EB30100BAD1F1 /* ClientSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSelectViewModel.swift; sourceTree = "<group>"; };
 		CE53ABFC271EF9D700BAD1F1 /* NotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationType.swift; sourceTree = "<group>"; };
 		CE53ABFE271EFAFC00BAD1F1 /* IntercomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomViewModel.swift; sourceTree = "<group>"; };
-		CE53AC00271F035B00BAD1F1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE53AC0D271F115700BAD1F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +119,7 @@
 		CE1D5C86271C4AAA007EA5AC /* praxisruf-ios-mobile-client */ = {
 			isa = PBXGroup;
 			children = (
-				CE53AC00271F035B00BAD1F1 /* Info.plist */,
+				CE53AC0D271F115700BAD1F1 /* Info.plist */,
 				CE1D5CB3271C4C8C007EA5AC /* App */,
 				CE1D5CB2271C4C83007EA5AC /* Model */,
 				CE1D5CB6271C4E8E007EA5AC /* Resources */,
@@ -318,7 +317,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE53AC01271F035B00BAD1F1 /* Info.plist in Resources */,
 				CE1D5C8F271C4AAB007EA5AC /* Preview Assets.xcassets in Resources */,
 				CE1D5CB5271C4E88007EA5AC /* Localizable.strings in Resources */,
 				CE1D5C8C271C4AAB007EA5AC /* Assets.xcassets in Resources */,
