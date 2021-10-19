@@ -19,6 +19,7 @@
 		CE53ABE1271DA32300BAD1F1 /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABE0271DA32300BAD1F1 /* InboxView.swift */; };
 		CE53ABE3271DA56300BAD1F1 /* PraxisrufApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABE2271DA56300BAD1F1 /* PraxisrufApi.swift */; };
 		CE53ABE9271EA84A00BAD1F1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABE8271EA84A00BAD1F1 /* LoginViewModel.swift */; };
+		CE53ABED271EAF3200BAD1F1 /* PraxisrufApi+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABEC271EAF3200BAD1F1 /* PraxisrufApi+Auth.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		CE53ABE0271DA32300BAD1F1 /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
 		CE53ABE2271DA56300BAD1F1 /* PraxisrufApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PraxisrufApi.swift; sourceTree = "<group>"; };
 		CE53ABE8271EA84A00BAD1F1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		CE53ABEC271EAF3200BAD1F1 /* PraxisrufApi+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PraxisrufApi+Auth.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				CE53ABE2271DA56300BAD1F1 /* PraxisrufApi.swift */,
+				CE53ABEC271EAF3200BAD1F1 /* PraxisrufApi+Auth.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 			files = (
 				CE1D5C8A271C4AAA007EA5AC /* LoginView.swift in Sources */,
 				CE53ABE1271DA32300BAD1F1 /* InboxView.swift in Sources */,
+				CE53ABED271EAF3200BAD1F1 /* PraxisrufApi+Auth.swift in Sources */,
 				CE53ABE9271EA84A00BAD1F1 /* LoginViewModel.swift in Sources */,
 				CE53ABDF271DA1FE00BAD1F1 /* IntercomView.swift in Sources */,
 				CE53ABE3271DA56300BAD1F1 /* PraxisrufApi.swift in Sources */,
