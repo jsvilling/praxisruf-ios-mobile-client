@@ -12,12 +12,14 @@ struct ClientSelectView: View {
     @StateObject var clientSelectVM = ClientSelectViewModel()
     @State private var selection: UUID?
     @State var isEditMode: EditMode = .active
+    @State var isClientSelected = false
     
     var body: some View {
         VStack {
             if (clientSelectVM.availableClients.count < 1) {
                 Text("noClients")
             } else {
+                NavigationLink(destination: IntercomView(), isActive: $isClientSelected) {EmptyView()}.hidden()
                 List(clientSelectVM.availableClients, selection: $selection) { client in
                     Text("\(client.name)")
                 }
@@ -26,7 +28,20 @@ struct ClientSelectView: View {
         .environment(\.editMode, $isEditMode)
         .navigationTitle("clientSelection")
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(trailing: Button("finish", action: {print(selection)}))
+        .navigationBarItems(trailing: Button("finish", action: {
+                guard let clientId = selection else {
+                    return
+                }
+                
+                guard let client = clientSelectVM.availableClients.first(where: { $0.id == clientId }) else {
+                    return
+                }
+            
+                UserDefaults.standard.setValue("\(clientId)", forKey: "clientId")
+                UserDefaults.standard.setValue(client.name, forKey: "clientName")
+                isClientSelected = true
+            })
+        )
         .onAppear() {
             clientSelectVM.getAvailableClients()
         }

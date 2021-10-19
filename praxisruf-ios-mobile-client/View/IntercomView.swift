@@ -2,18 +2,26 @@
 //  IntercomHomeView.swift
 //  praxisruf-ios-mobile-client
 //
-//  Created by user on 18.10.21.
+//  Created by J. Villing on 18.10.21.
 //
 
 import SwiftUI
 
 struct IntercomView: View {
     var body: some View {
+        let clientName = UserDefaults.standard.string(forKey: "clientName") ?? "clientName"
         VStack {
-            Text("notifications")
-            Text("intercom")
+            List {
+                Section() {
+                    Text("notifications")
+                }
+                Section {
+                    Text("intercom")
+                }
+            }
         }
-        .navigationTitle("praxisruf")
+        .navigationTitle(clientName)
+        .navigationBarBackButtonHidden(true)
     }
 }
 
