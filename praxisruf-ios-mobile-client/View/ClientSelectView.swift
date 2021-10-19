@@ -12,8 +12,14 @@ struct ClientSelectView: View {
     @StateObject var clientSelectVM = ClientSelectViewModel()
     
     var body: some View {
-        List(clientSelectVM.availableClients) { client in
-            Text("\(client.name)")
+        VStack {
+            if (clientSelectVM.availableClients.count < 1) {
+                Text("noClients")
+            } else {
+                List(clientSelectVM.availableClients) { client in
+                    Text("\(client.name)")
+                }
+            }
         }
         .navigationTitle("clientSelection")
         .onAppear() {
