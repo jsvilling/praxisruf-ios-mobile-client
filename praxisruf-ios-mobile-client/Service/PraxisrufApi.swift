@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Api : ObservableObject {
+class PraxisrufApi : ObservableObject {
     
     @Published var token = String()
     
@@ -31,15 +31,25 @@ class Api : ObservableObject {
         request.httpMethod = "GET"
         request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
         
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        URLSession.shared.dataTask(with: request) { data, response,     error in
             guard let httpResponse = response as? HTTPURLResponse,(200...299).contains(httpResponse.statusCode) else {
                 print("Error reponse code ")
                 return
             }
+            
             guard let receivedAuthToken = httpResponse.value(forHTTPHeaderField: "Authorization") else {
                 print("Empty token")
                 return
             }
+            
+            print(receivedAuthToken)
+            
+            guard let da = data else {
+                return
+            }
+            
+            print(da)
+            
             DispatchQueue.main.async {
                 self.token = receivedAuthToken
             }

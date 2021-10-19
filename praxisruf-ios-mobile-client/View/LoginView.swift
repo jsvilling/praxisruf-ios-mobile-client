@@ -60,7 +60,7 @@ struct LoginForm: View {
         .padding(.bottom, 40)
         
         Button(action: {
-            Api().login(username: self.username, password: self.password)
+            PraxisrufApi().login(username: self.username, password: self.password)
             self.isLoggedIn = true
         }) {
             Text(NSLocalizedString("login", comment: "login button text, all caps"))
