@@ -10,21 +10,23 @@ import SwiftUI
 struct ClientSelectView: View {
     
     @StateObject var clientSelectVM = ClientSelectViewModel()
+    @State private var selection: UUID?
+    @State var isEditMode: EditMode = .active
     
     var body: some View {
         VStack {
             if (clientSelectVM.availableClients.count < 1) {
                 Text("noClients")
             } else {
-                List(clientSelectVM.availableClients, selection: $clientSelectVM.selectedClientId) { client in
+                List(clientSelectVM.availableClients, selection: $selection) { client in
                     Text("\(client.name)")
                 }
             }
         }
-        .environment(\.editMode, $clientSelectVM.isEditMode)
+        .environment(\.editMode, $isEditMode)
         .navigationTitle("clientSelection")
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(trailing: Button("finish", action: {print(clientSelectVM.selectedClientId)}))
+        .navigationBarItems(trailing: Button("finish", action: {print(selection)}))
         .onAppear() {
             clientSelectVM.getAvailableClients()
         }
