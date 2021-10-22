@@ -70,7 +70,6 @@
 		CE53ABF4271EB30100BAD1F1 /* ClientSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSelectViewModel.swift; sourceTree = "<group>"; };
 		CE53ABFC271EF9D700BAD1F1 /* NotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationType.swift; sourceTree = "<group>"; };
 		CE53ABFE271EFAFC00BAD1F1 /* IntercomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomViewModel.swift; sourceTree = "<group>"; };
-		CE53AC0D271F115700BAD1F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE53AC13271F134600BAD1F1 /* praxisruf-ios-mobile-client.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "praxisruf-ios-mobile-client.entitlements"; sourceTree = "<group>"; };
 		CE53AC14271F1BC300BAD1F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				CE53AC13271F134600BAD1F1 /* praxisruf-ios-mobile-client.entitlements */,
-				CE53AC0D271F115700BAD1F1 /* Info.plist */,
 				CE1D5CB3271C4C8C007EA5AC /* App */,
 				CE1D5CB2271C4C83007EA5AC /* Model */,
 				CE1D5CB6271C4E8E007EA5AC /* Resources */,
