@@ -9,6 +9,8 @@ import Foundation
 import Firebase
 import UIKit
 
+// ip6 bundle id ch.fhnw.ip6.praxisruf.praxisruf-ios-mobile-client
+
 class AppDelegate: NSObject, UIApplicationDelegate {
     
     let gcmMessageIDKey = "gcm.message_id"
@@ -38,14 +40,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                      didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult)
                        -> Void) {
-      // If you are receiving a notification message while your app is in the background,
-      // this callback will not be fired till the user taps on the notification launching the application.
-      // TODO: Handle data of notification
 
-      // With swizzling disabled you must let Messaging know about the message, for Analytics
-      // Messaging.messaging().appDidReceiveMessage(userInfo)
-
-      // Print message ID.
       if let messageID = userInfo[gcmMessageIDKey] {
         print("Message ID: \(messageID)")
       }
@@ -54,6 +49,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
       print(userInfo)
 
       completionHandler(UIBackgroundFetchResult.newData)
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Unable to register for remote notifications: \(error.localizedDescription)")
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("APNs token retrieved: \(deviceToken)")
+        Messaging.messaging().apnsToken = deviceToken
     }
 }
 
@@ -64,5 +68,35 @@ extension AppDelegate: MessagingDelegate {
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
+  
+  func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              willPresent notification: UNNotification,
+                              withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions)
+                                -> Void) {
+   
+    let userInfo = notification.request.content.userInfo
+    Messaging.messaging().appDidReceiveMessage(userInfo)
+      if let messageID = userInfo[gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
+          }
+      print(userInfo)
+    completionHandler([[.banner, .badge, .sound]])
+  }
+
+  func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              didReceive response: UNNotificationResponse,
+                              withCompletionHandler completionHandler: @escaping () -> Void) {
+    let userInfo = response.notification.request.content.userInfo
+
+      if let messageID = userInfo[gcmMessageIDKey] {
+        print("Message ID: \(messageID)")
+      }
+      
+    Messaging.messaging().appDidReceiveMessage(userInfo)
+    print(userInfo)
+
+    completionHandler()
+  }
+    
 
 }
