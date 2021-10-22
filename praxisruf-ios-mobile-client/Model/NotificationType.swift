@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NotificationType: Codable, Identifiable {
+struct NotificationType: Codable, Identifiable, Hashable {
     let id: UUID
     let displayText: String
     let title: String

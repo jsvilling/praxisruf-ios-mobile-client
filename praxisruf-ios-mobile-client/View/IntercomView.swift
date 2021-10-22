@@ -10,19 +10,44 @@ import SwiftUI
 struct IntercomView: View {
     
     @StateObject var intercomVM = IntercomViewModel()
-    
+
     var body: some View {
         let clientName = UserDefaults.standard.string(forKey: "clientName") ?? "clientName"
-        List(intercomVM.notificationTypes) { notificationType in
-            Button(notificationType.title, action: {
-                print("Send notification \(notificationType)")
-            })
+
+        VStack {
+            Spacer()
+            Text("notifications")
+            ButtonGirdView(entries: $intercomVM.notificationTypes)
+            Spacer()
+            Text("intercom")
+            ButtonGirdView(entries: $intercomVM.notificationTypes)
+            Spacer()
         }
         .navigationTitle(clientName)
         //.navigationBarBackButtonHidden(true)
         .onAppear {
             intercomVM.getNotificationTypes()
         }
+    }
+}
+
+struct ButtonGirdView: View {
+    
+    let columns = [GridItem(.adaptive(minimum: 100))]
+    @Binding var entries: [NotificationType]
+    
+    var body: some View {
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 20) {
+                ForEach(entries, id: \.self) { item in
+                    Button(item.displayText, action: {
+                        print("Send notification \(item)")
+                    })
+                }
+            }
+            .padding(.horizontal)
+        }
+        .frame(maxHeight: 300)
     }
 }
 
