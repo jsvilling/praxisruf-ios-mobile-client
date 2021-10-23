@@ -15,13 +15,12 @@ struct IntercomView: View {
         let clientName = UserDefaults.standard.string(forKey: "clientName") ?? "clientName"
 
         VStack {
-            Spacer()
-            Text("notifications")
-            ButtonGirdView(entries: $intercomVM.notificationTypes)
-            Spacer()
-            Text("intercom")
-            ButtonGirdView(entries: $intercomVM.notificationTypes)
-            Spacer()
+            Section(header: Text("notifications").font(.title2)) {
+                ButtonGirdView(entries: $intercomVM.notificationTypes, action: sendNotification)
+            }
+            Section(header: Text("intercom").font(.title2)) {
+                ButtonGirdView(entries: $intercomVM.notificationTypes, action: startCall)
+            }
         }
         .navigationTitle(clientName)
         //.navigationBarBackButtonHidden(true)
@@ -29,19 +28,28 @@ struct IntercomView: View {
             intercomVM.getNotificationTypes()
         }
     }
+    
+    func sendNotification(id: UUID) {
+        print("Sending notification for: \(id)")
+    }
+    
+    func startCall(id: UUID) {
+        print("Starting call for: \(id)")
+    }
 }
 
 struct ButtonGirdView: View {
     
     let columns = [GridItem(.adaptive(minimum: 100))]
     @Binding var entries: [NotificationType]
+    let action: (UUID) -> Void
     
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 20) {
                 ForEach(entries, id: \.self) { item in
                     Button(item.displayText, action: {
-                        print("Send notification \(item)")
+                        action(item.id)
                     })
                 }
             }
