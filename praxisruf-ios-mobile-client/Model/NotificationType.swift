@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NotificationType: Codable, Identifiable, Hashable {
+struct NotificationType: IntercomItem, Hashable, Codable, Identifiable {
     let id: UUID
     let displayText: String
     let title: String
@@ -15,9 +15,11 @@ struct NotificationType: Codable, Identifiable, Hashable {
     let description: String
 }
 
+
 extension NotificationType {
     static var data: [NotificationType] = [
         NotificationType(id: UUID(), displayText: "Alarm", title: "Alarm", body: "Alarm", description: "Button triggers urgent alarm"),
         NotificationType(id: UUID(), displayText: "Zahnpasta", title: "Zahnpasta", body: "Zahnpasta", description: "Button requests Zahnpasta")
     ]
 }
+

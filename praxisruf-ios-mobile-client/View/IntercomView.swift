@@ -48,14 +48,23 @@ struct ButtonGirdView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 20) {
                 ForEach(entries, id: \.self) { item in
-                    Button(item.displayText, action: {
-                        action(item.id)
-                    })
+                    IntercomButton(item: item, action: action)
                 }
             }
             .padding(.horizontal)
         }
         .frame(maxHeight: 300)
+    }
+}
+
+struct IntercomButton: View {
+    let item: IntercomItem
+    let action: (UUID) -> Void
+    
+    var body: some View {
+        Button(item.displayText, action: {
+            action(item.id)
+        })
     }
 }
 
