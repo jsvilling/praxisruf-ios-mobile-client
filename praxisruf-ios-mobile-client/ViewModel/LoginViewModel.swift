@@ -18,8 +18,8 @@ class LoginViewModel: ObservableObject {
         PraxisrufApi().login(username: username, password: password) { result in
             switch result {
                 case .success (let token):
-                    defaults.setValue(token, forKey: "jwt")
-                    defaults.setValue(self.username, forKey: "username")
+                defaults.setValue(token, forKey: UserDefaultKeys.authToken)
+                defaults.setValue(self.username, forKey: UserDefaultKeys.userName)
                     DispatchQueue.main.async {
                         self.isAuthenticated = true
                     }

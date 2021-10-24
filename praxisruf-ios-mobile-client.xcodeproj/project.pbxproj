@@ -18,6 +18,7 @@
 		CE51D02C2723DAA9000D09C1 /* IntercomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D02B2723DAA9000D09C1 /* IntercomItem.swift */; };
 		CE51D02E272540ED000D09C1 /* PraxisrufApi+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D02D272540ED000D09C1 /* PraxisrufApi+Registration.swift */; };
 		CE51D0302725431B000D09C1 /* RegistrationIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D02F2725431B000D09C1 /* RegistrationIntegration.swift */; };
+		CE51D0332725600A000D09C1 /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D0322725600A000D09C1 /* UserDefaultKeys.swift */; };
 		CE53ABDF271DA1FE00BAD1F1 /* IntercomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABDE271DA1FE00BAD1F1 /* IntercomView.swift */; };
 		CE53ABE1271DA32300BAD1F1 /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABE0271DA32300BAD1F1 /* InboxView.swift */; };
 		CE53ABE3271DA56300BAD1F1 /* PraxisrufApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABE2271DA56300BAD1F1 /* PraxisrufApi.swift */; };
@@ -66,6 +67,7 @@
 		CE51D02B2723DAA9000D09C1 /* IntercomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomItem.swift; sourceTree = "<group>"; };
 		CE51D02D272540ED000D09C1 /* PraxisrufApi+Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PraxisrufApi+Registration.swift"; sourceTree = "<group>"; };
 		CE51D02F2725431B000D09C1 /* RegistrationIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationIntegration.swift; sourceTree = "<group>"; };
+		CE51D0322725600A000D09C1 /* UserDefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
 		CE53ABDE271DA1FE00BAD1F1 /* IntercomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomView.swift; sourceTree = "<group>"; };
 		CE53ABE0271DA32300BAD1F1 /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
 		CE53ABE2271DA56300BAD1F1 /* PraxisrufApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PraxisrufApi.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				CE53ABF2271EB28C00BAD1F1 /* Client.swift */,
 				CE53ABFC271EF9D700BAD1F1 /* NotificationType.swift */,
 				CE51D02B2723DAA9000D09C1 /* IntercomItem.swift */,
+				CE51D0322725600A000D09C1 /* UserDefaultKeys.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				CE53ABFD271EF9D700BAD1F1 /* NotificationType.swift in Sources */,
 				CE51D02E272540ED000D09C1 /* PraxisrufApi+Registration.swift in Sources */,
 				CE1D5C88271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift in Sources */,
+				CE51D0332725600A000D09C1 /* UserDefaultKeys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

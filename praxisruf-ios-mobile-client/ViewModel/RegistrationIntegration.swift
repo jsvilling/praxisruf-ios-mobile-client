@@ -16,17 +16,17 @@ class RegistrationIntegration: ObservableObject {
     
     func register() {
         let defaults = UserDefaults.standard
-        guard let authToken = defaults.string(forKey: "jwt") else {
+        guard let authToken = defaults.string(forKey: UserDefaultKeys.authToken) else {
             print("No auth token found")
             return
         }
         
-        guard let fcmToken = defaults.string(forKey: "fcmToken") else {
+        guard let fcmToken = defaults.string(forKey: UserDefaultKeys.fcmToken) else {
             print("No fmc token found")
             return
         }
 
-        guard let clientId = defaults.string(forKey: "clientId") else {
+        guard let clientId = defaults.string(forKey: UserDefaultKeys.clientId) else {
             print("No clientId found")
             return
         }

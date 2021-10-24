@@ -17,12 +17,12 @@ class IntercomViewModel: ObservableObject {
     
     func getNotificationTypes() {
         let defaults = UserDefaults.standard
-        guard let token = defaults.string(forKey: "jwt") else {
+        guard let token = defaults.string(forKey: UserDefaultKeys.authToken) else {
             print("No token found")
             return
         }
 
-        guard let clientId = defaults.string(forKey: "clientId") else {
+        guard let clientId = defaults.string(forKey: UserDefaultKeys.clientId) else {
             print("No clientId found")
             return
         }

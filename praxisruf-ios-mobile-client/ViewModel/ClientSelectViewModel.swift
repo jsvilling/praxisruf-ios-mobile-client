@@ -17,7 +17,7 @@ class ClientSelectViewModel: ObservableObject {
     
     func getAvailableClients() {
         let defaults = UserDefaults.standard
-        guard let token = defaults.string(forKey: "jwt") else {
+        guard let token = defaults.string(forKey: UserDefaultKeys.authToken) else {
             print("No token found")
             return
         }

@@ -37,8 +37,8 @@ struct ClientSelectView: View {
                     return
                 }
             
-                UserDefaults.standard.setValue("\(clientId)", forKey: "clientId")
-                UserDefaults.standard.setValue(client.name, forKey: "clientName")
+            UserDefaults.standard.setValue("\(clientId)", forKey: UserDefaultKeys.clientId)
+            UserDefaults.standard.setValue(client.name, forKey: UserDefaultKeys.clientName)
                 isClientSelected = true
             })
         )
