@@ -40,7 +40,7 @@ struct IntercomView: View {
 
 struct ButtonGirdView: View {
     
-    let columns = [GridItem(.adaptive(minimum: 100))]
+    let columns = [GridItem(.adaptive(minimum: 200))]
     @Binding var entries: [NotificationType]
     let action: (UUID) -> Void
     
@@ -62,9 +62,17 @@ struct IntercomButton: View {
     let action: (UUID) -> Void
     
     var body: some View {
-        Button(item.displayText, action: {
-            action(item.id)
-        })
+  
+        Text(item.displayText)
+            .font(.system(size: 20, weight: .semibold, design: .rounded))
+            .frame(width: 200, height: 60)
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .shadow(color: Color(#colorLiteral(red: 0.76, green: 0.81, blue: 0.92, alpha: 1)), radius: 20, x: 20, y: 20)
+            .shadow(color: Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), radius: 20, x: -20, y: -20)
+            .onTapGesture {
+                action(item.id)
+            }
     }
 }
 
