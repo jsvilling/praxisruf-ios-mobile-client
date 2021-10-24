@@ -11,8 +11,7 @@
 
 import Foundation
 
-class RegistrationIntegration: ObservableObject {
-    
+class RegistrationService: ObservableObject {
     
     func register() {
         let defaults = UserDefaults.standard

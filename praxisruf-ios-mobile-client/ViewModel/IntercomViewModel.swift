@@ -37,6 +37,33 @@ class IntercomViewModel: ObservableObject {
                     print(error.localizedDescription)
             }
         }
+    }
+    
+    func sendNotification(notificationTypeId: UUID) {
+        
+        print("Sending notification \(notificationTypeId)")
+        
+        let defaults = UserDefaults.standard
+        guard let token = defaults.string(forKey: UserDefaultKeys.authToken) else {
+            print("No token found")
+            return
+        }
+
+        guard let clientId = defaults.string(forKey: UserDefaultKeys.clientId) else {
+            print("No clientId found")
+            return
+        }
+        
+        let notification = SendNotification(notificationId: notificationTypeId, sender: clientId)
+        
+        PraxisrufApi().sendNotification(authToken: token, sendNotification: notification) { result in
+            switch result {
+            case .success(let msg):
+                print(msg)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
         
     }
     

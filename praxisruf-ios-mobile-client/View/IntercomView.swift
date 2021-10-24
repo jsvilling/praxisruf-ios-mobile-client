@@ -30,7 +30,7 @@ struct IntercomView: View {
     }
     
     func sendNotification(id: UUID) {
-        print("Sending notification for: \(id)")
+        intercomVM.sendNotification(notificationTypeId: id)
     }
     
     func startCall(id: UUID) {
