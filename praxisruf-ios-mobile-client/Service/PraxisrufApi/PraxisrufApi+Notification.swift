@@ -24,16 +24,10 @@ extension PraxisrufApi {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let res = response as? HTTPURLResponse else {
-                return
-            }
-            print(res.statusCode)
-            
             guard let httpResponse = response as? HTTPURLResponse,(200...299).contains(httpResponse.statusCode) else {
                 completion(.failure(.custom(errorMessage: "Error sending notification")))
                 return
             }
-            
             completion(.success("Notification was sent"))
         }.resume()
     }

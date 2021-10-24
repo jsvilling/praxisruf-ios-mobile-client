@@ -9,7 +9,7 @@ import Foundation
 
 struct SendNotification: Codable {
     
-    let notificationId: UUID
+    let notificationTypeId: UUID
     let sender: String
     
 }

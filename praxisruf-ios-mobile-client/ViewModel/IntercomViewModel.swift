@@ -54,7 +54,7 @@ class IntercomViewModel: ObservableObject {
             return
         }
         
-        let notification = SendNotification(notificationId: notificationTypeId, sender: clientId)
+        let notification = SendNotification(notificationTypeId: notificationTypeId, sender: clientId)
         
         PraxisrufApi().sendNotification(authToken: token, sendNotification: notification) { result in
             switch result {
