@@ -52,6 +52,7 @@ struct ButtonGirdView: View {
                 }
             }
             .padding(.horizontal)
+            .padding(.top)
         }
         .frame(maxHeight: 300)
     }

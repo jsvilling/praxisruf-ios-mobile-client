@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  praxisruf-ios-mobile-client
 //
-//  Created by user on 22.10.21.
+//  Created by J. Villing on 22.10.21.
 //
 
 import Foundation
@@ -63,7 +63,14 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-      print("Firebase registration token: \(String(describing: fcmToken))")
+        guard let token = fcmToken else {
+            print("Firebase registration token was empty")
+            return
+        }
+        print("Firebase registration token: \(token)")
+        let defaults = UserDefaults.standard
+        defaults.setValue(token, forKey: "fcmToken")
+        RegistrationIntegration().register()
     }
 }
 
