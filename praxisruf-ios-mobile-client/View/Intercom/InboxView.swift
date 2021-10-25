@@ -51,7 +51,7 @@ struct InboxItemView: View {
             Spacer()
             
             VStack {
-                Text("Date Placeholder")
+                Text(inboxItem.receivedAt.toString())
                     .font(.caption)
                     .opacity(0.54)
                 

@@ -17,7 +17,6 @@ class Inbox: ObservableObject {
     
     func receiveNofication(title: String, body: String) {
         let notification = InboxItem(type: "mail", title: title, body: body)
-        print(notification)
         DispatchQueue.main.async {
             self.content.append(notification)
         }

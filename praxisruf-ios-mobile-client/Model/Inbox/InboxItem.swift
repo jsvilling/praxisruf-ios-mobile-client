@@ -13,6 +13,7 @@ struct InboxItem: Identifiable {
     var title: String
     var body: String
     var ack: Bool = false
+    var receivedAt = Date()
 }
 
 extension InboxItem {

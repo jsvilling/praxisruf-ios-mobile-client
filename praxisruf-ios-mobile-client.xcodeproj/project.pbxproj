@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE01404B2726C81400B71AB7 /* Inbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01404A2726C81400B71AB7 /* Inbox.swift */; };
+		CE01404D2726DC8400B71AB7 /* Date+ToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01404C2726DC8400B71AB7 /* Date+ToString.swift */; };
 		CE1D5C88271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5C87271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift */; };
 		CE1D5C8A271C4AAA007EA5AC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5C89271C4AAA007EA5AC /* LoginView.swift */; };
 		CE1D5C8C271C4AAB007EA5AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1D5C8B271C4AAB007EA5AC /* Assets.xcassets */; };
@@ -60,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		CE01404A2726C81400B71AB7 /* Inbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inbox.swift; sourceTree = "<group>"; };
+		CE01404C2726DC8400B71AB7 /* Date+ToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ToString.swift"; sourceTree = "<group>"; };
 		CE1D5C84271C4AAA007EA5AC /* praxisruf-ios-mobile-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "praxisruf-ios-mobile-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1D5C87271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = praxisruf_ios_mobile_clientApp.swift; sourceTree = "<group>"; };
 		CE1D5C89271C4AAA007EA5AC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 			children = (
 				CE01404A2726C81400B71AB7 /* Inbox.swift */,
 				CE51D0452726922B000D09C1 /* InboxItem.swift */,
+				CE01404C2726DC8400B71AB7 /* Date+ToString.swift */,
 			);
 			path = Inbox;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 			files = (
 				CE53ABEF271EB11900BAD1F1 /* PraxisrufApi+Conf.swift in Sources */,
 				CE51D0302725431B000D09C1 /* RegistrationService.swift in Sources */,
+				CE01404D2726DC8400B71AB7 /* Date+ToString.swift in Sources */,
 				CE1D5C8A271C4AAA007EA5AC /* LoginView.swift in Sources */,
 				CE53ABE1271DA32300BAD1F1 /* InboxView.swift in Sources */,
 				CE53ABF5271EB30100BAD1F1 /* ClientSelectViewModel.swift in Sources */,
