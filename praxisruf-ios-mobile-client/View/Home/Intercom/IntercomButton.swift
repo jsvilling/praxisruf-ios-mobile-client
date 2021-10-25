@@ -2,7 +2,7 @@
 //  IntercomButton.swift
 //  praxisruf-ios-mobile-client
 //
-//  Created by user on 25.10.21.
+//  Created by J. Villing on 25.10.21.
 //
 
 import SwiftUI

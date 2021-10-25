@@ -327,8 +327,8 @@
 		CE53ABE6271EA76B00BAD1F1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				CE51D02F2725431B000D09C1 /* RegistrationService.swift */,
 				CE51D03127254369000D09C1 /* PraxisrufApi */,
+				CE51D02F2725431B000D09C1 /* RegistrationService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";

@@ -16,12 +16,20 @@ struct InboxView: View {
         VStack {
             List {
                 ForEach($inbox.content) { item in
-                    InboxItemView(inboxItem: item)
+                    InboxItemView(inboxItem: item, action: acknowledge)
                 }
             }
             .listRowInsets(EdgeInsets())
         }
     }
+    
+    private func acknowledge(item: InboxItem) {
+        guard let i = inbox.content.firstIndex(where: {$0.id == item.id}) else {
+            return
+        }
+        inbox.content[i].ack = true
+    }
+    
 }
 
 struct InboxView_Previews: PreviewProvider {

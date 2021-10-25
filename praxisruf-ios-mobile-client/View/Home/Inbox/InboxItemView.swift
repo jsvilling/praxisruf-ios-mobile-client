@@ -1,32 +1,16 @@
 //
-//  InboxView.swift
+//  InboxItemView.swift
 //  praxisruf-ios-mobile-client
 //
-//  Created by J. Villing on 18.10.21.
+//  Created by J. Villing on 25.10.21.
 //
 
 import SwiftUI
-import Firebase
-
-struct InboxView: View {
-    
-    @StateObject var inbox = Inbox.shared
-    
-    var body: some View {
-        VStack {
-            List {
-                ForEach($inbox.content) { item in
-                    InboxItemView(inboxItem: item)
-                }
-            }
-            .listRowInsets(EdgeInsets())
-        }
-    }
-}
 
 struct InboxItemView: View {
     
     @Binding var inboxItem: InboxItem
+    let action: (InboxItem) -> Void
     
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
@@ -61,10 +45,13 @@ struct InboxItemView: View {
                         .background(Color.blue)
                         .clipShape(Circle())
                         .padding(.top)
-                }
+                } 
             }
         }
         .padding()
+        .onTapGesture {
+            action(inboxItem)
+        }
     }
 }
 
@@ -75,9 +62,10 @@ private var ItemIndicator: some View {
         .clipShape(RoundedRectangle(cornerRadius: 8))
 }
 
-
-struct InboxView_Previews: PreviewProvider {
+struct InboxItemView_Previews: PreviewProvider {
     static var previews: some View {
-        InboxView(inbox: Inbox(values: InboxItem.data))
+        InboxItemView(inboxItem: .constant(InboxItem.data[0]), action: noop)
     }
+    
+    static func noop(i: InboxItem) {}
 }
