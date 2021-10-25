@@ -19,7 +19,7 @@ struct HomeView: View {
                  Text("Home")
              }
             
-            InboxView()
+            InboxView(inboxItems: InboxItem.data)
               .tabItem {
                   Image(systemName: "tray.and.arrow.down")
                   Text("Inbox")

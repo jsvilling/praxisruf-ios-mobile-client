@@ -75,9 +75,8 @@ struct IntercomButton: View {
 
 struct IntercomHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            IntercomView(intercomVM: IntercomViewModel(notificationTypes: NotificationType.data))
-        }
-        .navigationViewStyle(.stack)
+        IntercomView(intercomVM: IntercomViewModel(notificationTypes: NotificationType.data))
     }
 }
+
+

@@ -23,6 +23,7 @@
 		CE51D03A272564F3000D09C1 /* SendNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D039272564F3000D09C1 /* SendNotification.swift */; };
 		CE51D03C27259194000D09C1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D03B27259193000D09C1 /* HomeView.swift */; };
 		CE51D04127259265000D09C1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D04027259265000D09C1 /* SettingsView.swift */; };
+		CE51D0462726922B000D09C1 /* InboxItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D0452726922B000D09C1 /* InboxItem.swift */; };
 		CE53ABDF271DA1FE00BAD1F1 /* IntercomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABDE271DA1FE00BAD1F1 /* IntercomView.swift */; };
 		CE53ABE1271DA32300BAD1F1 /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABE0271DA32300BAD1F1 /* InboxView.swift */; };
 		CE53ABE3271DA56300BAD1F1 /* PraxisrufApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABE2271DA56300BAD1F1 /* PraxisrufApi.swift */; };
@@ -76,6 +77,7 @@
 		CE51D039272564F3000D09C1 /* SendNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendNotification.swift; sourceTree = "<group>"; };
 		CE51D03B27259193000D09C1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CE51D04027259265000D09C1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		CE51D0452726922B000D09C1 /* InboxItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxItem.swift; sourceTree = "<group>"; };
 		CE53ABDE271DA1FE00BAD1F1 /* IntercomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomView.swift; sourceTree = "<group>"; };
 		CE53ABE0271DA32300BAD1F1 /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
 		CE53ABE2271DA56300BAD1F1 /* PraxisrufApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PraxisrufApi.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 		CE1D5CB2271C4C83007EA5AC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CE51D0442726921A000D09C1 /* Inbox */,
 				CE51D038272564DC000D09C1 /* Constants */,
 				CE51D037272564C3000D09C1 /* Configuration */,
 				CE51D036272564B4000D09C1 /* Notification */,
@@ -280,6 +283,14 @@
 				CE51D04027259265000D09C1 /* SettingsView.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		CE51D0442726921A000D09C1 /* Inbox */ = {
+			isa = PBXGroup;
+			children = (
+				CE51D0452726922B000D09C1 /* InboxItem.swift */,
+			);
+			path = Inbox;
 			sourceTree = "<group>";
 		};
 		CE53ABE6271EA76B00BAD1F1 /* Service */ = {
@@ -448,6 +459,7 @@
 				CE53ABED271EAF3200BAD1F1 /* PraxisrufApi+Auth.swift in Sources */,
 				CE53ABF1271EB15E00BAD1F1 /* ClientSelectView.swift in Sources */,
 				CE51D02C2723DAA9000D09C1 /* IntercomItem.swift in Sources */,
+				CE51D0462726922B000D09C1 /* InboxItem.swift in Sources */,
 				CE53ABE9271EA84A00BAD1F1 /* LoginViewModel.swift in Sources */,
 				CE53ABDF271DA1FE00BAD1F1 /* IntercomView.swift in Sources */,
 				CE51D035272563D6000D09C1 /* PraxisrufApi+Notification.swift in Sources */,
