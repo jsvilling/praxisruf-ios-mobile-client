@@ -8,18 +8,18 @@
 import Foundation
 
 struct InboxItem: Identifiable {
-    var id: UUID
+    var id: UUID = UUID()
     var type: String
     var title: String
     var body: String
-    var ack: Bool
+    var ack: Bool = false
 }
 
 extension InboxItem {
         static var data: [InboxItem] = [
-            InboxItem(id: UUID(), type: "phone", title: "Alarm", body: "Ganz üble Sache", ack: false),
-            InboxItem(id: UUID(), type: "mail", title: "Zahnpasta", body: "Zahnpasta", ack: false),
-            InboxItem(id: UUID(), type: "phone", title: "Alarm", body: "Alarm", ack: true),
-            InboxItem(id: UUID(), type: "mail", title: "Zahnpasta", body: "Zahnpasta", ack: true)
+            InboxItem(type: "phone", title: "Alarm", body: "Ganz üble Sache"),
+            InboxItem(type: "mail", title: "Zahnpasta", body: "Zahnpasta"),
+            InboxItem(type: "phone", title: "Alarm", body: "Alarm", ack: true),
+            InboxItem(type: "mail", title: "Zahnpasta", body: "Zahnpasta", ack: true)
         ]
 }

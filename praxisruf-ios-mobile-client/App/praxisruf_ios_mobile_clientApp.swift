@@ -11,7 +11,9 @@ import Firebase
 
 @main
 struct praxisruf_ios_mobile_clientApp: App {
+    
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     var body: some Scene {
         WindowGroup {
             NavigationView {

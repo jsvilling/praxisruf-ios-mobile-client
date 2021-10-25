@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE01404B2726C81400B71AB7 /* Inbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01404A2726C81400B71AB7 /* Inbox.swift */; };
 		CE1D5C88271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5C87271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift */; };
 		CE1D5C8A271C4AAA007EA5AC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5C89271C4AAA007EA5AC /* LoginView.swift */; };
 		CE1D5C8C271C4AAB007EA5AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1D5C8B271C4AAB007EA5AC /* Assets.xcassets */; };
@@ -58,6 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE01404A2726C81400B71AB7 /* Inbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inbox.swift; sourceTree = "<group>"; };
 		CE1D5C84271C4AAA007EA5AC /* praxisruf-ios-mobile-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "praxisruf-ios-mobile-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1D5C87271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = praxisruf_ios_mobile_clientApp.swift; sourceTree = "<group>"; };
 		CE1D5C89271C4AAA007EA5AC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 		CE51D0442726921A000D09C1 /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
+				CE01404A2726C81400B71AB7 /* Inbox.swift */,
 				CE51D0452726922B000D09C1 /* InboxItem.swift */,
 			);
 			path = Inbox;
@@ -459,6 +462,7 @@
 				CE53ABED271EAF3200BAD1F1 /* PraxisrufApi+Auth.swift in Sources */,
 				CE53ABF1271EB15E00BAD1F1 /* ClientSelectView.swift in Sources */,
 				CE51D02C2723DAA9000D09C1 /* IntercomItem.swift in Sources */,
+				CE01404B2726C81400B71AB7 /* Inbox.swift in Sources */,
 				CE51D0462726922B000D09C1 /* InboxItem.swift in Sources */,
 				CE53ABE9271EA84A00BAD1F1 /* LoginViewModel.swift in Sources */,
 				CE53ABDF271DA1FE00BAD1F1 /* IntercomView.swift in Sources */,

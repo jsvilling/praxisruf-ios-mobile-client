@@ -6,15 +6,16 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct InboxView: View {
     
-    var inboxItems: [InboxItem]
+    @StateObject var inbox = Inbox.shared
     
     var body: some View {
         VStack {
             List {
-                ForEach(inboxItems) { item in
+                ForEach($inbox.content) { item in
                     InboxItemView(inboxItem: item)
                 }
             }
@@ -25,7 +26,7 @@ struct InboxView: View {
 
 struct InboxItemView: View {
     
-    let inboxItem: InboxItem
+    @Binding var inboxItem: InboxItem
     
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
@@ -69,7 +70,7 @@ struct InboxItemView: View {
 
 private var ItemIndicator: some View {
     Rectangle()
-        .fill(Color.blue)
+        .fill(Color.red)
         .frame(width: 4, height: 40)
         .clipShape(RoundedRectangle(cornerRadius: 8))
 }
@@ -77,6 +78,6 @@ private var ItemIndicator: some View {
 
 struct InboxView_Previews: PreviewProvider {
     static var previews: some View {
-        InboxView(inboxItems: InboxItem.data)
+        InboxView(inbox: Inbox(values: InboxItem.data))
     }
 }

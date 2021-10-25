@@ -40,14 +40,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                      didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult)
                        -> Void) {
-
-      if let messageID = userInfo[gcmMessageIDKey] {
-        print("Message ID: \(messageID)")
-      }
-
-      // Print full message.
-      print(userInfo)
-
       completionHandler(UIBackgroundFetchResult.newData)
     }
     
@@ -59,6 +51,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         print("APNs token retrieved: \(deviceToken)")
         Messaging.messaging().apnsToken = deviceToken
     }
+
 }
 
 extension AppDelegate: MessagingDelegate {
@@ -80,13 +73,32 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                               willPresent notification: UNNotification,
                               withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions)
                                 -> Void) {
-   
+
     let userInfo = notification.request.content.userInfo
     Messaging.messaging().appDidReceiveMessage(userInfo)
-      if let messageID = userInfo[gcmMessageIDKey] {
-            print("Message ID: \(messageID)")
-          }
-      print(userInfo)
+
+    guard let aps = userInfo["aps"] as? NSDictionary else {
+        print("no aps")
+      return
+    }
+
+    guard let alert = aps["alert"] as? NSDictionary else {
+      print("no alert")
+        return
+    }
+
+    guard let title = alert["title"] as? String else {
+      print("no title")
+        return
+    }
+
+    guard let body = alert["body"] as? String else {
+      print("no body")
+        return
+    }
+
+      
+    Inbox.shared.receiveNofication(title: title, body: body)
     completionHandler([[.banner, .badge, .sound]])
   }
 
@@ -101,7 +113,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
       
     Messaging.messaging().appDidReceiveMessage(userInfo)
     print(userInfo)
-
     completionHandler()
   }
     
