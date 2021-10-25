@@ -8,15 +8,25 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    let clientName = UserDefaults.standard.string(forKey: "clientName") ?? "clientName"
+    
     var body: some View {
         TabView {
-           Text("The content of the first view")
+           IntercomView()
              .tabItem {
-                Image(systemName: "phone.fill")
-                Text("First Tab")
-              }
+                 Image(systemName: "phone.fill")
+                 Text("Home")
+             }
+            
+            InboxView()
+              .tabItem {
+                  Image(systemName: "tray.and.arrow.down")
+                  Text("Inbox")
+               }
+
         }
-        .navigationTitle("Home")
+        .navigationTitle(clientName)
     }
 }
 

@@ -12,8 +12,6 @@ struct IntercomView: View {
     @StateObject var intercomVM = IntercomViewModel()
 
     var body: some View {
-        let clientName = UserDefaults.standard.string(forKey: "clientName") ?? "clientName"
-
         VStack {
             Section(header: Text("notifications").font(.title2)) {
                 ButtonGirdView(entries: $intercomVM.notificationTypes, action: sendNotification)
@@ -22,8 +20,6 @@ struct IntercomView: View {
                 ButtonGirdView(entries: $intercomVM.notificationTypes, action: startCall)
             }
         }
-        .navigationTitle(clientName)
-        //.navigationBarBackButtonHidden(true)
         .onAppear {
             intercomVM.getNotificationTypes()
         }

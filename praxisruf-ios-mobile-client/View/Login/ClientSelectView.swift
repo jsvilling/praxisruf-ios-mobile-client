@@ -19,7 +19,7 @@ struct ClientSelectView: View {
             if (clientSelectVM.availableClients.count < 1) {
                 Text("noClients")
             } else {
-                NavigationLink(destination: IntercomView(), isActive: $isClientSelected) {EmptyView()}.hidden()
+                NavigationLink(destination: HomeView(), isActive: $isClientSelected) {EmptyView()}.hidden()
                 List(clientSelectVM.availableClients, selection: $selection) { client in
                     Text("\(client.name)")
                 }
