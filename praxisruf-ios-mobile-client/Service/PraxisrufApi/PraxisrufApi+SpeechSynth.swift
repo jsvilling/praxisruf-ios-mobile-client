@@ -16,7 +16,10 @@ extension PraxisrufApi {
             completion(.failure(.custom(errorMessage: "Invalid url configuration")))
             return
         }
-        URLSession.shared.downloadTask(with: audioUrl) { result, response, error in
+        
+        var request = URLRequest(url: audioUrl)
+        request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        URLSession.shared.downloadTask(with: request) { result, response, error in
             guard let audioFileLocation = result else {
                 completion(.failure(.custom(errorMessage: "No audio received")))
                 return
