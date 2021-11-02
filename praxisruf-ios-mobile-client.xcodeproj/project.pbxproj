@@ -12,6 +12,10 @@
 		CE0140512726E2C300B71AB7 /* InboxItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0140502726E2C300B71AB7 /* InboxItemView.swift */; };
 		CE0140532726E39500B71AB7 /* IntercomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0140522726E39500B71AB7 /* IntercomButton.swift */; };
 		CE0140552726E50400B71AB7 /* ButtonGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0140542726E50400B71AB7 /* ButtonGridView.swift */; };
+		CE01405C272EA4F100B71AB7 /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = CE01405B272EA4F100B71AB7 /* WebRTC */; };
+		CE01405E2731787500B71AB7 /* PraxisrufApi+SpeechSynth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01405D2731787500B71AB7 /* PraxisrufApi+SpeechSynth.swift */; };
+		CE01406027317ACF00B71AB7 /* SpeechSynthesisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01405F27317ACF00B71AB7 /* SpeechSynthesisService.swift */; };
+		CE01406227317EF600B71AB7 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01406127317EF600B71AB7 /* AudioPlayer.swift */; };
 		CE1D5C88271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5C87271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift */; };
 		CE1D5C8A271C4AAA007EA5AC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5C89271C4AAA007EA5AC /* LoginView.swift */; };
 		CE1D5C8C271C4AAB007EA5AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1D5C8B271C4AAB007EA5AC /* Assets.xcassets */; };
@@ -68,6 +72,9 @@
 		CE0140502726E2C300B71AB7 /* InboxItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxItemView.swift; sourceTree = "<group>"; };
 		CE0140522726E39500B71AB7 /* IntercomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomButton.swift; sourceTree = "<group>"; };
 		CE0140542726E50400B71AB7 /* ButtonGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonGridView.swift; sourceTree = "<group>"; };
+		CE01405D2731787500B71AB7 /* PraxisrufApi+SpeechSynth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PraxisrufApi+SpeechSynth.swift"; sourceTree = "<group>"; };
+		CE01405F27317ACF00B71AB7 /* SpeechSynthesisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechSynthesisService.swift; sourceTree = "<group>"; };
+		CE01406127317EF600B71AB7 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		CE1D5C84271C4AAA007EA5AC /* praxisruf-ios-mobile-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "praxisruf-ios-mobile-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1D5C87271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = praxisruf_ios_mobile_clientApp.swift; sourceTree = "<group>"; };
 		CE1D5C89271C4AAA007EA5AC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -110,6 +117,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE53AC12271F124300BAD1F1 /* FirebaseMessaging in Frameworks */,
+				CE01405C272EA4F100B71AB7 /* WebRTC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +265,7 @@
 				CE53ABEE271EB11900BAD1F1 /* PraxisrufApi+Conf.swift */,
 				CE51D02D272540ED000D09C1 /* PraxisrufApi+Registration.swift */,
 				CE51D034272563D6000D09C1 /* PraxisrufApi+Notification.swift */,
+				CE01405D2731787500B71AB7 /* PraxisrufApi+SpeechSynth.swift */,
 			);
 			path = PraxisrufApi;
 			sourceTree = "<group>";
@@ -329,6 +338,8 @@
 			children = (
 				CE51D03127254369000D09C1 /* PraxisrufApi */,
 				CE51D02F2725431B000D09C1 /* RegistrationService.swift */,
+				CE01405F27317ACF00B71AB7 /* SpeechSynthesisService.swift */,
+				CE01406127317EF600B71AB7 /* AudioPlayer.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -361,6 +372,7 @@
 			name = "praxisruf-ios-mobile-client";
 			packageProductDependencies = (
 				CE53AC11271F124300BAD1F1 /* FirebaseMessaging */,
+				CE01405B272EA4F100B71AB7 /* WebRTC */,
 			);
 			productName = "praxisruf-ios-mobile-client";
 			productReference = CE1D5C84271C4AAA007EA5AC /* praxisruf-ios-mobile-client.app */;
@@ -436,6 +448,7 @@
 			mainGroup = CE1D5C7B271C4AAA007EA5AC;
 			packageReferences = (
 				CE53AC10271F124300BAD1F1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CE01405A272EA4F100B71AB7 /* XCRemoteSwiftPackageReference "WebRTC" */,
 			);
 			productRefGroup = CE1D5C85271C4AAA007EA5AC /* Products */;
 			projectDirPath = "";
@@ -487,6 +500,7 @@
 				CE1D5C8A271C4AAA007EA5AC /* LoginView.swift in Sources */,
 				CE0140552726E50400B71AB7 /* ButtonGridView.swift in Sources */,
 				CE53ABE1271DA32300BAD1F1 /* InboxView.swift in Sources */,
+				CE01406027317ACF00B71AB7 /* SpeechSynthesisService.swift in Sources */,
 				CE53ABF5271EB30100BAD1F1 /* ClientSelectViewModel.swift in Sources */,
 				CE97F1B32723589A00B1CA0D /* AppDelegate.swift in Sources */,
 				CE53ABED271EAF3200BAD1F1 /* PraxisrufApi+Auth.swift in Sources */,
@@ -502,10 +516,12 @@
 				CE0140532726E39500B71AB7 /* IntercomButton.swift in Sources */,
 				CE53ABFF271EFAFC00BAD1F1 /* IntercomViewModel.swift in Sources */,
 				CE53ABF3271EB28C00BAD1F1 /* Client.swift in Sources */,
+				CE01406227317EF600B71AB7 /* AudioPlayer.swift in Sources */,
 				CE51D03C27259194000D09C1 /* HomeView.swift in Sources */,
 				CE53ABFD271EF9D700BAD1F1 /* NotificationType.swift in Sources */,
 				CE51D02E272540ED000D09C1 /* PraxisrufApi+Registration.swift in Sources */,
 				CE1D5C88271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift in Sources */,
+				CE01405E2731787500B71AB7 /* PraxisrufApi+SpeechSynth.swift in Sources */,
 				CE51D03A272564F3000D09C1 /* SendNotification.swift in Sources */,
 				CE51D0332725600A000D09C1 /* UserDefaultKeys.swift in Sources */,
 				CE51D04127259265000D09C1 /* SettingsView.swift in Sources */,
@@ -863,6 +879,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CE01405A272EA4F100B71AB7 /* XCRemoteSwiftPackageReference "WebRTC" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stasel/WebRTC";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 95.0.0;
+			};
+		};
 		CE53AC10271F124300BAD1F1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -874,6 +898,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CE01405B272EA4F100B71AB7 /* WebRTC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE01405A272EA4F100B71AB7 /* XCRemoteSwiftPackageReference "WebRTC" */;
+			productName = WebRTC;
+		};
 		CE53AC11271F124300BAD1F1 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CE53AC10271F124300BAD1F1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

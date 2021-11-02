@@ -108,6 +108,15 @@
           "revision": "7e2c5f3cbbeea68e004915e3a8961e20bd11d824",
           "version": "1.18.0"
         }
+      },
+      {
+        "package": "WebRTC",
+        "repositoryURL": "https://github.com/stasel/WebRTC",
+        "state": {
+          "branch": null,
+          "revision": "8409833ce91940cc18cad40fd9041b1e85cda5c9",
+          "version": "95.0.0"
+        }
       }
     ]
   },

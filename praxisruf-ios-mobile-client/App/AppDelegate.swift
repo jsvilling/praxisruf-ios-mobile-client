@@ -97,7 +97,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         return
     }
 
-      
     Inbox.shared.receiveNofication(title: title, body: body)
     completionHandler([[.banner, .badge, .sound]])
   }
