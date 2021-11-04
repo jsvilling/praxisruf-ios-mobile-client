@@ -14,13 +14,14 @@ struct InboxItem: Identifiable {
     var body: String
     var ack: Bool = false
     var receivedAt = Date()
+    var sender: String
 }
 
 extension InboxItem {
         static var data: [InboxItem] = [
-            InboxItem(type: "phone", title: "Alarm", body: "Ganz üble Sache"),
-            InboxItem(type: "mail", title: "Zahnpasta", body: "Zahnpasta"),
-            InboxItem(type: "phone", title: "Alarm", body: "Alarm", ack: true),
-            InboxItem(type: "mail", title: "Zahnpasta", body: "Zahnpasta", ack: true)
+            InboxItem(type: "phone", title: "Alarm", body: "Ganz üble Sache", sender: "Behandlungszimmer 1"),
+            InboxItem(type: "mail", title: "Zahnpasta", body: "Zahnpasta", sender: "Empfang"),
+            InboxItem(type: "phone", title: "Alarm", body: "Alarm", ack: true, sender: "Benhandlungszimmer 1"),
+            InboxItem(type: "mail", title: "Zahnpasta", body: "Zahnpasta", ack: true, sender: "Empfang")
         ]
 }

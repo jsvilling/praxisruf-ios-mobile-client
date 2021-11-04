@@ -10,7 +10,7 @@ import AVFAudio
 
 class SpeechSynthesisService {
     
-    func synthesize() {
+    func synthesize(notificationType: String, version: String) {
         let defaults = UserDefaults.standard
         guard let authToken = defaults.string(forKey: UserDefaultKeys.authToken) else {
             print("No auth token found")

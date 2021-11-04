@@ -15,11 +15,11 @@ class Inbox: ObservableObject {
         self.content = values
     }
     
-    func receiveNofication(title: String, body: String) {
-        let notification = InboxItem(type: "mail", title: title, body: body)
+    func receiveNofication(title: String, body: String, sender: String) {
+        let notification = InboxItem(type: "mail", title: title, body: body, sender: sender)
         DispatchQueue.main.async {
             self.content.append(notification)
-            SpeechSynthesisService().synthesize()
+            //SpeechSynthesisService().synthesize()
         }
     }
 }

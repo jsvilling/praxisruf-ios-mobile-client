@@ -19,7 +19,7 @@ struct InboxItemView: View {
                 .padding(.leading)
                 .frame(width: 25, height: 40, alignment: .center)
             VStack(alignment: .leading) {
-                Text(inboxItem.title)
+                Text("\(inboxItem.title) (\(inboxItem.sender))")
                      .font(.headline)
                      .lineLimit(1)
                      .truncationMode(.tail)
@@ -45,7 +45,7 @@ struct InboxItemView: View {
                         .background(Color.blue)
                         .clipShape(Circle())
                         .padding(.top)
-                } 
+                }
             }
         }
         .padding()

@@ -74,31 +74,54 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                               withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions)
                                 -> Void) {
 
-    let userInfo = notification.request.content.userInfo
-    Messaging.messaging().appDidReceiveMessage(userInfo)
+        let userInfo = notification.request.content.userInfo
+        Messaging.messaging().appDidReceiveMessage(userInfo)
 
-    guard let aps = userInfo["aps"] as? NSDictionary else {
-        print("no aps")
-      return
-    }
+        guard let aps = userInfo["aps"] as? NSDictionary else {
+            print("no aps")
+            return
+        }
 
-    guard let alert = aps["alert"] as? NSDictionary else {
-      print("no alert")
-        return
-    }
+        guard let alert = aps["alert"] as? NSDictionary else {
+            print("no alert")
+            return
+        }
 
-    guard let title = alert["title"] as? String else {
-      print("no title")
-        return
-    }
+        guard let title = alert["title"] as? String else {
+            print("no title")
+            return
+        }
 
-    guard let body = alert["body"] as? String else {
-      print("no body")
-        return
-    }
+        guard let body = alert["body"] as? String else {
+            print("no body")
+            return
+        }
 
-    Inbox.shared.receiveNofication(title: title, body: body)
-    completionHandler([[.banner, .badge, .sound]])
+        guard let sender = userInfo["senderName"] as? String else {
+            print("no sender")
+            return
+        }
+
+        guard let version = userInfo["version"] as? String else {
+          print("no version")
+          return
+        }
+
+        guard let isTextToSpeech = userInfo["isTextToSpeech"] as? String else {
+          print("no t2s flag")
+          return
+        }
+
+        guard let notificationType = userInfo["notificationType"] as? String else {
+          print("no notification type")
+          return
+        }
+        
+        completionHandler([[.banner, .badge, .sound]])
+        Inbox.shared.receiveNofication(title: title, body: body, sender: sender)
+        if (isTextToSpeech == "true") {
+          SpeechSynthesisService().synthesize(notificationType: notificationType, version: version)
+        }
   }
 
   func userNotificationCenter(_ center: UNUserNotificationCenter,
