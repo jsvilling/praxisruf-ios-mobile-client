@@ -17,6 +17,9 @@ struct IntercomView: View {
             Section(header: Text("intercom").font(.title2)) {
                 ButtonGridView(entries: $intercomVM.notificationTypes, action: startCall)
             }
+            .alert(isPresented: $intercomVM.hasErrorResponse) {
+                       Alert(title: Text("Fehler."), message: Text("Die Benachrichtigung konnte nicht an alle Empfänger übermittelt werden"))
+                   }
             Section(header: Text("notifications").font(.title2)) {
                 ButtonGridView(entries: $intercomVM.notificationTypes, action: sendNotification)
             }
@@ -26,6 +29,7 @@ struct IntercomView: View {
             intercomVM.getNotificationTypes()
         }
         .navigationBarBackButtonHidden(true)
+
     }
     
     func sendNotification(id: UUID) {

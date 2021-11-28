@@ -47,6 +47,7 @@
 		CE53AC12271F124300BAD1F1 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = CE53AC11271F124300BAD1F1 /* FirebaseMessaging */; };
 		CE53AC15271F1BD600BAD1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE53AC14271F1BC300BAD1F1 /* GoogleService-Info.plist */; };
 		CE94AC532753E08200C93410 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC522753E08200C93410 /* SettingsViewModel.swift */; };
+		CE94AC552753F1FE00C93410 /* NotificationSendResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */; };
 		CE97F1B32723589A00B1CA0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE97F1B22723589A00B1CA0D /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +111,7 @@
 		CE53AC13271F134600BAD1F1 /* praxisruf-ios-mobile-client.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "praxisruf-ios-mobile-client.entitlements"; sourceTree = "<group>"; };
 		CE53AC14271F1BC300BAD1F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CE94AC522753E08200C93410 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSendResult.swift; sourceTree = "<group>"; };
 		CE97F1B22723589A00B1CA0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -278,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				CE51D039272564F3000D09C1 /* SendNotification.swift */,
+				CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -507,6 +510,7 @@
 				CE53ABF5271EB30100BAD1F1 /* ClientSelectViewModel.swift in Sources */,
 				CE97F1B32723589A00B1CA0D /* AppDelegate.swift in Sources */,
 				CE53ABED271EAF3200BAD1F1 /* PraxisrufApi+Auth.swift in Sources */,
+				CE94AC552753F1FE00C93410 /* NotificationSendResult.swift in Sources */,
 				CE53ABF1271EB15E00BAD1F1 /* ClientSelectView.swift in Sources */,
 				CE51D02C2723DAA9000D09C1 /* IntercomItem.swift in Sources */,
 				CE01404B2726C81400B71AB7 /* Inbox.swift in Sources */,

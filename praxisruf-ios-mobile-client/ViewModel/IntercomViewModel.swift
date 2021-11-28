@@ -9,10 +9,14 @@ import Foundation
 
 class IntercomViewModel: ObservableObject {
     
+    @Published var hasErrorResponse: Bool
+    @Published var notificationSendResult: NotificationSendResult?
     @Published var notificationTypes: [NotificationType]
     
     init(notificationTypes: [NotificationType] = []) {
+        self.hasErrorResponse = false
         self.notificationTypes = notificationTypes
+        self.notificationSendResult = nil
     }
     
     func getNotificationTypes() {
@@ -58,8 +62,11 @@ class IntercomViewModel: ObservableObject {
         
         PraxisrufApi().sendNotification(authToken: token, sendNotification: notification) { result in
             switch result {
-            case .success(let msg):
-                print(msg)
+            case .success(let notificationSendResponse):
+                print("Success in viewmodel called")
+                DispatchQueue.main.async {
+                    self.hasErrorResponse = !notificationSendResponse.allSuccess
+                }
             case .failure(let error):
                 print(error.localizedDescription)
             }
