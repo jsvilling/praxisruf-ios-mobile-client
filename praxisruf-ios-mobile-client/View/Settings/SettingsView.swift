@@ -8,29 +8,32 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
+    @StateObject var settingsVM: SettingsViewModel = SettingsViewModel()
+    
     var body: some View {
-        List {
-            Section(header: Text("Benachrichtigungen")) {
-                Text("Mute Text To Speech")
-            }
-            Section(header: Text("Gegensprechanalge")) {
-                Text("Do not disturb")
-            }
-            Section(header: Text("Client")) {
-                Text("Benutzer")
-                Text("Angemeldet bleiben")
-                Button(action: logout) {
-                    Text("Abmelden")
+        VStack {
+            List {
+                Section(header: Text("Benachrichtigungen")) {
+                    Text("Mute Text To Speech")
+                }
+                Section(header: Text("Gegensprechanalge")) {
+                    Text("Do not disturb")
+                }
+                Section(header: Text("Client")) {
+                    Text("Benutzer")
+                    Text("Angemeldet bleiben")
+                    Button(action: settingsVM.logout) {
+                        Text("Abmelden")
+                    }
+
                 }
             }
             .listStyle(InsetGroupedListStyle())
+            NavigationLink(destination: LoginView(), isActive: $settingsVM.isLoggedOut) {EmptyView()}.hidden()
         }
-    }
-    
-    func logout() {
-        print("logout")
-    }
-    
+        .navigationBarBackButtonHidden(true)
+    }    
 }
 
 struct SettingsView_Previews: PreviewProvider {

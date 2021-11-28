@@ -46,6 +46,7 @@
 		CE53ABFF271EFAFC00BAD1F1 /* IntercomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABFE271EFAFC00BAD1F1 /* IntercomViewModel.swift */; };
 		CE53AC12271F124300BAD1F1 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = CE53AC11271F124300BAD1F1 /* FirebaseMessaging */; };
 		CE53AC15271F1BD600BAD1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE53AC14271F1BC300BAD1F1 /* GoogleService-Info.plist */; };
+		CE94AC532753E08200C93410 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC522753E08200C93410 /* SettingsViewModel.swift */; };
 		CE97F1B32723589A00B1CA0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE97F1B22723589A00B1CA0D /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +109,7 @@
 		CE53ABFE271EFAFC00BAD1F1 /* IntercomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomViewModel.swift; sourceTree = "<group>"; };
 		CE53AC13271F134600BAD1F1 /* praxisruf-ios-mobile-client.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "praxisruf-ios-mobile-client.entitlements"; sourceTree = "<group>"; };
 		CE53AC14271F1BC300BAD1F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CE94AC522753E08200C93410 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		CE97F1B22723589A00B1CA0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -350,6 +352,7 @@
 				CE53ABE8271EA84A00BAD1F1 /* LoginViewModel.swift */,
 				CE53ABF4271EB30100BAD1F1 /* ClientSelectViewModel.swift */,
 				CE53ABFE271EFAFC00BAD1F1 /* IntercomViewModel.swift */,
+				CE94AC522753E08200C93410 /* SettingsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -509,6 +512,7 @@
 				CE01404B2726C81400B71AB7 /* Inbox.swift in Sources */,
 				CE51D0462726922B000D09C1 /* InboxItem.swift in Sources */,
 				CE0140512726E2C300B71AB7 /* InboxItemView.swift in Sources */,
+				CE94AC532753E08200C93410 /* SettingsViewModel.swift in Sources */,
 				CE53ABE9271EA84A00BAD1F1 /* LoginViewModel.swift in Sources */,
 				CE53ABDF271DA1FE00BAD1F1 /* IntercomView.swift in Sources */,
 				CE51D035272563D6000D09C1 /* PraxisrufApi+Notification.swift in Sources */,

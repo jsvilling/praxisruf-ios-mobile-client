@@ -20,6 +20,7 @@ struct InboxView: View {
                 }
             }
             .listRowInsets(EdgeInsets())
+            .navigationBarBackButtonHidden(true)
         }
     }
     

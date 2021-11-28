@@ -25,6 +25,7 @@ struct IntercomView: View {
             RegistrationService().register()
             intercomVM.getNotificationTypes()
         }
+        .navigationBarBackButtonHidden(true)
     }
     
     func sendNotification(id: UUID) {

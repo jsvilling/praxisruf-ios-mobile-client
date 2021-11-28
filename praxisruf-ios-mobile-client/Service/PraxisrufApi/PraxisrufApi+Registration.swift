@@ -28,7 +28,10 @@ extension PraxisrufApi {
         }.resume()
     }
     
-    func unregister(authToken: String, fcmToken: String, completion: @escaping (Result<String, PraxisrufApiError>) -> Void) {
+    func unregister(authToken: String, clientId: String, completion: @escaping (Result<String, PraxisrufApiError>) -> Void) {
+        
+        
+        
         print("Unregister called for ")
     }
 }

@@ -68,6 +68,7 @@ struct LoginForm: View {
                 .cornerRadius(15.0)
         }
         .padding()
+        .navigationBarBackButtonHidden(true)
     }
 }
 
