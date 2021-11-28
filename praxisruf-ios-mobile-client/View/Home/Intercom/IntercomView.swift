@@ -22,6 +22,7 @@ struct IntercomView: View {
             }
         }
         .onAppear {
+            RegistrationService().register()
             intercomVM.getNotificationTypes()
         }
     }

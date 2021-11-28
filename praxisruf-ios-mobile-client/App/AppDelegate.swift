@@ -63,7 +63,6 @@ extension AppDelegate: MessagingDelegate {
         print("Firebase registration token: \(token)")
         let defaults = UserDefaults.standard
         defaults.setValue(token, forKey: "fcmToken")
-        RegistrationService().register()
     }
 }
 

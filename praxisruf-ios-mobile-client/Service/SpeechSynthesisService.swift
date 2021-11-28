@@ -16,8 +16,7 @@ class SpeechSynthesisService {
         let destinationUrl = cacheUrl.appendingPathExtension("\(notificationType)-\(version)")
         
         if (fileManager.fileExists(atPath: destinationUrl.path)) {
-            print("Speech Data is loadad from cache")
-            AudioPlayer.playSounds(filePath: destinationUrl.path)
+            playSpeechAudioFromCache(filePath: destinationUrl.path)
         } else {
             print("Speech Data is loadd from server")
             let defaults = UserDefaults.standard
@@ -41,4 +40,14 @@ class SpeechSynthesisService {
             }
         }
     }
+    
+    private func playSpeechAudioFromCache(filePath: String) {
+        print("Speech Data is loadad from cache")
+        AudioPlayer.playSounds(filePath: filePath)
+    }
+    
+    private func playSpeechAudioFromServer() {
+        
+    }
+    
 }

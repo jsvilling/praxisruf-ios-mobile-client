@@ -16,4 +16,21 @@ class PraxisrufApi {
         
     let baseUrlValue = "https://www.praxisruf.ch/api"
     
+    func authorize(task: @escaping (String?) -> Void) {        
+        let defaults = UserDefaults.standard
+        let authToken = defaults.string(forKey: UserDefaultKeys.authToken)
+        task(authToken)
+    }
+    
+    func authorizedRequest(subUrl: String, task: @escaping (URLRequest) -> Void) {
+        guard let url = URL(string: "\(baseUrlValue)\(subUrl)") else {
+            print("Invalid url configuration")
+            return
+        }
+        var request = URLRequest(url: url)
+        let defaults = UserDefaults.standard
+        let authToken = defaults.string(forKey: UserDefaultKeys.authToken)
+        request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        task(request)
+    }
 }
