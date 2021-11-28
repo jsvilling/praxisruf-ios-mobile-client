@@ -11,18 +11,23 @@ import AVFAudio
 class SpeechSynthesisService {
     
     func synthesize(notificationType: String, version: String) {
+        let cacheUrl = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        let destinationUrl = cacheUrl.appendingPathExtension("id0")
+        
+        
+        
         let defaults = UserDefaults.standard
         guard let authToken = defaults.string(forKey: UserDefaultKeys.authToken) else {
             print("No auth token found")
             return
         }
-        PraxisrufApi().synthesize(authToken: authToken) { result in
+        PraxisrufApi().synthesize(authToken: authToken, notificationType: notificationType) { result in
             switch result {
                 case .success(let audioUrl):
                 
                     
-                let cacheUrl = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-                let destinationUrl = cacheUrl.appendingPathExtension("id0")
+                
+                
                 try? FileManager.default.removeItem(at: destinationUrl)
                 
                 do {

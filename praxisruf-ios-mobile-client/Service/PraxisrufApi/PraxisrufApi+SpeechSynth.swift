@@ -10,9 +10,8 @@ import AVFAudio
 
 extension PraxisrufApi {
     
-    func synthesize(authToken: String, completion: @escaping (Result<URL, PraxisrufApiError>) -> Void) {
-        
-        guard let audioUrl = URL(string: "\(baseUrlValue)/speechsynthesis") else {
+    func synthesize(authToken: String, notificationType: String, completion: @escaping (Result<URL, PraxisrufApiError>) -> Void) {
+        guard let audioUrl = URL(string: "\(baseUrlValue)/speech/\(notificationType)") else {
             completion(.failure(.custom(errorMessage: "Invalid url configuration")))
             return
         }
