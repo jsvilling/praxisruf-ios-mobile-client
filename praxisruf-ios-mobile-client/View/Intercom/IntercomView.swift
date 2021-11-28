@@ -14,11 +14,11 @@ struct IntercomView: View {
 
     var body: some View {
         VStack {
-            Section(header: Text("notifications").font(.title2)) {
-                ButtonGridView(entries: $intercomVM.notificationTypes, action: sendNotification)
-            }
             Section(header: Text("intercom").font(.title2)) {
                 ButtonGridView(entries: $intercomVM.notificationTypes, action: startCall)
+            }
+            Section(header: Text("notifications").font(.title2)) {
+                ButtonGridView(entries: $intercomVM.notificationTypes, action: sendNotification)
             }
         }
         .onAppear {
