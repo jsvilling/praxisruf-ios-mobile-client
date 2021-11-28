@@ -19,7 +19,20 @@ class SpeechSynthesisService {
         PraxisrufApi().synthesize(authToken: authToken) { result in
             switch result {
                 case .success(let audioUrl):
-                    AudioPlayer.playSounds(filePath: audioUrl.path)
+                
+                    
+                let cacheUrl = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+                let destinationUrl = cacheUrl.appendingPathExtension("id0")
+                try? FileManager.default.removeItem(at: destinationUrl)
+                
+                do {
+                    try FileManager.default.copyItem(at: audioUrl, to: destinationUrl)
+                    AudioPlayer.playSounds(filePath: destinationUrl.path)
+                } catch let error {
+                    print(error)
+                }
+                
+                
                 case .failure(let error):
                     print(error.localizedDescription)
             }
