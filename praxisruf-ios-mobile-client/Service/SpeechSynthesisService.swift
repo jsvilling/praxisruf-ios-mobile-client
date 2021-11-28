@@ -11,9 +11,16 @@ import AVFAudio
 class SpeechSynthesisService {
     
     func synthesize(notificationType: String, version: String) {
-        let cacheUrl = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-        let destinationUrl = cacheUrl.appendingPathExtension("id0")
+        let fileManager = FileManager.default
+        let cacheUrl = fileManager.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        let destinationUrl = cacheUrl.appendingPathExtension("id1")
         
+        if (fileManager.fileExists(atPath: destinationUrl.path)) {
+            print("Speech Data is loadad from cache")
+            AudioPlayer.playSounds(filePath: destinationUrl.path)
+        } else {
+            
+            print("Speech Data is loadd from server")
         
         
         let defaults = UserDefaults.standard
@@ -42,6 +49,7 @@ class SpeechSynthesisService {
                     print(error.localizedDescription)
             }
         }
+    }
     }
 
     
