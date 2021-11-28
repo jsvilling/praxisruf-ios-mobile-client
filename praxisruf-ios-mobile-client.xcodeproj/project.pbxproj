@@ -221,6 +221,8 @@
 		CE1D5CB1271C4C79007EA5AC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CE01404F2726E29B00B71AB7 /* Inbox */,
+				CE01404E2726E29400B71AB7 /* Intercom */,
 				CE51D03D272591A0000D09C1 /* Login */,
 				CE51D03E272591AD000D09C1 /* Home */,
 				CE51D03F272591D7000D09C1 /* Settings */,
@@ -308,8 +310,6 @@
 		CE51D03E272591AD000D09C1 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				CE01404F2726E29B00B71AB7 /* Inbox */,
-				CE01404E2726E29400B71AB7 /* Intercom */,
 				CE51D03B27259193000D09C1 /* HomeView.swift */,
 			);
 			path = Home;

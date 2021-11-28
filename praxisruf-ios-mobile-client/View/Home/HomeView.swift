@@ -24,6 +24,11 @@ struct HomeView: View {
                   Image(systemName: "tray.and.arrow.down")
                   Text("Inbox")
                }
+            SettingsView()
+                .tabItem() {
+                    Image(systemName: "gearshape")
+                    Text("Settings")
+                }
 
         }
         .navigationTitle(clientName)
@@ -36,5 +41,6 @@ struct HomeView_Previews: PreviewProvider {
             HomeView()
         }
         .navigationViewStyle(.stack)
+        .navigationBarBackButtonHidden(true)
     }
 }

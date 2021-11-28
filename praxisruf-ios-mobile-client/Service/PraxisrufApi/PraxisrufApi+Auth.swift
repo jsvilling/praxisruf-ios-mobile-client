@@ -35,9 +35,7 @@ extension PraxisrufApi {
                 completion(.failure(.custom(errorMessage: "No token received")))
                 return
             }
-            
             completion(.success(token))
-
         }.resume()
     }
 }
