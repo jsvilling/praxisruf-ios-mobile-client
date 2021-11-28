@@ -13,17 +13,16 @@ struct HomeView: View {
     
     var body: some View {
         TabView {
-           IntercomView()
-             .tabItem {
-                 Image(systemName: "phone.fill")
-                 Text("Home")
-             }
-            
             InboxView()
               .tabItem {
                   Image(systemName: "tray.and.arrow.down")
                   Text("Inbox")
                }
+            IntercomView()
+              .tabItem {
+                  Image(systemName: "phone.fill")
+                  Text("Home")
+              }
             SettingsView()
                 .tabItem() {
                     Image(systemName: "gearshape")

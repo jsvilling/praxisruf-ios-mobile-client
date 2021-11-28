@@ -41,7 +41,6 @@ class RegistrationService: ObservableObject {
     }
     
     func unregister() {
-        
         let defaults = UserDefaults.standard
         let authToken = defaults.string(forKey: UserDefaultKeys.authToken)
         let clientId = defaults.string(forKey: UserDefaultKeys.clientId)
