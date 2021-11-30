@@ -56,6 +56,7 @@ extension PraxisrufApi {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let httpResponse = response as? HTTPURLResponse,(200...299).contains(httpResponse.statusCode) else {
+
                 completion(.failure(.custom(errorMessage: "Error sending notification")))
                 return
             }
@@ -69,6 +70,7 @@ extension PraxisrufApi {
                 completion(.failure(.custom(errorMessage: "Invalid Data")))
                 return
             }
+            
             completion(.success(notificationSendResponse))
         }.resume()
     }

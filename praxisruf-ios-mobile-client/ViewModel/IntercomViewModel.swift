@@ -64,7 +64,8 @@ class IntercomViewModel: ObservableObject {
             switch result {
             case .success(let notificationSendResponse):
                 DispatchQueue.main.async {
-                    self.hasErrorResponse = notificationSendResponse.allSuccess
+                    self.notificationSendResult = notificationSendResponse
+                    self.hasErrorResponse = !notificationSendResponse.allSuccess
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -81,11 +82,15 @@ class IntercomViewModel: ObservableObject {
             return
         }
         
+        print(notificationId)
+        print(notificationSendResult.notificationId)
+        
         PraxisrufApi().retryNotification(authToken: token, notificationId: notificationId) { result in
             switch result {
             case .success(let notificationSendResponse):
                 DispatchQueue.main.async {
-                    self.hasErrorResponse = notificationSendResponse.allSuccess
+                    self.notificationSendResult = notificationSendResponse
+                    self.hasErrorResponse = !notificationSendResponse.allSuccess
                 }
             case .failure(let error):
                 print(error.localizedDescription)
