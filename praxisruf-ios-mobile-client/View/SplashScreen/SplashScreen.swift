@@ -16,8 +16,6 @@ struct SplashScreen: View {
     
     var body: some View {
         VStack {
-            WelcomeText()
-            PraxisImage()
             NavigationLink(destination: LoginView(), isActive: $redirectToLogin) {EmptyView()}.hidden()
             NavigationLink(destination: ClientSelectView(), isActive: $redirectToClientSelect) {EmptyView()}.hidden()
             NavigationLink(destination: HomeView(), isActive: $redirectToHome) {EmptyView()}.hidden()
@@ -33,26 +31,6 @@ struct SplashScreen: View {
                 redirectToLogin = true
             }
         }
-    }
-}
-
-struct WelcomeText: View {
-    var body: some View {
-        Text(NSLocalizedString("welcome", comment: "welcome message"))
-            .font(.largeTitle)
-            .fontWeight(.semibold)
-            .padding(.bottom, 20)
-    }
-}
-
-struct PraxisImage: View {
-    var body: some View {
-        Image("tooth")
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 150, height: 150)
-            .clipped()
-            .cornerRadius(150)
     }
 }
 
