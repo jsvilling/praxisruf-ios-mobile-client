@@ -13,9 +13,6 @@ class SettingsViewModel : ObservableObject {
     
     func logout() {
         RegistrationService().unregister()
-        
-
-                
         DispatchQueue.main.async {
             self.isLoggedOut = true
         }

@@ -15,10 +15,6 @@ class RegistrationService: ObservableObject {
     
     func register() {
         let defaults = UserDefaults.standard
-        guard let authToken = defaults.string(forKey: UserDefaultKeys.authToken) else {
-            print("No auth token found")
-            return
-        }
         
         guard let fcmToken = defaults.string(forKey: UserDefaultKeys.fcmToken) else {
             print("No fmc token found")
@@ -30,7 +26,7 @@ class RegistrationService: ObservableObject {
             return
         }
         
-        PraxisrufApi().register(authToken: authToken, fcmToken: fcmToken, clientId: clientId) { result in
+        PraxisrufApi().register(fcmToken: fcmToken, clientId: clientId) { result in
             switch result {
                 case .success(let msg):
                     print(msg)
@@ -48,13 +44,18 @@ class RegistrationService: ObservableObject {
         UserDefaults.standard.removeObject(forKey: UserDefaultKeys.authToken)
         UserDefaults.standard.removeObject(forKey: UserDefaultKeys.clientId)
         UserDefaults.standard.removeObject(forKey: UserDefaultKeys.userName)
+        // The firebase token is not removed. As far as firebase is concerned
+        // it belongs to the hardware device. Leaving the stored token here,
+        // allows us to re-use it. When the user logs in after a logout, without
+        // terminating the app in between. This is fine because the association
+        // to the client has already been removed.
         
         if (authToken == nil || clientId == nil) {
             print("Incomplete registration. Cannot unregister with cloud service")
             return
         }
         
-        PraxisrufApi().unregister(authToken: authToken!, clientId: clientId!) { result in
+        PraxisrufApi().unregister(clientId: clientId!) { result in
             switch result {
                 case .success (let response):
                     print(response)
@@ -62,15 +63,6 @@ class RegistrationService: ObservableObject {
                     print(error)
             }
         }
-        
-        UserDefaults.standard.removeObject(forKey: UserDefaultKeys.authToken)
-        UserDefaults.standard.removeObject(forKey: UserDefaultKeys.clientId)
-        UserDefaults.standard.removeObject(forKey: UserDefaultKeys.userName)
-        // The firebase token is not removed. As far as firebase is concerned
-        // it belongs to the hardware device. Leaving the stored token here,
-        // allows us to re-use it. When the user logs in after a logout, without
-        // terminating the app in between. This is fine because the association
-        // to the client has already been removed.
     }
     
 }

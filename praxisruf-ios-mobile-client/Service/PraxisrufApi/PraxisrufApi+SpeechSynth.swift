@@ -10,7 +10,7 @@ import AVFAudio
 
 extension PraxisrufApi {
     
-    func synthesize(authToken: String, notificationType: String, completion: @escaping (Result<URL, PraxisrufApiError>) -> Void) {
+    func synthesize(notificationType: String, completion: @escaping (Result<URL, PraxisrufApiError>) -> Void) {
         get("/speech/\(notificationType)") { request in
             URLSession.shared.downloadTask(with: request) { result, response, error in
                 guard let audioFileLocation = result else {

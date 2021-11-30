@@ -18,13 +18,7 @@ class SpeechSynthesisService {
         if (fileManager.fileExists(atPath: destinationUrl.path)) {
             playSpeechAudioFromCache(filePath: destinationUrl.path)
         } else {
-            print("Speech Data is loadd from server")
-            let defaults = UserDefaults.standard
-            guard let authToken = defaults.string(forKey: UserDefaultKeys.authToken) else {
-                print("No auth token found")
-                return
-            }
-            PraxisrufApi().synthesize(authToken: authToken, notificationType: notificationType) { result in
+            PraxisrufApi().synthesize(notificationType: notificationType) { result in
                 switch result {
                     case .success(let audioUrl):
                         try? FileManager.default.removeItem(at: destinationUrl)
@@ -42,12 +36,6 @@ class SpeechSynthesisService {
     }
     
     private func playSpeechAudioFromCache(filePath: String) {
-        print("Speech Data is loadad from cache")
         AudioPlayer.playSounds(filePath: filePath)
     }
-    
-    private func playSpeechAudioFromServer() {
-        
-    }
-    
 }

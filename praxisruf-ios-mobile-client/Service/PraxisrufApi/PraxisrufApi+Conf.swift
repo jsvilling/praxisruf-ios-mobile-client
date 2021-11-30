@@ -9,7 +9,7 @@ import Foundation
 
 extension PraxisrufApi {
 
-    func getAvailableClients(token: String, completion: @escaping (Result<[Client], PraxisrufApiError>) -> Void) {
+    func getAvailableClients(completion: @escaping (Result<[Client], PraxisrufApiError>) -> Void) {
         
         get("/clients/byUser") { request in
             URLSession.shared.dataTask(with: request) { data, response, error in
@@ -33,7 +33,7 @@ extension PraxisrufApi {
         }
     }
     
-    func getRelevantNotificationTypes(clientId: String, token: String, completion: @escaping (Result<[NotificationType], PraxisrufApiError>) -> Void) {
+    func getRelevantNotificationTypes(clientId: String, completion: @escaping (Result<[NotificationType], PraxisrufApiError>) -> Void) {
         get("/notificationtypes/search?clientId=\(clientId)") { request in
             URLSession.shared.dataTask(with: request) { data, response, error in
                 guard let httpResponse = response as? HTTPURLResponse,(200...299).contains(httpResponse.statusCode) else {

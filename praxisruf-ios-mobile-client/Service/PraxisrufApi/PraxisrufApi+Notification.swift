@@ -9,7 +9,7 @@ import Foundation
 
 extension PraxisrufApi {
     
-    func sendNotification(authToken: String, sendNotification: SendNotification, completion: @escaping (Result<NotificationSendResult, PraxisrufApiError>) -> Void) {
+    func sendNotification(sendNotification: SendNotification, completion: @escaping (Result<NotificationSendResult, PraxisrufApiError>) -> Void) {
         post("/notifications/send") { r in
             var request = r
             request.httpBody = try? JSONEncoder().encode(sendNotification)
@@ -37,7 +37,7 @@ extension PraxisrufApi {
         }
     }
     
-    func retryNotification(authToken: String, notificationId: UUID, completion: @escaping (Result<NotificationSendResult, PraxisrufApiError>) -> Void) {
+    func retryNotification(notificationId: UUID, completion: @escaping (Result<NotificationSendResult, PraxisrufApiError>) -> Void) {
         post("/notifications/retry?clientId=\(notificationId.uuidString)") { r in
             var request = r
             request.setValue("application/json", forHTTPHeaderField: "Accept")

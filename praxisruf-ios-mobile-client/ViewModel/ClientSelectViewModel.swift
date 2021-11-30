@@ -16,13 +16,7 @@ class ClientSelectViewModel: ObservableObject {
     }
     
     func getAvailableClients() {
-        let defaults = UserDefaults.standard
-        guard let token = defaults.string(forKey: UserDefaultKeys.authToken) else {
-            print("No token found")
-            return
-        }
-        
-        PraxisrufApi().getAvailableClients(token: token) { result in
+        PraxisrufApi().getAvailableClients() { result in
             switch result {
                 case .success(let clients):
                     DispatchQueue.main.async {

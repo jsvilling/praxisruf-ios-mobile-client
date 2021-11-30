@@ -21,17 +21,12 @@ class IntercomViewModel: ObservableObject {
     
     func getNotificationTypes() {
         let defaults = UserDefaults.standard
-        guard let token = defaults.string(forKey: UserDefaultKeys.authToken) else {
-            print("No token found")
-            return
-        }
-
         guard let clientId = defaults.string(forKey: UserDefaultKeys.clientId) else {
             print("No clientId found")
             return
         }
         
-        PraxisrufApi().getRelevantNotificationTypes(clientId: clientId, token: token) { result in
+        PraxisrufApi().getRelevantNotificationTypes(clientId: clientId) { result in
             switch result {
                 case .success(let notificationTypes):
                     DispatchQueue.main.async {
@@ -44,15 +39,7 @@ class IntercomViewModel: ObservableObject {
     }
     
     func sendNotification(notificationTypeId: UUID) {
-        
-        print("Sending notification \(notificationTypeId)")
-        
         let defaults = UserDefaults.standard
-        guard let token = defaults.string(forKey: UserDefaultKeys.authToken) else {
-            print("No token found")
-            return
-        }
-
         guard let clientId = defaults.string(forKey: UserDefaultKeys.clientId) else {
             print("No clientId found")
             return
@@ -60,7 +47,7 @@ class IntercomViewModel: ObservableObject {
         
         let notification = SendNotification(notificationTypeId: notificationTypeId, sender: clientId)
         
-        PraxisrufApi().sendNotification(authToken: token, sendNotification: notification) { result in
+        PraxisrufApi().sendNotification(sendNotification: notification) { result in
             switch result {
             case .success(let notificationSendResponse):
                 DispatchQueue.main.async {
@@ -74,13 +61,7 @@ class IntercomViewModel: ObservableObject {
     }
     
     func retryNotification(notificationId: UUID) {
-        let defaults = UserDefaults.standard
-        guard let token = defaults.string(forKey: UserDefaultKeys.authToken) else {
-            print("No token found")
-            return
-        }
-        
-        PraxisrufApi().retryNotification(authToken: token, notificationId: notificationId) { result in
+        PraxisrufApi().retryNotification(notificationId: notificationId) { result in
             switch result {
             case .success(let notificationSendResponse):
                 DispatchQueue.main.async {
