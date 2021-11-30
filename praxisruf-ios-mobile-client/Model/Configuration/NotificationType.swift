@@ -13,8 +13,11 @@ struct NotificationType: IntercomItem, Hashable, Codable, Identifiable {
     let title: String
     let body: String
     let description: String
+    
+    static func compareByDisplayText(_ n1: NotificationType, _ n2: NotificationType) -> Bool {
+        return n1.displayText < n2.displayText
+    }
 }
-
 
 extension NotificationType {
     static var data: [NotificationType] = [
@@ -29,4 +32,5 @@ extension NotificationType {
         NotificationType(id: UUID(), displayText: "Nächster Patient", title: "Nächster Patient", body: "Nächster Patient", description: "Nächster Patient")
     ]
 }
+
 

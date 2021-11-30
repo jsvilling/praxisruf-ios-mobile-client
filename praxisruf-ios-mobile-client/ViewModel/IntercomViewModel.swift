@@ -29,8 +29,9 @@ class IntercomViewModel: ObservableObject {
         PraxisrufApi().getRelevantNotificationTypes(clientId: clientId) { result in
             switch result {
                 case .success(let notificationTypes):
+                    let sorted = notificationTypes.sorted(by: NotificationType.compareByDisplayText)
                     DispatchQueue.main.async {
-                        self.notificationTypes = notificationTypes
+                        self.notificationTypes = sorted
                     }
                 case .failure(let error):
                     print(error.localizedDescription)
