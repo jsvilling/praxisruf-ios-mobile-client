@@ -8,6 +8,7 @@
 import Foundation
 import Firebase
 import UIKit
+import SwiftKeychainWrapper
 
 // ip6 bundle id ch.fhnw.ip6.praxisruf.praxisruf-ios-mobile-client
 
@@ -60,9 +61,7 @@ extension AppDelegate: MessagingDelegate {
             print("Firebase registration token was empty")
             return
         }
-        print("Firebase registration token: \(token)")
-        let defaults = UserDefaults.standard
-        defaults.setValue(token, forKey: "fcmToken")
+        KeychainWrapper.standard.set(token, forKey: UserDefaultKeys.fcmToken)
         RegistrationService().register()
     }
 }

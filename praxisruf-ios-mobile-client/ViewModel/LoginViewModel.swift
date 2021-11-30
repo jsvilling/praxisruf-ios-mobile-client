@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 
 class LoginViewModel: ObservableObject {
     
@@ -14,12 +15,11 @@ class LoginViewModel: ObservableObject {
     @Published var isAuthenticated: Bool = false
     
     func login() {
-        let defaults = UserDefaults.standard
         PraxisrufApi().login(username: username, password: password) { result in
             switch result {
                 case .success (let token):
-                    defaults.setValue(token, forKey: UserDefaultKeys.authToken)
-                    defaults.setValue(self.username, forKey: UserDefaultKeys.userName)
+                    KeychainWrapper.standard.set(token, forKey: UserDefaultKeys.authToken)
+                    UserDefaults.standard.setValue(self.username, forKey: UserDefaultKeys.userName)
                     DispatchQueue.main.async {
                         self.isAuthenticated = true
                     }

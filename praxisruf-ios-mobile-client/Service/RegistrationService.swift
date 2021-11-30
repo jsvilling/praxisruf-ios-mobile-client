@@ -10,18 +10,17 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 
 class RegistrationService: ObservableObject {
     
     func register() {
-        let defaults = UserDefaults.standard
-        
-        guard let fcmToken = defaults.string(forKey: UserDefaultKeys.fcmToken) else {
+        guard let fcmToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.fcmToken) else {
             print("No fmc token found")
             return
         }
 
-        guard let clientId = defaults.string(forKey: UserDefaultKeys.clientId) else {
+        guard let clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId) else {
             print("No clientId found")
             return
         }

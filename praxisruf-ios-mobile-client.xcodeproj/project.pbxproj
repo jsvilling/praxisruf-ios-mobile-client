@@ -50,6 +50,7 @@
 		CE94AC552753F1FE00C93410 /* NotificationSendResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */; };
 		CE94AC572756552900C93410 /* RetryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC562756552900C93410 /* RetryAlert.swift */; };
 		CE94AC5927566B6900C93410 /* InboxReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC5827566B6900C93410 /* InboxReminderService.swift */; };
+		CE94AC5C27567BDB00C93410 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CE94AC5B27567BDB00C93410 /* SwiftKeychainWrapper */; };
 		CE97F1B32723589A00B1CA0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE97F1B22723589A00B1CA0D /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -126,6 +127,7 @@
 			files = (
 				CE53AC12271F124300BAD1F1 /* FirebaseMessaging in Frameworks */,
 				CE01405C272EA4F100B71AB7 /* WebRTC in Frameworks */,
+				CE94AC5C27567BDB00C93410 /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +387,7 @@
 			packageProductDependencies = (
 				CE53AC11271F124300BAD1F1 /* FirebaseMessaging */,
 				CE01405B272EA4F100B71AB7 /* WebRTC */,
+				CE94AC5B27567BDB00C93410 /* SwiftKeychainWrapper */,
 			);
 			productName = "praxisruf-ios-mobile-client";
 			productReference = CE1D5C84271C4AAA007EA5AC /* praxisruf-ios-mobile-client.app */;
@@ -461,6 +464,7 @@
 			packageReferences = (
 				CE53AC10271F124300BAD1F1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				CE01405A272EA4F100B71AB7 /* XCRemoteSwiftPackageReference "WebRTC" */,
+				CE94AC5A27567BDB00C93410 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 			);
 			productRefGroup = CE1D5C85271C4AAA007EA5AC /* Products */;
 			projectDirPath = "";
@@ -911,6 +915,14 @@
 				kind = branch;
 			};
 		};
+		CE94AC5A27567BDB00C93410 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -923,6 +935,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CE53AC10271F124300BAD1F1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		CE94AC5B27567BDB00C93410 /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE94AC5A27567BDB00C93410 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

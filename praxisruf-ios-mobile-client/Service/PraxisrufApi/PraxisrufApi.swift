@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 
 class PraxisrufApi {
     
@@ -32,13 +33,15 @@ class PraxisrufApi {
         guard let url = URL(string: "\(baseUrlValue)\(subUrl)") else {
             fatalError("Invalid url configuration")
         }
-        var request = URLRequest(url: url)
-        request.httpMethod = method
-        let defaults = UserDefaults.standard
-        guard let authToken = defaults.string(forKey: UserDefaultKeys.authToken) else  {
+                
+        guard let authToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.authToken) else {
             fatalError("No authorization found")
         }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = method
         request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        
         task(request)
     }
     
