@@ -29,9 +29,22 @@ extension PraxisrufApi {
     }
     
     func unregister(authToken: String, clientId: String, completion: @escaping (Result<String, PraxisrufApiError>) -> Void) {
+        guard let url = URL(string: "\(baseUrlValue)/registrations?id=\(clientId)") else {
+            completion(.failure(.custom(errorMessage: "Invalid url configuration")))
+            return
+        }
         
+        var request = URLRequest(url: url)
+        request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "DELETE"
         
-        
-        print("Unregister called for ")
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let httpResponse = response as? HTTPURLResponse,(200...299).contains(httpResponse.statusCode) else {
+                completion(.failure(.custom(errorMessage: "Error Response received")))
+                return
+            }
+            completion(.success("Un-Registration Successful"))
+        }.resume()
+
     }
 }

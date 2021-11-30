@@ -74,16 +74,11 @@ class IntercomViewModel: ObservableObject {
     }
     
     func retryNotification(notificationId: UUID) {
-        print("Retrying notification")
-        
         let defaults = UserDefaults.standard
         guard let token = defaults.string(forKey: UserDefaultKeys.authToken) else {
             print("No token found")
             return
         }
-        
-        print(notificationId)
-        print(notificationSendResult.notificationId)
         
         PraxisrufApi().retryNotification(authToken: token, notificationId: notificationId) { result in
             switch result {
@@ -96,7 +91,5 @@ class IntercomViewModel: ObservableObject {
                 print(error.localizedDescription)
             }
         }
-        
     }
-    
 }
