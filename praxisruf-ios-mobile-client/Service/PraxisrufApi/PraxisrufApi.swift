@@ -30,15 +30,13 @@ class PraxisrufApi {
     
     private func authorizedRequest(_ subUrl: String, method: String = "GET", task: @escaping (URLRequest) -> Void) {
         guard let url = URL(string: "\(baseUrlValue)\(subUrl)") else {
-            print("Invalid url configuration")
-            return
+            fatalError("Invalid url configuration")
         }
         var request = URLRequest(url: url)
         request.httpMethod = method
         let defaults = UserDefaults.standard
         guard let authToken = defaults.string(forKey: UserDefaultKeys.authToken) else  {
-            // TODO: Redirect To Login Screen
-            fatalError()
+            fatalError("No authorization found")
         }
         request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         task(request)
