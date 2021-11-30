@@ -16,4 +16,8 @@ class AudioPlayer {
         AudioServicesCreateSystemSoundID(fileURL as CFURL, &soundID)
         AudioServicesPlaySystemSound(soundID)
      }
+    
+    static func playSystemSound(soundID: SystemSoundID) {
+        AudioServicesPlaySystemSound(soundID)
+    }
 }

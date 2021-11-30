@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     
+    let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     let clientName = UserDefaults.standard.string(forKey: "clientName") ?? "clientName"
     
     var body: some View {
@@ -32,6 +33,9 @@ struct HomeView: View {
 
         }
         .navigationTitle(clientName)
+        .onReceive(timer) { input in
+            InboxReminderService.checkInbox()
+        }
     }
 }
 

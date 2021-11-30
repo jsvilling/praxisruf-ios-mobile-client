@@ -49,6 +49,7 @@
 		CE94AC532753E08200C93410 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC522753E08200C93410 /* SettingsViewModel.swift */; };
 		CE94AC552753F1FE00C93410 /* NotificationSendResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */; };
 		CE94AC572756552900C93410 /* RetryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC562756552900C93410 /* RetryAlert.swift */; };
+		CE94AC5927566B6900C93410 /* InboxReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC5827566B6900C93410 /* InboxReminderService.swift */; };
 		CE97F1B32723589A00B1CA0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE97F1B22723589A00B1CA0D /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -114,6 +115,7 @@
 		CE94AC522753E08200C93410 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSendResult.swift; sourceTree = "<group>"; };
 		CE94AC562756552900C93410 /* RetryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryAlert.swift; sourceTree = "<group>"; };
+		CE94AC5827566B6900C93410 /* InboxReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxReminderService.swift; sourceTree = "<group>"; };
 		CE97F1B22723589A00B1CA0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -348,6 +350,7 @@
 				CE51D02F2725431B000D09C1 /* RegistrationService.swift */,
 				CE01405F27317ACF00B71AB7 /* SpeechSynthesisService.swift */,
 				CE01406127317EF600B71AB7 /* AudioPlayer.swift */,
+				CE94AC5827566B6900C93410 /* InboxReminderService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 				CE01404D2726DC8400B71AB7 /* Date+ToString.swift in Sources */,
 				CE1D5C8A271C4AAA007EA5AC /* LoginView.swift in Sources */,
 				CE0140552726E50400B71AB7 /* ButtonGridView.swift in Sources */,
+				CE94AC5927566B6900C93410 /* InboxReminderService.swift in Sources */,
 				CE53ABE1271DA32300BAD1F1 /* InboxView.swift in Sources */,
 				CE01406027317ACF00B71AB7 /* SpeechSynthesisService.swift in Sources */,
 				CE53ABF5271EB30100BAD1F1 /* ClientSelectViewModel.swift in Sources */,
