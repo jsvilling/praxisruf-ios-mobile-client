@@ -51,6 +51,7 @@
 		CE94AC572756552900C93410 /* RetryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC562756552900C93410 /* RetryAlert.swift */; };
 		CE94AC5927566B6900C93410 /* InboxReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC5827566B6900C93410 /* InboxReminderService.swift */; };
 		CE94AC5C27567BDB00C93410 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CE94AC5B27567BDB00C93410 /* SwiftKeychainWrapper */; };
+		CE94AC5F275688AF00C93410 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC5E275688AF00C93410 /* SplashScreen.swift */; };
 		CE97F1B32723589A00B1CA0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE97F1B22723589A00B1CA0D /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -117,6 +118,7 @@
 		CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSendResult.swift; sourceTree = "<group>"; };
 		CE94AC562756552900C93410 /* RetryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryAlert.swift; sourceTree = "<group>"; };
 		CE94AC5827566B6900C93410 /* InboxReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxReminderService.swift; sourceTree = "<group>"; };
+		CE94AC5E275688AF00C93410 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		CE97F1B22723589A00B1CA0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -232,6 +234,7 @@
 		CE1D5CB1271C4C79007EA5AC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CE94AC5D2756889A00C93410 /* SplashScreen */,
 				CE01404F2726E29B00B71AB7 /* Inbox */,
 				CE01404E2726E29400B71AB7 /* Intercom */,
 				CE51D03D272591A0000D09C1 /* Login */,
@@ -366,6 +369,14 @@
 				CE94AC522753E08200C93410 /* SettingsViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CE94AC5D2756889A00C93410 /* SplashScreen */ = {
+			isa = PBXGroup;
+			children = (
+				CE94AC5E275688AF00C93410 /* SplashScreen.swift */,
+			);
+			path = SplashScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -510,6 +521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE94AC5F275688AF00C93410 /* SplashScreen.swift in Sources */,
 				CE53ABEF271EB11900BAD1F1 /* PraxisrufApi+Conf.swift in Sources */,
 				CE51D0302725431B000D09C1 /* RegistrationService.swift in Sources */,
 				CE01404D2726DC8400B71AB7 /* Date+ToString.swift in Sources */,

@@ -14,17 +14,6 @@ class LoginViewModel: ObservableObject {
     var password: String = "admin"
     @Published var isAuthenticated: Bool = false
     
-    func autoLogin() {
-        let username = KeychainWrapper.standard.string(forKey: UserDefaultKeys.userName)
-        let password = KeychainWrapper.standard.string(forKey: UserDefaultKeys.password)
-        
-        if (username != nil && password != nil)  {
-            self.username = username!
-            self.password = password!
-            login()
-        }
-    }
-    
     func login() {
         PraxisrufApi().login(username: username, password: password) { result in
             switch result {

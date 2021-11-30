@@ -27,7 +27,6 @@ struct ClientSelectView: View {
         }
         .environment(\.editMode, $isEditMode)
         .navigationTitle("clientSelection")
-        //.navigationBarBackButtonHidden(true)
         .navigationBarItems(trailing: Button("finish", action: {
                 guard let clientId = selection else {
                     return

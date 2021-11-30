@@ -70,9 +70,6 @@ struct LoginForm: View {
         }
         .padding()
         .navigationBarBackButtonHidden(true)
-        .onAppear() {
-            loginVM.autoLogin()
-        }
     }
 }
 
