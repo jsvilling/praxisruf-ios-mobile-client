@@ -10,13 +10,13 @@ import Foundation
 class IntercomViewModel: ObservableObject {
     
     @Published var hasErrorResponse: Bool
-    @Published var notificationSendResult: NotificationSendResult?
+    @Published var notificationSendResult: NotificationSendResult
     @Published var notificationTypes: [NotificationType]
     
     init(notificationTypes: [NotificationType] = []) {
         self.hasErrorResponse = false
         self.notificationTypes = notificationTypes
-        self.notificationSendResult = nil
+        self.notificationSendResult = NotificationSendResult(notificationId: NotificationType.data[0].id, allSuccess: true)
     }
     
     func getNotificationTypes() {
@@ -63,9 +63,29 @@ class IntercomViewModel: ObservableObject {
         PraxisrufApi().sendNotification(authToken: token, sendNotification: notification) { result in
             switch result {
             case .success(let notificationSendResponse):
-                print("Success in viewmodel called")
                 DispatchQueue.main.async {
-                    self.hasErrorResponse = !notificationSendResponse.allSuccess
+                    self.hasErrorResponse = notificationSendResponse.allSuccess
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func retryNotification(notificationId: UUID) {
+        print("Retrying notification")
+        
+        let defaults = UserDefaults.standard
+        guard let token = defaults.string(forKey: UserDefaultKeys.authToken) else {
+            print("No token found")
+            return
+        }
+        
+        PraxisrufApi().retryNotification(authToken: token, notificationId: notificationId) { result in
+            switch result {
+            case .success(let notificationSendResponse):
+                DispatchQueue.main.async {
+                    self.hasErrorResponse = notificationSendResponse.allSuccess
                 }
             case .failure(let error):
                 print(error.localizedDescription)

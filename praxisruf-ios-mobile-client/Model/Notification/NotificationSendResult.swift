@@ -9,7 +9,7 @@ import Foundation
 
 struct NotificationSendResult: Codable{
     
-    let notificationId: UUID
-    let allSuccess: Bool
+    var notificationId: UUID
+    var allSuccess: Bool
     
 }

@@ -38,12 +38,37 @@ extension PraxisrufApi {
                 completion(.failure(.custom(errorMessage: "Invalid Data")))
                 return
             }
+
+            completion(.success(notificationSendResponse))
+        }.resume()
+    }
+    
+    func retryNotification(authToken: String, notificationId: UUID, completion: @escaping (Result<NotificationSendResult, PraxisrufApiError>) -> Void) {
+        guard let url = URL(string: "\(baseUrlValue)/notifications/retry?clientId=\(notificationId.uuidString)") else {
+            completion(.failure(.custom(errorMessage: "Invalid url configuration")))
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let httpResponse = response as? HTTPURLResponse,(200...299).contains(httpResponse.statusCode) else {
+                completion(.failure(.custom(errorMessage: "Error sending notification")))
+                return
+            }
             
-            print("Success in api")
+            guard let responsData = data else {
+                 print("Critical error when sending notification")
+                 return
+             }
             
-            print(notificationSendResponse)
-            
-            
+            guard let notificationSendResponse = try? JSONDecoder().decode(NotificationSendResult.self, from: responsData) else {
+                completion(.failure(.custom(errorMessage: "Invalid Data")))
+                return
+            }
             completion(.success(notificationSendResponse))
         }.resume()
     }

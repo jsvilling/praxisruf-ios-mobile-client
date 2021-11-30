@@ -19,7 +19,6 @@ class Inbox: ObservableObject {
         let notification = InboxItem(type: "mail", title: title, body: body, sender: sender)
         DispatchQueue.main.async {
             self.content.append(notification)
-            //SpeechSynthesisService().synthesize()
         }
     }
 }

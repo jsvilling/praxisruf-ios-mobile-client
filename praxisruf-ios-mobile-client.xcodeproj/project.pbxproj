@@ -48,6 +48,7 @@
 		CE53AC15271F1BD600BAD1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE53AC14271F1BC300BAD1F1 /* GoogleService-Info.plist */; };
 		CE94AC532753E08200C93410 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC522753E08200C93410 /* SettingsViewModel.swift */; };
 		CE94AC552753F1FE00C93410 /* NotificationSendResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */; };
+		CE94AC572756552900C93410 /* RetryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC562756552900C93410 /* RetryAlert.swift */; };
 		CE97F1B32723589A00B1CA0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE97F1B22723589A00B1CA0D /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +113,7 @@
 		CE53AC14271F1BC300BAD1F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CE94AC522753E08200C93410 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSendResult.swift; sourceTree = "<group>"; };
+		CE94AC562756552900C93410 /* RetryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryAlert.swift; sourceTree = "<group>"; };
 		CE97F1B22723589A00B1CA0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -148,6 +150,7 @@
 				CE53ABDE271DA1FE00BAD1F1 /* IntercomView.swift */,
 				CE0140522726E39500B71AB7 /* IntercomButton.swift */,
 				CE0140542726E50400B71AB7 /* ButtonGridView.swift */,
+				CE94AC562756552900C93410 /* RetryAlert.swift */,
 			);
 			path = Intercom;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				CE97F1B32723589A00B1CA0D /* AppDelegate.swift in Sources */,
 				CE53ABED271EAF3200BAD1F1 /* PraxisrufApi+Auth.swift in Sources */,
 				CE94AC552753F1FE00C93410 /* NotificationSendResult.swift in Sources */,
+				CE94AC572756552900C93410 /* RetryAlert.swift in Sources */,
 				CE53ABF1271EB15E00BAD1F1 /* ClientSelectView.swift in Sources */,
 				CE51D02C2723DAA9000D09C1 /* IntercomItem.swift in Sources */,
 				CE01404B2726C81400B71AB7 /* Inbox.swift in Sources */,

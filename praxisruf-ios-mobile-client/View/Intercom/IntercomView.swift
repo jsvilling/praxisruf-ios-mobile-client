@@ -16,10 +16,9 @@ struct IntercomView: View {
         VStack {
             Section(header: Text("intercom").font(.title2)) {
                 ButtonGridView(entries: $intercomVM.notificationTypes, action: startCall)
+                RetryAlert(isPresented: $intercomVM.hasErrorResponse, id: $intercomVM.notificationSendResult.notificationId, action: retryNotification)
             }
-            .alert(isPresented: $intercomVM.hasErrorResponse) {
-                       Alert(title: Text("Fehler."), message: Text("Die Benachrichtigung konnte nicht an alle Empfänger übermittelt werden"))
-                   }
+            
             Section(header: Text("notifications").font(.title2)) {
                 ButtonGridView(entries: $intercomVM.notificationTypes, action: sendNotification)
             }
@@ -34,6 +33,10 @@ struct IntercomView: View {
     
     func sendNotification(id: UUID) {
         intercomVM.sendNotification(notificationTypeId: id)
+    }
+    
+    func retryNotification(id: UUID) {
+        intercomVM.retryNotification(notificationId: intercomVM.notificationSendResult.notificationId)
     }
     
     func startCall(id: UUID) {
