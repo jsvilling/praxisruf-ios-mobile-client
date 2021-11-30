@@ -17,5 +17,6 @@ struct UserDefaultKeys {
     static let fcmToken: String = "fcmToken"
     
     static let userName: String = "userName"
+    static let password: String = "password"
     
 }

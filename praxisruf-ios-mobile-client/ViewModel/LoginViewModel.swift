@@ -14,12 +14,24 @@ class LoginViewModel: ObservableObject {
     var password: String = "admin"
     @Published var isAuthenticated: Bool = false
     
+    func autoLogin() {
+        let username = KeychainWrapper.standard.string(forKey: UserDefaultKeys.userName)
+        let password = KeychainWrapper.standard.string(forKey: UserDefaultKeys.password)
+        
+        if (username != nil && password != nil)  {
+            self.username = username!
+            self.password = password!
+            login()
+        }
+    }
+    
     func login() {
         PraxisrufApi().login(username: username, password: password) { result in
             switch result {
                 case .success (let token):
                     KeychainWrapper.standard.set(token, forKey: UserDefaultKeys.authToken)
-                    UserDefaults.standard.setValue(self.username, forKey: UserDefaultKeys.userName)
+                    KeychainWrapper.standard.set(self.username, forKey: UserDefaultKeys.userName)
+                    KeychainWrapper.standard.set(self.password, forKey: UserDefaultKeys.password)
                     DispatchQueue.main.async {
                         self.isAuthenticated = true
                     }

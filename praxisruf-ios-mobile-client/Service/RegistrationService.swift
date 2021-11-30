@@ -36,32 +36,36 @@ class RegistrationService: ObservableObject {
     }
     
     func unregister() {
-        let defaults = UserDefaults.standard
-        let authToken = defaults.string(forKey: UserDefaultKeys.authToken)
-        let clientId = defaults.string(forKey: UserDefaultKeys.clientId)
+        let authToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.authToken)
+        let clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId)
         
         if (authToken == nil || clientId == nil) {
             print("Incomplete registration. Cannot unregister with cloud service")
             return
-        }
-        
-        PraxisrufApi().unregister(clientId: clientId!) { result in
-            switch result {
-                case .success (let response):
-                    print(response)
-                case .failure (let error):
-                    print(error)
+        } else {
+            PraxisrufApi().unregister(clientId: clientId!) { result in
+                switch result {
+                    case .success (let response):
+                        print(response)
+                    case .failure (let error):
+                        print(error)
+                }
             }
         }
-        
-        UserDefaults.standard.removeObject(forKey: UserDefaultKeys.authToken)
+
+        KeychainWrapper.standard.removeObject(forKey: UserDefaultKeys.authToken)
+        KeychainWrapper.standard.removeObject(forKey: UserDefaultKeys.userName)
+        KeychainWrapper.standard.removeObject(forKey: UserDefaultKeys.password)
         UserDefaults.standard.removeObject(forKey: UserDefaultKeys.clientId)
-        UserDefaults.standard.removeObject(forKey: UserDefaultKeys.userName)
         // The firebase token is not removed. As far as firebase is concerned
         // it belongs to the hardware device. Leaving the stored token here,
         // allows us to re-use it. When the user logs in after a logout, without
         // terminating the app in between. This is fine because the association
         // to the client has already been removed.
+    }
+    
+    private func clearStoredInformation() {
+        
     }
     
 }

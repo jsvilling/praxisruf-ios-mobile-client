@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftKeychainWrapper
 
 struct LoginView: View {
     var body: some View {
@@ -13,7 +14,7 @@ struct LoginView: View {
             WelcomeText()
             PraxisImage()
             LoginForm()
-    }
+        }
 }
 
 struct WelcomeText: View {
@@ -69,6 +70,9 @@ struct LoginForm: View {
         }
         .padding()
         .navigationBarBackButtonHidden(true)
+        .onAppear() {
+            loginVM.autoLogin()
+        }
     }
 }
 
