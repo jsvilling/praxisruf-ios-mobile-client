@@ -10,7 +10,7 @@ import Foundation
 class InboxReminderService {
 
     static func checkInbox() {
-        let areAllRead = Inbox.shared.content.isEmpty || Inbox.shared.content.allSatisfy { $0.ack }
+        let areAllRead = Inbox.shared.content.isEmpty || Inbox.shared.content.filter { $0.receivedAt <= Date() - 60 } .allSatisfy { $0.ack }
         if (!areAllRead) {
             AudioPlayer.playSystemSound(soundID: 1005)
         }
