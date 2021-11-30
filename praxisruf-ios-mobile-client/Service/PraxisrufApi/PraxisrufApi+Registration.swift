@@ -29,10 +29,13 @@ extension PraxisrufApi {
     }
     
     func unregister(authToken: String, clientId: String, completion: @escaping (Result<String, PraxisrufApiError>) -> Void) {
-        guard let url = URL(string: "\(baseUrlValue)/registrations?id=\(clientId)") else {
+        guard let url = URL(string: "\(baseUrlValue)/registrations/\(clientId)") else {
             completion(.failure(.custom(errorMessage: "Invalid url configuration")))
             return
         }
+        
+        
+        print(url)
         
         var request = URLRequest(url: url)
         request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
