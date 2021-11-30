@@ -10,9 +10,7 @@ import Foundation
 extension PraxisrufApi {
     
     func register(authToken: String, fcmToken: String, clientId: String, completion: @escaping (Result<String, PraxisrufApiError>) -> Void) {
-        authorizedRequest("/registrations?clientId=\(clientId)&fcmToken=\(fcmToken)") { r in
-            var request = r
-            request.httpMethod = "POST"
+        post("/registrations?clientId=\(clientId)&fcmToken=\(fcmToken)") { request in
             URLSession.shared.dataTask(with: request) { data, response, error in
                 guard let httpResponse = response as? HTTPURLResponse,(200...299).contains(httpResponse.statusCode) else {
                     completion(.failure(.custom(errorMessage: "Error Response received")))
@@ -24,9 +22,7 @@ extension PraxisrufApi {
     }
     
     func unregister(authToken: String, clientId: String, completion: @escaping (Result<String, PraxisrufApiError>) -> Void) {
-        authorizedRequest("/registrations/(clientId)") { r in
-            var request = r
-            request.httpMethod = "DELETE"
+        delete("/registrations/(clientId)") { request in
             
             URLSession.shared.dataTask(with: request) { data, response, error in
                 guard let httpResponse = response as? HTTPURLResponse,(200...299).contains(httpResponse.statusCode) else {

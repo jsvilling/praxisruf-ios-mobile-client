@@ -10,10 +10,9 @@ import Foundation
 extension PraxisrufApi {
     
     func sendNotification(authToken: String, sendNotification: SendNotification, completion: @escaping (Result<NotificationSendResult, PraxisrufApiError>) -> Void) {
-        authorizedRequest("/notifications/send") { r in
+        post("/notifications/send") { r in
             var request = r
             request.httpBody = try? JSONEncoder().encode(sendNotification)
-            request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Accept")
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             
@@ -39,9 +38,8 @@ extension PraxisrufApi {
     }
     
     func retryNotification(authToken: String, notificationId: UUID, completion: @escaping (Result<NotificationSendResult, PraxisrufApiError>) -> Void) {
-        authorizedRequest("/notifications/retry?clientId=\(notificationId.uuidString)") { r in
+        post("/notifications/retry?clientId=\(notificationId.uuidString)") { r in
             var request = r
-            request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Accept")
             URLSession.shared.dataTask(with: request) { data, response, error in
                 guard let httpResponse = response as? HTTPURLResponse,(200...299).contains(httpResponse.statusCode) else {

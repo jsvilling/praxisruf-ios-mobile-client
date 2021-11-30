@@ -11,7 +11,7 @@ extension PraxisrufApi {
 
     func getAvailableClients(token: String, completion: @escaping (Result<[Client], PraxisrufApiError>) -> Void) {
         
-        authorizedRequest("/clients/byUser") { request in
+        get("/clients/byUser") { request in
             URLSession.shared.dataTask(with: request) { data, response, error in
                 guard let httpResponse = response as? HTTPURLResponse,(200...299).contains(httpResponse.statusCode) else {
                     completion(.failure(.custom(errorMessage: "Error Response received")))
@@ -34,7 +34,7 @@ extension PraxisrufApi {
     }
     
     func getRelevantNotificationTypes(clientId: String, token: String, completion: @escaping (Result<[NotificationType], PraxisrufApiError>) -> Void) {
-        authorizedRequest("/notificationtypes/search?clientId=\(clientId)") { request in
+        get("/notificationtypes/search?clientId=\(clientId)") { request in
             URLSession.shared.dataTask(with: request) { data, response, error in
                 guard let httpResponse = response as? HTTPURLResponse,(200...299).contains(httpResponse.statusCode) else {
                     completion(.failure(.custom(errorMessage: "Error Response received")))
