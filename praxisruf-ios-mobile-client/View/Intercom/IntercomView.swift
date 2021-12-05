@@ -16,26 +16,18 @@ struct IntercomView: View {
     var body: some View {
         VStack {
             Section(header: Text("intercom").font(.title2)) {
-                ButtonGridView(entries: $configuration.notificationTypes, action: startCall)
-                RetryAlert(isPresented: $intercomVM.hasErrorResponse, id: $intercomVM.notificationSendResult.notificationId, action: retryNotification)
+                ButtonGridView(entries: $configuration.callTypes, action: startCall)
             }
             
             Section(header: Text("notifications").font(.title2)) {
-                ButtonGridView(entries: $configuration.notificationTypes, action: sendNotification)
+                ButtonGridView(entries: $configuration.notificationTypes, action: intercomVM.sendNotification)
+                RetryAlert(isPresented: $intercomVM.hasErrorResponse, id: $intercomVM.notificationSendResult.notificationId, action: intercomVM.retryNotification)
             }
         }
         .navigationBarBackButtonHidden(true)
 
     }
-    
-    func sendNotification(id: UUID) {
-        intercomVM.sendNotification(notificationTypeId: id)
-    }
-    
-    func retryNotification(id: UUID) {
-        intercomVM.retryNotification(notificationId: intercomVM.notificationSendResult.notificationId)
-    }
-    
+        
     func startCall(id: UUID) {
         print("Starting call for: \(id)")
     }

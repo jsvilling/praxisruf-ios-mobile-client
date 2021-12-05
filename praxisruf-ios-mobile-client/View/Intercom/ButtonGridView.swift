@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct ButtonGridView: View {
+struct ButtonGridView<I>: View where I: IntercomItem, I: Hashable {
     
     let columns = [GridItem(.adaptive(minimum: 200))]
-    @Binding var entries: [NotificationType]
+    @Binding var entries: [I]
     let action: (UUID) -> Void
     
     var body: some View {
