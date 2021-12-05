@@ -44,7 +44,6 @@ extension PraxisrufApi {
                 guard let responsData = data else {
                      return
                  }
-                print("here")
                 
                 guard let clients = try? JSONDecoder().decode(Configuration.self, from: responsData) else {
                     completion(.failure(.custom(errorMessage: "Invalid Data")))

@@ -9,35 +9,8 @@ import Foundation
 
 class IntercomViewModel: ObservableObject {
     
-    @Published var hasErrorResponse: Bool
-    @Published var notificationSendResult: NotificationSendResult
-    @Published var notificationTypes: [NotificationType]
-    
-    init(notificationTypes: [NotificationType] = []) {
-        self.hasErrorResponse = false
-        self.notificationTypes = notificationTypes
-        self.notificationSendResult = NotificationSendResult(notificationId: NotificationType.data[0].id, allSuccess: true)
-    }
-    
-    func getNotificationTypes() {
-        let defaults = UserDefaults.standard
-        guard let clientId = defaults.string(forKey: UserDefaultKeys.clientId) else {
-            print("No clientId found")
-            return
-        }
-        
-        PraxisrufApi().getRelevantNotificationTypes(clientId: clientId) { result in
-            switch result {
-                case .success(let notificationTypes):
-                    let sorted = notificationTypes.sorted(by: NotificationType.compareByDisplayText)
-                    DispatchQueue.main.async {
-                        self.notificationTypes = sorted
-                    }
-                case .failure(let error):
-                    print(error.localizedDescription)
-            }
-        }
-    }
+    @Published var hasErrorResponse: Bool = false
+    @Published var notificationSendResult: NotificationSendResult = NotificationSendResult(notificationId: NotificationType.data[0].id, allSuccess: true)
     
     func sendNotification(notificationTypeId: UUID) {
         let defaults = UserDefaults.standard

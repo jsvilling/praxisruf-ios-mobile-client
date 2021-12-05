@@ -35,7 +35,7 @@ struct IntercomView: View {
 
 struct IntercomHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        IntercomView(configuration: .constant(Configuration.data), intercomVM: IntercomViewModel(notificationTypes: NotificationType.data))
+        IntercomView(configuration: .constant(Configuration.data), intercomVM: IntercomViewModel())
     }
 }
 
