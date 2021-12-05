@@ -25,7 +25,6 @@ struct IntercomView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-
     }
         
     func startCall(id: UUID) {

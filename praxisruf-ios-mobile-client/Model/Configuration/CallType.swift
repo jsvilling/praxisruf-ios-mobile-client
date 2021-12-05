@@ -12,7 +12,7 @@ struct CallType: IntercomItem, Hashable, Codable, Identifiable {
     let id: UUID
     let displayText: String
     
-    static func compareByDisplayText(_ n1: NotificationType, _ n2: NotificationType) -> Bool {
+    static func compareByDisplayText(_ n1: CallType, _ n2: CallType) -> Bool {
         return n1.displayText < n2.displayText
     }
 }
