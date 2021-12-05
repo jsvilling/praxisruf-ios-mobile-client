@@ -43,7 +43,7 @@
 		CE53ABF3271EB28C00BAD1F1 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABF2271EB28C00BAD1F1 /* Client.swift */; };
 		CE53ABF5271EB30100BAD1F1 /* ClientSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABF4271EB30100BAD1F1 /* ClientSelectViewModel.swift */; };
 		CE53ABFD271EF9D700BAD1F1 /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABFC271EF9D700BAD1F1 /* NotificationType.swift */; };
-		CE53ABFF271EFAFC00BAD1F1 /* IntercomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABFE271EFAFC00BAD1F1 /* IntercomViewModel.swift */; };
+		CE53ABFF271EFAFC00BAD1F1 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABFE271EFAFC00BAD1F1 /* NotificationService.swift */; };
 		CE53AC12271F124300BAD1F1 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = CE53AC11271F124300BAD1F1 /* FirebaseMessaging */; };
 		CE53AC15271F1BD600BAD1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE53AC14271F1BC300BAD1F1 /* GoogleService-Info.plist */; };
 		CE94AC532753E08200C93410 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC522753E08200C93410 /* SettingsViewModel.swift */; };
@@ -114,7 +114,7 @@
 		CE53ABF2271EB28C00BAD1F1 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		CE53ABF4271EB30100BAD1F1 /* ClientSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSelectViewModel.swift; sourceTree = "<group>"; };
 		CE53ABFC271EF9D700BAD1F1 /* NotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationType.swift; sourceTree = "<group>"; };
-		CE53ABFE271EFAFC00BAD1F1 /* IntercomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomViewModel.swift; sourceTree = "<group>"; };
+		CE53ABFE271EFAFC00BAD1F1 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		CE53AC13271F134600BAD1F1 /* praxisruf-ios-mobile-client.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "praxisruf-ios-mobile-client.entitlements"; sourceTree = "<group>"; };
 		CE53AC14271F1BC300BAD1F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CE94AC522753E08200C93410 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -364,6 +364,7 @@
 				CE01405F27317ACF00B71AB7 /* SpeechSynthesisService.swift */,
 				CE01406127317EF600B71AB7 /* AudioPlayer.swift */,
 				CE94AC5827566B6900C93410 /* InboxReminderService.swift */,
+				CE53ABFE271EFAFC00BAD1F1 /* NotificationService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -373,7 +374,6 @@
 			children = (
 				CE53ABE8271EA84A00BAD1F1 /* LoginViewModel.swift */,
 				CE53ABF4271EB30100BAD1F1 /* ClientSelectViewModel.swift */,
-				CE53ABFE271EFAFC00BAD1F1 /* IntercomViewModel.swift */,
 				CE94AC522753E08200C93410 /* SettingsViewModel.swift */,
 				CE94AC68275BCCB700C93410 /* HomeViewModel.swift */,
 			);
@@ -557,7 +557,7 @@
 				CE51D035272563D6000D09C1 /* PraxisrufApi+Notification.swift in Sources */,
 				CE53ABE3271DA56300BAD1F1 /* PraxisrufApi.swift in Sources */,
 				CE0140532726E39500B71AB7 /* IntercomButton.swift in Sources */,
-				CE53ABFF271EFAFC00BAD1F1 /* IntercomViewModel.swift in Sources */,
+				CE53ABFF271EFAFC00BAD1F1 /* NotificationService.swift in Sources */,
 				CE53ABF3271EB28C00BAD1F1 /* Client.swift in Sources */,
 				CE01406227317EF600B71AB7 /* AudioPlayer.swift in Sources */,
 				CE51D03C27259194000D09C1 /* HomeView.swift in Sources */,

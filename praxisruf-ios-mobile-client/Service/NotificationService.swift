@@ -7,7 +7,7 @@
 
 import Foundation
 
-class IntercomViewModel: ObservableObject {
+class NotificationService: ObservableObject {
     
     @Published var hasErrorResponse: Bool = false
     @Published var notificationSendResult: NotificationSendResult = NotificationSendResult(notificationId: NotificationType.data[0].id, allSuccess: true)

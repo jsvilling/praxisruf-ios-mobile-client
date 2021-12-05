@@ -11,7 +11,7 @@ import AVFoundation
 struct IntercomView: View {
     
     @Binding var configuration: Configuration
-    @StateObject var intercomVM = IntercomViewModel()
+    @StateObject var notificationService = NotificationService()
 
     var body: some View {
         VStack {
@@ -20,8 +20,8 @@ struct IntercomView: View {
             }
             
             Section(header: Text("notifications").font(.title2)) {
-                ButtonGridView(entries: $configuration.notificationTypes, action: intercomVM.sendNotification)
-                RetryAlert(isPresented: $intercomVM.hasErrorResponse, id: $intercomVM.notificationSendResult.notificationId, action: intercomVM.retryNotification)
+                ButtonGridView(entries: $configuration.notificationTypes, action: notificationService.sendNotification)
+                RetryAlert(isPresented: $notificationService.hasErrorResponse, id: $notificationService.notificationSendResult.notificationId, action: notificationService.retryNotification)
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -35,7 +35,7 @@ struct IntercomView: View {
 
 struct IntercomHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        IntercomView(configuration: .constant(Configuration.data), intercomVM: IntercomViewModel())
+        IntercomView(configuration: .constant(Configuration.data), notificationService: NotificationService())
     }
 }
 
