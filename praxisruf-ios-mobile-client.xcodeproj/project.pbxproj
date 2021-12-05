@@ -52,6 +52,9 @@
 		CE94AC5927566B6900C93410 /* InboxReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC5827566B6900C93410 /* InboxReminderService.swift */; };
 		CE94AC5C27567BDB00C93410 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CE94AC5B27567BDB00C93410 /* SwiftKeychainWrapper */; };
 		CE94AC5F275688AF00C93410 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC5E275688AF00C93410 /* SplashScreen.swift */; };
+		CE94AC65275BC1C100C93410 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC64275BC1C100C93410 /* Configuration.swift */; };
+		CE94AC67275BC1D800C93410 /* CallType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC66275BC1D800C93410 /* CallType.swift */; };
+		CE94AC69275BCCB800C93410 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC68275BCCB700C93410 /* HomeViewModel.swift */; };
 		CE97F1B32723589A00B1CA0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE97F1B22723589A00B1CA0D /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -119,6 +122,9 @@
 		CE94AC562756552900C93410 /* RetryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryAlert.swift; sourceTree = "<group>"; };
 		CE94AC5827566B6900C93410 /* InboxReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxReminderService.swift; sourceTree = "<group>"; };
 		CE94AC5E275688AF00C93410 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		CE94AC64275BC1C100C93410 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		CE94AC66275BC1D800C93410 /* CallType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallType.swift; sourceTree = "<group>"; };
+		CE94AC68275BCCB700C93410 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		CE97F1B22723589A00B1CA0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -301,6 +307,8 @@
 				CE51D02B2723DAA9000D09C1 /* IntercomItem.swift */,
 				CE53ABF2271EB28C00BAD1F1 /* Client.swift */,
 				CE53ABFC271EF9D700BAD1F1 /* NotificationType.swift */,
+				CE94AC64275BC1C100C93410 /* Configuration.swift */,
+				CE94AC66275BC1D800C93410 /* CallType.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -367,6 +375,7 @@
 				CE53ABF4271EB30100BAD1F1 /* ClientSelectViewModel.swift */,
 				CE53ABFE271EFAFC00BAD1F1 /* IntercomViewModel.swift */,
 				CE94AC522753E08200C93410 /* SettingsViewModel.swift */,
+				CE94AC68275BCCB700C93410 /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -530,6 +539,7 @@
 				CE94AC5927566B6900C93410 /* InboxReminderService.swift in Sources */,
 				CE53ABE1271DA32300BAD1F1 /* InboxView.swift in Sources */,
 				CE01406027317ACF00B71AB7 /* SpeechSynthesisService.swift in Sources */,
+				CE94AC67275BC1D800C93410 /* CallType.swift in Sources */,
 				CE53ABF5271EB30100BAD1F1 /* ClientSelectViewModel.swift in Sources */,
 				CE97F1B32723589A00B1CA0D /* AppDelegate.swift in Sources */,
 				CE53ABED271EAF3200BAD1F1 /* PraxisrufApi+Auth.swift in Sources */,
@@ -541,6 +551,7 @@
 				CE51D0462726922B000D09C1 /* InboxItem.swift in Sources */,
 				CE0140512726E2C300B71AB7 /* InboxItemView.swift in Sources */,
 				CE94AC532753E08200C93410 /* SettingsViewModel.swift in Sources */,
+				CE94AC65275BC1C100C93410 /* Configuration.swift in Sources */,
 				CE53ABE9271EA84A00BAD1F1 /* LoginViewModel.swift in Sources */,
 				CE53ABDF271DA1FE00BAD1F1 /* IntercomView.swift in Sources */,
 				CE51D035272563D6000D09C1 /* PraxisrufApi+Notification.swift in Sources */,
@@ -553,6 +564,7 @@
 				CE53ABFD271EF9D700BAD1F1 /* NotificationType.swift in Sources */,
 				CE51D02E272540ED000D09C1 /* PraxisrufApi+Registration.swift in Sources */,
 				CE1D5C88271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift in Sources */,
+				CE94AC69275BCCB800C93410 /* HomeViewModel.swift in Sources */,
 				CE01405E2731787500B71AB7 /* PraxisrufApi+SpeechSynth.swift in Sources */,
 				CE51D03A272564F3000D09C1 /* SendNotification.swift in Sources */,
 				CE51D0332725600A000D09C1 /* UserDefaultKeys.swift in Sources */,

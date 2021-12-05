@@ -9,12 +9,14 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @StateObject private var homeVM = HomeViewModel()
+    
     let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     let clientName = UserDefaults.standard.string(forKey: "clientName") ?? "clientName"
     
     var body: some View {
         TabView {
-           IntercomView()
+            IntercomView(configuration: $homeVM.configuration)
              .tabItem {
                  Image(systemName: "phone.fill")
                  Text("Home")
@@ -35,6 +37,10 @@ struct HomeView: View {
         .navigationTitle(clientName)
         .onReceive(timer) { input in
             InboxReminderService.checkInbox()
+        }
+        .onAppear() {
+            homeVM.loadConfiguration()
+            RegistrationService().register()
         }
     }
 }

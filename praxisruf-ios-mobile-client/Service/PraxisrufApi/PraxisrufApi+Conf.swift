@@ -33,6 +33,29 @@ extension PraxisrufApi {
         }
     }
     
+    func getDisplayConfiguration(clientId: String, completion: @escaping (Result<Configuration, PraxisrufApiError>) -> Void) {
+        get("/configurations/types?clientId=\(clientId)") { request in
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                guard let httpResponse = response as? HTTPURLResponse,(200...299).contains(httpResponse.statusCode) else {
+                    completion(.failure(.custom(errorMessage: "Error Response received")))
+                    return
+                }
+
+                guard let responsData = data else {
+                     return
+                 }
+                print("here")
+                
+                guard let clients = try? JSONDecoder().decode(Configuration.self, from: responsData) else {
+                    completion(.failure(.custom(errorMessage: "Invalid Data")))
+                    return
+                }
+
+                completion(.success(clients))
+            }.resume()
+        }
+    }
+    
     func getRelevantNotificationTypes(clientId: String, completion: @escaping (Result<[NotificationType], PraxisrufApiError>) -> Void) {
         get("/notificationtypes/search?clientId=\(clientId)") { request in
             URLSession.shared.dataTask(with: request) { data, response, error in
