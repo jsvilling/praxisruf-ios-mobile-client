@@ -14,16 +14,15 @@ class SettingsViewModel : ObservableObject {
     @Published var isSpeechSynthEnabled: Bool = true
     @Published var isIncomingCallsEnabled: Bool = true
     
-    @Published var userName = "unbekannt"
-    @Published var clientName = "unbekannt"
+    @Published var userName = ""
+    @Published var clientName = ""
     
     func load() {
         isSpeechSynthEnabled = UserDefaults.standard.bool(forKey: UserDefaultKeys.isTextToSpeech)
         isIncomingCallsEnabled = UserDefaults.standard.bool(forKey: UserDefaultKeys.isCallsEnabled)
         
-        userName = KeychainWrapper.standard.string(forKey: UserDefaultKeys.userName) ?? "unbekannt"
-        clientName = UserDefaults.standard.string(forKey: UserDefaultKeys.clientName) ?? "unbekannt"
-        
+        userName = KeychainWrapper.standard.string(forKey: UserDefaultKeys.userName) ?? ""
+        clientName = UserDefaults.standard.string(forKey: UserDefaultKeys.clientName) ?? ""
     }
     
     func save() {

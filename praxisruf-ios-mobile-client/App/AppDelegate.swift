@@ -118,7 +118,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         completionHandler([[.banner, .badge, .sound]])
         Inbox.shared.receiveNofication(title: title, body: body, sender: sender)
-        if (isTextToSpeech == "true") {
+        if (isTextToSpeech == "true" && UserDefaults.standard.bool(forKey: UserDefaultKeys.isTextToSpeech)) {
           SpeechSynthesisService().synthesize(notificationType: notificationType, version: version)
         }
   }
