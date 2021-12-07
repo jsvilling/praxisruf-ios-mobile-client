@@ -10,7 +10,9 @@ import AVFAudio
 
 class SpeechSynthesisService {
     
-    func synthesize(notificationType: String, version: String) {
+    func synthesize(_ notification: ReceiveNotification) {
+        let notificationType = notification.notificationType
+        let version = notification.version
         let fileManager = FileManager.default
         let cacheUrl = fileManager.urls(for: .cachesDirectory, in: .userDomainMask)[0]
         let destinationUrl = cacheUrl.appendingPathExtension("\(notificationType)-\(version)")

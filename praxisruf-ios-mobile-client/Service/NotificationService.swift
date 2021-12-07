@@ -47,4 +47,11 @@ class NotificationService: ObservableObject {
             }
         }
     }
+    
+    func receiveNotification(notification: ReceiveNotification) {
+        Inbox.shared.receive(notification)
+        if (notification.isTextToSpeech == "true" && UserDefaults.standard.bool(forKey: UserDefaultKeys.isTextToSpeech)) {
+            SpeechSynthesisService().synthesize(notification)
+        }
+    }
 }

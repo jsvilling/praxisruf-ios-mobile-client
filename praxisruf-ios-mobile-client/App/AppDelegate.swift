@@ -117,10 +117,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         }
         
         completionHandler([[.banner, .badge, .sound]])
-        Inbox.shared.receiveNofication(title: title, body: body, sender: sender)
-        if (isTextToSpeech == "true" && UserDefaults.standard.bool(forKey: UserDefaultKeys.isTextToSpeech)) {
-          SpeechSynthesisService().synthesize(notificationType: notificationType, version: version)
-        }
+        let notification = ReceiveNotification(notificationType: notificationType, version: version, title: title, body: body, sender: sender, isTextToSpeech: isTextToSpeech)
+        NotificationService().receiveNotification(notification: notification)
   }
 
   func userNotificationCenter(_ center: UNUserNotificationCenter,
@@ -133,7 +131,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
       }
       
     Messaging.messaging().appDidReceiveMessage(userInfo)
-    print(userInfo)
     completionHandler()
   }
     
