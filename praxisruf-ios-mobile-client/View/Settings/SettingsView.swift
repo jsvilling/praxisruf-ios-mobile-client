@@ -18,12 +18,12 @@ struct SettingsView: View {
                     HStack {
                         Text("Benutzer")
                         Spacer()
-                        Text("Habenero")
+                        Text(settingsVM.userName)
                     }
                     HStack {
                         Text("Zimmer")
                         Spacer()
-                        Text("Jalapeno")
+                        Text(settingsVM.clientName)
                     }
                     Button(action: settingsVM.logout) {
                         Text("Abmelden")

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 
 class SettingsViewModel : ObservableObject {
     
@@ -13,9 +14,16 @@ class SettingsViewModel : ObservableObject {
     @Published var isSpeechSynthEnabled: Bool = true
     @Published var isIncomingCallsEnabled: Bool = true
     
+    @Published var userName = "unbekannt"
+    @Published var clientName = "unbekannt"
+    
     func load() {
         isSpeechSynthEnabled = UserDefaults.standard.bool(forKey: UserDefaultKeys.isTextToSpeech)
         isIncomingCallsEnabled = UserDefaults.standard.bool(forKey: UserDefaultKeys.isCallsEnabled)
+        
+        userName = KeychainWrapper.standard.string(forKey: UserDefaultKeys.userName) ?? "unbekannt"
+        clientName = UserDefaults.standard.string(forKey: UserDefaultKeys.clientName) ?? "unbekannt"
+        
     }
     
     func save() {
