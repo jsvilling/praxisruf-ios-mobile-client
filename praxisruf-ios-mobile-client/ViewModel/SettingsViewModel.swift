@@ -17,6 +17,10 @@ class SettingsViewModel : ObservableObject {
     @Published var userName = ""
     @Published var clientName = ""
     
+    init() {
+        load()
+    }
+    
     func load() {
         isSpeechSynthEnabled = UserDefaults.standard.bool(forKey: UserDefaultKeys.isTextToSpeech)
         isIncomingCallsEnabled = UserDefaults.standard.bool(forKey: UserDefaultKeys.isCallsEnabled)

@@ -44,7 +44,6 @@ struct SettingsView: View {
             NavigationLink(destination: LoginView(), isActive: $settingsVM.isLoggedOut) {EmptyView()}.hidden()
         }
         .navigationBarBackButtonHidden(true)
-        .onAppear(perform: settingsVM.load)
         .onDisappear(perform: settingsVM.save)
     }    
 }
