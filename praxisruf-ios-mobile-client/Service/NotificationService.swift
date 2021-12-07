@@ -42,6 +42,7 @@ class NotificationService: ObservableObject {
                     self.notificationSendResult = notificationSendResponse
                     self.hasErrorResponse = !notificationSendResponse.allSuccess
                 }
+                print("retriy was goody")
             case .failure(let error):
                 print(error.localizedDescription)
             }
