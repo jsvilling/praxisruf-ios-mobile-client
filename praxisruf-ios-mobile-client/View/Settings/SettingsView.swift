@@ -14,25 +14,38 @@ struct SettingsView: View {
     var body: some View {
         VStack {
             List {
-                Section(header: Text("Benachrichtigungen")) {
-                    Text("Mute Text To Speech")
-                }
-                Section(header: Text("Gegensprechanalge")) {
-                    Text("Do not disturb")
-                }
-                Section(header: Text("Client")) {
-                    Text("Benutzer")
-                    Text("Angemeldet bleiben")
+                Section(header: Text("General")) {
+                    HStack {
+                        Text("Benutzer")
+                        Spacer()
+                        Text("Habenero")
+                    }
+                    HStack {
+                        Text("Zimmer")
+                        Spacer()
+                        Text("Jalapeno")
+                    }
                     Button(action: settingsVM.logout) {
                         Text("Abmelden")
                     }
-
+                }
+                Section(header: Text("Benachrichtigungen")) {
+                    Toggle(isOn: $settingsVM.isSpeechSynthEnabled) {
+                        Text("Benachrichtigungen vorlesen")
+                    }
+                }
+                Section(header: Text("Gegensprechanalge")) {
+                    Toggle(isOn: $settingsVM.isIncomingCallsEnabled) {
+                        Text("Anrufe empfangen")
+                    }
                 }
             }
             .listStyle(InsetGroupedListStyle())
             NavigationLink(destination: LoginView(), isActive: $settingsVM.isLoggedOut) {EmptyView()}.hidden()
         }
         .navigationBarBackButtonHidden(true)
+        .onAppear(perform: settingsVM.load)
+        .onDisappear(perform: settingsVM.save)
     }    
 }
 

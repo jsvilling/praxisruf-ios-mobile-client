@@ -19,4 +19,7 @@ struct UserDefaultKeys {
     static let userName: String = "userName"
     static let password: String = "password"
     
+    static let isTextToSpeech: String = "isTextToSpeech"
+    static let isCallsEnabled: String = "isCallsEnabled"
+    
 }
