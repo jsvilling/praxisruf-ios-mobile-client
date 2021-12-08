@@ -19,14 +19,14 @@ struct CallType: IntercomItem, Hashable, Codable, Identifiable {
 
 extension CallType {
     static var data = [
-        CallType(id: UUID(), displayText: "Alle Zimmer")
-        CallType(id: UUID(), displayText: "Empfang")
-        CallType(id: UUID(), displayText: "Steri")
-        CallType(id: UUID(), displayText: "Alle Zimmer")
-        CallType(id: UUID(), displayText: "Empfang")
-        CallType(id: UUID(), displayText: "Steri")
-        CallType(id: UUID(), displayText: "Alle Zimmer")
-        CallType(id: UUID(), displayText: "Empfang")
+        CallType(id: UUID(), displayText: "Alle Zimmer"),
+        CallType(id: UUID(), displayText: "Empfang"),
+        CallType(id: UUID(), displayText: "Steri"),
+        CallType(id: UUID(), displayText: "Alle Zimmer"),
+        CallType(id: UUID(), displayText: "Empfang"),
+        CallType(id: UUID(), displayText: "Steri"),
+        CallType(id: UUID(), displayText: "Alle Zimmer"),
+        CallType(id: UUID(), displayText: "Empfang"),
         CallType(id: UUID(), displayText: "Steri")
     ]
 }
