@@ -16,3 +16,17 @@ struct CallType: IntercomItem, Hashable, Codable, Identifiable {
         return n1.displayText < n2.displayText
     }
 }
+
+extension CallType {
+    static var data = [
+        CallType(id: UUID(), displayText: "Alle Zimmer")
+        CallType(id: UUID(), displayText: "Empfang")
+        CallType(id: UUID(), displayText: "Steri")
+        CallType(id: UUID(), displayText: "Alle Zimmer")
+        CallType(id: UUID(), displayText: "Empfang")
+        CallType(id: UUID(), displayText: "Steri")
+        CallType(id: UUID(), displayText: "Alle Zimmer")
+        CallType(id: UUID(), displayText: "Empfang")
+        CallType(id: UUID(), displayText: "Steri")
+    ]
+}

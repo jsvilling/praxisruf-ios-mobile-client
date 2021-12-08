@@ -13,5 +13,5 @@ struct Configuration : Hashable, Codable {
 }
 
 extension Configuration {
-    static var data = Configuration(notificationTypes: NotificationType.data, callTypes: [])
+    static var data = Configuration(notificationTypes: NotificationType.data, callTypes: CallType.data)
 }

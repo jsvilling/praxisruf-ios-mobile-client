@@ -261,7 +261,6 @@
 				CE51D038272564DC000D09C1 /* Constants */,
 				CE51D037272564C3000D09C1 /* Configuration */,
 				CE51D036272564B4000D09C1 /* Notification */,
-				CE81C5842761107100F69B74 /* Registration.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -310,6 +309,7 @@
 		CE51D037272564C3000D09C1 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				CE81C5842761107100F69B74 /* Registration.swift */,
 				CE51D02B2723DAA9000D09C1 /* IntercomItem.swift */,
 				CE53ABF2271EB28C00BAD1F1 /* Client.swift */,
 				CE53ABFC271EF9D700BAD1F1 /* NotificationType.swift */,
