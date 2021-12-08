@@ -10,6 +10,8 @@ import SwiftKeychainWrapper
 
 class PraxisrufApi {
     
+    struct Nothing : Decodable {}
+    
     enum PraxisrufApiError: Error {
         case invalidCredential
         case invalidData
@@ -27,7 +29,7 @@ class PraxisrufApi {
         request(subUrl, method: "POST", body: body, completion: completion)
     }
     
-    func delete(_ subUrl: String, completion: @escaping (Result<String, PraxisrufApiError>) -> Void) {
+    func delete<T>(_ subUrl: String, completion: @escaping (Result<T, PraxisrufApiError>) -> Void) where T : Decodable {
         request(subUrl, method: "DELETE", completion: completion)
     }
     

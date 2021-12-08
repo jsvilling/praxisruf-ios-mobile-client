@@ -27,8 +27,8 @@ class RegistrationService: ObservableObject {
         
         PraxisrufApi().register(fcmToken: fcmToken, clientId: clientId) { result in
             switch result {
-                case .success(let msg):
-                    print(msg)
+                case .success(_):
+                    print("Registration successful")
                 case .failure(let error):
                     print(error.localizedDescription)
             }
