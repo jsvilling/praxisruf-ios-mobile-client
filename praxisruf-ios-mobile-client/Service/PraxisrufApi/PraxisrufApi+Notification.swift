@@ -11,10 +11,10 @@ extension PraxisrufApi {
     
     func sendNotification(sendNotification: SendNotification, completion: @escaping (Result<NotificationSendResult, PraxisrufApiError>) -> Void) {
         let body = try? JSONEncoder().encode(sendNotification)
-        post("/notifications/send", body: body, completion: completion)
+        post("/notifications", body: body, completion: completion)
     }
     
     func retryNotification(notificationId: UUID, completion: @escaping (Result<NotificationSendResult, PraxisrufApiError>) -> Void) {
-        post("/notifications/retry?notificationId=\(notificationId.uuidString)", completion: completion)
+        post("/notifications?notificationId=\(notificationId.uuidString)", completion: completion)
     }
 }
