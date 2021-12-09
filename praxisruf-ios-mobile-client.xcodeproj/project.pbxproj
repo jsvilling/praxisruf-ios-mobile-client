@@ -59,6 +59,7 @@
 		CE94AC67275BC1D800C93410 /* CallType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC66275BC1D800C93410 /* CallType.swift */; };
 		CE94AC69275BCCB800C93410 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC68275BCCB700C93410 /* HomeViewModel.swift */; };
 		CE97F1B32723589A00B1CA0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE97F1B22723589A00B1CA0D /* AppDelegate.swift */; };
+		CEE9A2DE27620C3B006810BC /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9A2DD27620C3B006810BC /* Signal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +133,7 @@
 		CE94AC66275BC1D800C93410 /* CallType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallType.swift; sourceTree = "<group>"; };
 		CE94AC68275BCCB700C93410 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		CE97F1B22723589A00B1CA0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CEE9A2DD27620C3B006810BC /* Signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +261,7 @@
 		CE1D5CB2271C4C83007EA5AC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CEE9A2DF27620C42006810BC /* Call */,
 				CE51D0442726921A000D09C1 /* Inbox */,
 				CE51D038272564DC000D09C1 /* Constants */,
 				CE51D037272564C3000D09C1 /* Configuration */,
@@ -411,6 +414,14 @@
 				CE94AC5E275688AF00C93410 /* SplashScreen.swift */,
 			);
 			path = SplashScreen;
+			sourceTree = "<group>";
+		};
+		CEE9A2DF27620C42006810BC /* Call */ = {
+			isa = PBXGroup;
+			children = (
+				CEE9A2DD27620C3B006810BC /* Signal.swift */,
+			);
+			path = Call;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -578,6 +589,7 @@
 				CE94AC532753E08200C93410 /* SettingsViewModel.swift in Sources */,
 				CE94AC65275BC1C100C93410 /* Configuration.swift in Sources */,
 				CE81C583275F5E7600F69B74 /* ReceiveNotification.swift in Sources */,
+				CEE9A2DE27620C3B006810BC /* Signal.swift in Sources */,
 				CE53ABE9271EA84A00BAD1F1 /* LoginViewModel.swift in Sources */,
 				CE53ABDF271DA1FE00BAD1F1 /* IntercomView.swift in Sources */,
 				CE51D035272563D6000D09C1 /* PraxisrufApi+Notification.swift in Sources */,

@@ -17,21 +17,37 @@ class CallService : ObservableObject {
             fatalError()
         }
         self.webSocket = PraxisrufApi().websocket("/name?clientId=\(clientId)")
-        acceptNextCall()
+        listen()
     }
     
-    func acceptNextCall() {
-        webSocket.receive() { request in
-            print(request)
-            self.acceptNextCall()
+    func listen() {
+        webSocket.receive() { message in
+            switch(message) {
+                case .success(let content):
+                    switch(content) {
+                        case .data(let data):
+                            let signal = try? JSONDecoder().decode(Signal.self, from: data)
+                            print("Data \(signal!)")
+                        case .string(let s):
+                            print("String \(s)")
+                    }
+                    print(content)
+                    self.listen()
+                    
+                case .failure(let error):
+                    print(error)
+                }
         }
     }
     
     func startCall(id: UUID) {
         print("Starting call for \(id)")
-                
-        let textMessage = URLSessionWebSocketTask.Message.string("\(id)")
-        webSocket.send(textMessage) { error in
+        
+        let signal = Signal(sender: id.uuidString, type: "OFFER")
+        let content = try? JSONEncoder().encode(signal)
+        let message = URLSessionWebSocketTask.Message.data(content!)
+        
+        webSocket.send(message) { error in
             if (error != nil) {
                 print("Send failed")
                 print(error as Any)
