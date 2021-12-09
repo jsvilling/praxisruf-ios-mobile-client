@@ -13,13 +13,15 @@ class CallService : ObservableObject {
     let webSocket: URLSessionWebSocketTask
 
     init() {
-        self.webSocket = PraxisrufApi().websocket("/name")
+        guard let clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId) else {
+            fatalError()
+        }
+        self.webSocket = PraxisrufApi().websocket("/name?clientId=\(clientId)")
         acceptNextCall()
     }
     
     func acceptNextCall() {
         webSocket.receive() { request in
-            AudioPlayer.playSystemSound(soundID: 1006)
             print(request)
             self.acceptNextCall()
         }
