@@ -22,18 +22,18 @@ class PraxisrufApi {
     let baseUrlValue = "https://www.praxisruf.ch/api"
                 
     func get<T>(_ subUrl: String, completion: @escaping (Result<T, PraxisrufApiError>) -> Void) where T : Decodable {
-        request(subUrl, completion: completion)
+        http(subUrl, completion: completion)
     }
     
     func post<T>(_ subUrl: String, body: Data? = nil, completion: @escaping (Result<T, PraxisrufApiError>) -> Void) where T : Decodable {
-        request(subUrl, method: "POST", body: body, completion: completion)
+        http(subUrl, method: "POST", body: body, completion: completion)
     }
     
     func delete<T>(_ subUrl: String, completion: @escaping (Result<T, PraxisrufApiError>) -> Void) where T : Decodable {
-        request(subUrl, method: "DELETE", completion: completion)
+        http(subUrl, method: "DELETE", completion: completion)
     }
     
-    private func request<T>(_ subUrl: String, method: String = "GET", body: Data? = nil, completion: @escaping (Result<T, PraxisrufApiError>) -> Void) where T : Decodable {
+    private func http<T>(_ subUrl: String, method: String = "GET", body: Data? = nil, completion: @escaping (Result<T, PraxisrufApiError>) -> Void) where T : Decodable {
         let url = URL(string: "\(baseUrlValue)\(subUrl)")!
                 
         guard let authToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.authToken) else {
@@ -91,7 +91,23 @@ class PraxisrufApi {
             }
             completion(.success(audioFileLocation))
         }.resume()
+    }
+    
+    func websocket(_ subUrl: String) -> URLSessionWebSocketTask {
+        guard let authToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.authToken) else {
+            print("No authToken found")
+            fatalError()
+        }
         
+        let url = URL(string: "wss://www.praxisruf.ch\(subUrl)")!
+        
+        var request = URLRequest(url: url)
+        request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession(configuration: .default).webSocketTask(with: request)
+        task.resume()
+        
+        return task
     }
     
 }

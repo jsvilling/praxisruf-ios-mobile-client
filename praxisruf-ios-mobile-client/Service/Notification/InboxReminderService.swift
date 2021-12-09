@@ -2,7 +2,7 @@
 //  InboxReminderService.swift
 //  praxisruf-ios-mobile-client
 //
-//  Created by user on 30.11.21.
+//  Created by J. Villing on 30.11.21.
 //
 
 import Foundation

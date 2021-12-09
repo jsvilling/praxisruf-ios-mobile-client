@@ -10,34 +10,30 @@ import SwiftKeychainWrapper
 
 class CallService : ObservableObject {
     
+    let webSocket: URLSessionWebSocketTask
 
-    func startCall(id: UUID) {
-        print("Starting call for \(id)")
-                
-        guard let authToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.authToken) else {
-            
-            return
-        }
-        
-        var request = URLRequest(url: URL(string: "wss://www.praxisruf.ch/name")!)
-        request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
-        
-       
-        let task = URLSession(configuration: .default).webSocketTask(with: request)
-        task.resume()
-
-        let textMessage = URLSessionWebSocketTask.Message.string("Joshua")
-        task.send(textMessage) { error in
-            if (error != nil) {
-                print("Send failed")
-                print(error)
-            }
-        }
-        
-        task.receive() { result in
-            print(result)
+    init() {
+        self.webSocket = PraxisrufApi().websocket("/name")
+        acceptNextCall()
+    }
+    
+    func acceptNextCall() {
+        webSocket.receive() { request in
+            AudioPlayer.playSystemSound(soundID: 1006)
+            print(request)
+            self.acceptNextCall()
         }
     }
     
-    
+    func startCall(id: UUID) {
+        print("Starting call for \(id)")
+                
+        let textMessage = URLSessionWebSocketTask.Message.string("\(id)")
+        webSocket.send(textMessage) { error in
+            if (error != nil) {
+                print("Send failed")
+                print(error as Any)
+            }
+        }
+    }
 }
