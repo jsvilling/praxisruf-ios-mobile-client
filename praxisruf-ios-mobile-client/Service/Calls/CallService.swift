@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftKeychainWrapper
 
 class CallService : ObservableObject {
     
@@ -21,26 +20,8 @@ class CallService : ObservableObject {
     
     func listen() {
         webSocket.receive() { message in
-            switch(message) {
-                case .success(let content):
-                    switch(content) {
-                        case .data(let data):
-                            let signal = try? JSONDecoder().decode(Signal.self, from: data)
-                            if (signal!.type == "OFFER") {
-                                print("Received offer")
-                                self.acceptCall()
-                            } else {
-                                print("Received answer")
-                            }
-                        case .string(let s):
-                            print("String \(s)")
-                    }
-                    print(content)
-                    self.listen()
-                    
-                case .failure(let error):
-                    print(error)
-                }
+            print(message)
+            self.listen()
         }
     }
     
@@ -49,7 +30,7 @@ class CallService : ObservableObject {
         
         let signal = Signal(sender: clientId, type: "OFFER")
         let content = try? JSONEncoder().encode(signal)
-        let message = URLSessionWebSocketTask.Message.data(content!)
+        let message = URLSessionWebSocketTask.Message.string(String(data: content!, encoding: .utf8)!)
         
         webSocket.send(message) { error in
             if (error != nil) {
@@ -62,7 +43,7 @@ class CallService : ObservableObject {
     func acceptCall() {
         let signal = Signal(sender: clientId, type: "ANSWER")
         let content = try? JSONEncoder().encode(signal)
-        let message = URLSessionWebSocketTask.Message.data(content!)
+        let message = URLSessionWebSocketTask.Message.string(String(data: content!, encoding: .utf8)!)
         
         webSocket.send(message) { error in
             if (error != nil) {

@@ -99,7 +99,7 @@ class PraxisrufApi {
             fatalError()
         }
         
-        let url = URL(string: "wss://www.praxisruf.ch\(subUrl)")!
+        let url = URL(string: "wss://www.praxisruf.ch/name?clientId=123")!
         
         var request = URLRequest(url: url)
         request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
