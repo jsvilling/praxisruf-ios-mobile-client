@@ -10,12 +10,11 @@ import SwiftKeychainWrapper
 
 class CallService : ObservableObject {
     
+    let clientId: String
     let webSocket: URLSessionWebSocketTask
 
     init() {
-        guard let clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId) else {
-            fatalError()
-        }
+        self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId)!
         self.webSocket = PraxisrufApi().websocket("/name?clientId=\(clientId)")
         listen()
     }
@@ -27,7 +26,12 @@ class CallService : ObservableObject {
                     switch(content) {
                         case .data(let data):
                             let signal = try? JSONDecoder().decode(Signal.self, from: data)
-                            print("Data \(signal!)")
+                            if (signal!.type == "OFFER") {
+                                print("Received offer")
+                                self.acceptCall()
+                            } else {
+                                print("Received answer")
+                            }
                         case .string(let s):
                             print("String \(s)")
                     }
@@ -43,7 +47,20 @@ class CallService : ObservableObject {
     func startCall(id: UUID) {
         print("Starting call for \(id)")
         
-        let signal = Signal(sender: id.uuidString, type: "OFFER")
+        let signal = Signal(sender: clientId, type: "OFFER")
+        let content = try? JSONEncoder().encode(signal)
+        let message = URLSessionWebSocketTask.Message.data(content!)
+        
+        webSocket.send(message) { error in
+            if (error != nil) {
+                print("Send failed")
+                print(error as Any)
+            }
+        }
+    }
+    
+    func acceptCall() {
+        let signal = Signal(sender: clientId, type: "ANSWER")
         let content = try? JSONEncoder().encode(signal)
         let message = URLSessionWebSocketTask.Message.data(content!)
         
