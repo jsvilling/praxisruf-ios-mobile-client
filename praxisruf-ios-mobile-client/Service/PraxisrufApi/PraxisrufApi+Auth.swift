@@ -10,15 +10,9 @@ import Foundation
 extension PraxisrufApi {
     
     func login(username: String, password: String, completion: @escaping (Result<String, PraxisrufApiError>) -> Void) {
-        guard let url = URL(string: "\(baseUrlValue)/users/login") else {
-            completion(.failure(.custom(errorMessage: "Invalid url configuration")))
-            return
-        }
-
+        let url = URL(string: "\(baseUrlValue)/users/login")!
         let loginString = "\(username):\(password)"
-        guard let loginData = loginString.data(using: String.Encoding.utf8) else {
-            return
-        }
+        let loginData = loginString.data(using: String.Encoding.utf8)!
         let base64LoginString = loginData.base64EncodedString()
         
         var request = URLRequest(url: url)

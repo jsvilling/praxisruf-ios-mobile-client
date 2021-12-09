@@ -24,6 +24,7 @@
 		CE1D5CA3271C4AAB007EA5AC /* praxisruf_ios_mobile_clientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5CA2271C4AAB007EA5AC /* praxisruf_ios_mobile_clientUITests.swift */; };
 		CE1D5CA5271C4AAB007EA5AC /* praxisruf_ios_mobile_clientUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5CA4271C4AAB007EA5AC /* praxisruf_ios_mobile_clientUITestsLaunchTests.swift */; };
 		CE1D5CB5271C4E88007EA5AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1D5CB4271C4E88007EA5AC /* Localizable.strings */; };
+		CE413BC82761156F009F2B3F /* CallService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE413BC72761156F009F2B3F /* CallService.swift */; };
 		CE51D02C2723DAA9000D09C1 /* IntercomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D02B2723DAA9000D09C1 /* IntercomItem.swift */; };
 		CE51D02E272540ED000D09C1 /* PraxisrufApi+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D02D272540ED000D09C1 /* PraxisrufApi+Registration.swift */; };
 		CE51D0302725431B000D09C1 /* RegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D02F2725431B000D09C1 /* RegistrationService.swift */; };
@@ -97,6 +98,7 @@
 		CE1D5CA2271C4AAB007EA5AC /* praxisruf_ios_mobile_clientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = praxisruf_ios_mobile_clientUITests.swift; sourceTree = "<group>"; };
 		CE1D5CA4271C4AAB007EA5AC /* praxisruf_ios_mobile_clientUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = praxisruf_ios_mobile_clientUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		CE1D5CB4271C4E88007EA5AC /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		CE413BC72761156F009F2B3F /* CallService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallService.swift; sourceTree = "<group>"; };
 		CE51D02B2723DAA9000D09C1 /* IntercomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomItem.swift; sourceTree = "<group>"; };
 		CE51D02D272540ED000D09C1 /* PraxisrufApi+Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PraxisrufApi+Registration.swift"; sourceTree = "<group>"; };
 		CE51D02F2725431B000D09C1 /* RegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationService.swift; sourceTree = "<group>"; };
@@ -283,6 +285,26 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		CE413BC9276115BD009F2B3F /* Calls */ = {
+			isa = PBXGroup;
+			children = (
+				CE413BC72761156F009F2B3F /* CallService.swift */,
+			);
+			path = Calls;
+			sourceTree = "<group>";
+		};
+		CE413BCA276115CC009F2B3F /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				CE01406127317EF600B71AB7 /* AudioPlayer.swift */,
+				CE94AC5827566B6900C93410 /* InboxReminderService.swift */,
+				CE53ABFE271EFAFC00BAD1F1 /* NotificationService.swift */,
+				CE51D02F2725431B000D09C1 /* RegistrationService.swift */,
+				CE01405F27317ACF00B71AB7 /* SpeechSynthesisService.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
 		CE51D03127254369000D09C1 /* PraxisrufApi */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,12 +387,9 @@
 		CE53ABE6271EA76B00BAD1F1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				CE413BCA276115CC009F2B3F /* Notification */,
+				CE413BC9276115BD009F2B3F /* Calls */,
 				CE51D03127254369000D09C1 /* PraxisrufApi */,
-				CE51D02F2725431B000D09C1 /* RegistrationService.swift */,
-				CE01405F27317ACF00B71AB7 /* SpeechSynthesisService.swift */,
-				CE01406127317EF600B71AB7 /* AudioPlayer.swift */,
-				CE94AC5827566B6900C93410 /* InboxReminderService.swift */,
-				CE53ABFE271EFAFC00BAD1F1 /* NotificationService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -565,6 +584,7 @@
 				CE53ABE3271DA56300BAD1F1 /* PraxisrufApi.swift in Sources */,
 				CE0140532726E39500B71AB7 /* IntercomButton.swift in Sources */,
 				CE53ABFF271EFAFC00BAD1F1 /* NotificationService.swift in Sources */,
+				CE413BC82761156F009F2B3F /* CallService.swift in Sources */,
 				CE53ABF3271EB28C00BAD1F1 /* Client.swift in Sources */,
 				CE01406227317EF600B71AB7 /* AudioPlayer.swift in Sources */,
 				CE51D03C27259194000D09C1 /* HomeView.swift in Sources */,

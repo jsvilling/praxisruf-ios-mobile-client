@@ -34,10 +34,7 @@ class PraxisrufApi {
     }
     
     private func request<T>(_ subUrl: String, method: String = "GET", body: Data? = nil, completion: @escaping (Result<T, PraxisrufApiError>) -> Void) where T : Decodable {
-        guard let url = URL(string: "\(baseUrlValue)\(subUrl)") else {
-            completion(.failure(.invalidData))
-            return
-        }
+        let url = URL(string: "\(baseUrlValue)\(subUrl)")!
                 
         guard let authToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.authToken) else {
             completion(.failure(.invalidCredential))

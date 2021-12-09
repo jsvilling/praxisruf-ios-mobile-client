@@ -12,11 +12,12 @@ struct IntercomView: View {
     
     @Binding var configuration: Configuration
     @StateObject var notificationService = NotificationService()
+    @StateObject var callService = CallService()
 
     var body: some View {
         VStack {
             Section(header: Text("intercom").font(.title2)) {
-                ButtonGridView(entries: $configuration.callTypes, action: startCall)
+                ButtonGridView(entries: $configuration.callTypes, action: callService.startCall)
             }
             
             Section(header: Text("notifications").font(.title2)) {
@@ -25,10 +26,6 @@ struct IntercomView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-    }
-        
-    func startCall(id: UUID) {
-        print("Starting call for: \(id)")
     }
 }
 
