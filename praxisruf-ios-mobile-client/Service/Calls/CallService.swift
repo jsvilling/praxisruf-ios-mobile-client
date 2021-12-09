@@ -20,7 +20,31 @@ class CallService : ObservableObject {
     
     func listen() {
         webSocket.receive() { message in
-            print(message)
+            
+            switch(message) {
+                case .success(let content):
+                    print("Success")
+                    switch(content) {
+                        case .data(let data):
+                            print("Data")
+                            print(data)
+                        case .string(let string):
+                            let signal = try? JSONDecoder().decode(Signal.self, from: string.data(using: .utf8)!)
+                                
+                            if (signal!.type == "OFFER") {
+                                print("Received offer")
+                                self.acceptCall()
+                            } else {
+                                print("Call Accepted")
+                            }
+                    }
+                case .failure(let error):
+                    print("Error")
+                    print(error)
+            }
+            
+            
+            //print(message)
             self.listen()
         }
     }
