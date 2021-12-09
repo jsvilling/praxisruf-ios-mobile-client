@@ -13,8 +13,21 @@ class CallService : ObservableObject {
 
     func startCall(id: UUID) {
         print("Starting call for \(id)")
-        
+                
+        let task = URLSession(configuration: .default).webSocketTask(with: URL(string: "wss://www.praxisruf.ch/name")!)
+        task.resume()
 
+        let textMessage = URLSessionWebSocketTask.Message.string("Joshua")
+        task.send(textMessage) { error in
+            if (error != nil) {
+                print("Send failed")
+                print(error)
+            }
+        }
+        
+        task.receive() { result in
+            print(result)
+        }
     }
     
     
