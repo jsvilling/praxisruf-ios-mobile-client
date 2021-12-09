@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import WebRTC
+import SwiftKeychainWrapper
 
 class CallService : ObservableObject {
     
@@ -14,7 +14,16 @@ class CallService : ObservableObject {
     func startCall(id: UUID) {
         print("Starting call for \(id)")
                 
-        let task = URLSession(configuration: .default).webSocketTask(with: URL(string: "wss://www.praxisruf.ch/name")!)
+        guard let authToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.authToken) else {
+            
+            return
+        }
+        
+        var request = URLRequest(url: URL(string: "wss://www.praxisruf.ch/name")!)
+        request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        
+       
+        let task = URLSession(configuration: .default).webSocketTask(with: request)
         task.resume()
 
         let textMessage = URLSessionWebSocketTask.Message.string("Joshua")
