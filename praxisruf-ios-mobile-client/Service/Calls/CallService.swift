@@ -17,7 +17,9 @@ class CallService : NSObject, ObservableObject {
     private let mediaConstrains = [kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueTrue,
                                    kRTCMediaConstraintsOfferToReceiveVideo: kRTCMediaConstraintsValueTrue]
     private var peerConnection: RTCPeerConnection
-
+    private let rtcAudioSession =  RTCAudioSession.sharedInstance()
+    private let factory: RTCPeerConnectionFactory
+    
     override required init() {
         self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId)!
         self.webSocket = PraxisrufApi().websocket("/name?clientId=\(clientId)")
@@ -32,15 +34,47 @@ class CallService : NSObject, ObservableObject {
         RTCInitializeSSL()
         let videoEncoderFactory = RTCDefaultVideoEncoderFactory()
         let videoDecoderFactory = RTCDefaultVideoDecoderFactory()
+        self.factory = RTCPeerConnectionFactory(encoderFactory: videoEncoderFactory, decoderFactory: videoDecoderFactory)
         
-        guard let peerConnection = RTCPeerConnectionFactory(encoderFactory: videoEncoderFactory, decoderFactory: videoDecoderFactory).peerConnection(with: config, constraints: constraints, delegate: nil)
+        guard let peerConnection = factory.peerConnection(with: config, constraints: constraints, delegate: nil)
         else {
             fatalError("Could not create new RTCPeerConnection")
         }
-        peerConnection.delegate = self
+        
         self.peerConnection = peerConnection
         
+        super.init()
+        
+        self.createMediaSenders()
+        self.configureAudioSession()
+        peerConnection.delegate = self
         listen()
+    }
+    
+    private func configureAudioSession() {
+        self.rtcAudioSession.lockForConfiguration()
+        do {
+            try self.rtcAudioSession.setCategory(AVAudioSession.Category.playAndRecord.rawValue)
+            try self.rtcAudioSession.setMode(AVAudioSession.Mode.voiceChat.rawValue)
+        } catch let error {
+            debugPrint("Error changeing AVAudioSession category: \(error)")
+        }
+        self.rtcAudioSession.unlockForConfiguration()
+    }
+    
+    private func createMediaSenders() {
+        let streamId = "stream"
+        
+        // Audio
+        let audioTrack = self.createAudioTrack()
+        self.peerConnection.add(audioTrack, streamIds: [streamId])
+    }
+    
+    private func createAudioTrack() -> RTCAudioTrack {
+        let audioConstrains = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: nil)
+        let audioSource = self.factory.audioSource(with: audioConstrains)
+        let audioTrack = self.factory.audioTrack(with: audioSource, trackId: "audio0")
+        return audioTrack
     }
     
     func listen() {
@@ -175,7 +209,21 @@ extension CallService : RTCPeerConnectionDelegate {
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didGenerate candidate: RTCIceCandidate) {
-        //TODO: Set discovered local candidate
+        
+        let iceCandidate = IceCandidate(from: candidate)
+        let payloadData = try? JSONEncoder().encode(iceCandidate)
+        let payloadString = String(data: payloadData!, encoding: .utf8)
+        
+        let signal = Signal(sender: self.clientId, type: "ICE_CANDIDATE", payload: payloadString!)
+        let content = try? JSONEncoder().encode(signal)
+        let message = URLSessionWebSocketTask.Message.string(String(data: content!, encoding: .utf8)!)
+        
+        self.webSocket.send(message) { error in
+            if (error != nil) {
+                print("Send failed")
+                print(error as Any)
+            }
+        }
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didRemove candidates: [RTCIceCandidate]) {
@@ -184,7 +232,6 @@ extension CallService : RTCPeerConnectionDelegate {
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didOpen dataChannel: RTCDataChannel) {
         debugPrint("peerConnection did open data channel")
-        // TODO: Set Remote data channel
     }
 }
 
@@ -224,5 +271,21 @@ struct SessionDescription: Codable {
     
     var rtcSessionDescription: RTCSessionDescription {
         return RTCSessionDescription(type: self.type.rtcSdpType, sdp: self.sdp)
+    }
+}
+
+struct IceCandidate: Codable {
+    let sdp: String
+    let sdpMLineIndex: Int32
+    let sdpMid: String?
+    
+    init(from iceCandidate: RTCIceCandidate) {
+        self.sdpMLineIndex = iceCandidate.sdpMLineIndex
+        self.sdpMid = iceCandidate.sdpMid
+        self.sdp = iceCandidate.sdp
+    }
+    
+    var rtcIceCandidate: RTCIceCandidate {
+        return RTCIceCandidate(sdp: self.sdp, sdpMLineIndex: self.sdpMLineIndex, sdpMid: self.sdpMid)
     }
 }
