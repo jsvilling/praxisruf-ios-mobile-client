@@ -10,4 +10,5 @@ import Foundation
 struct Signal : Codable {
     let sender: String
     let type: String
+    let payload: String
 }
