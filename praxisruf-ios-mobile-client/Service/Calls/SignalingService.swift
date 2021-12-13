@@ -43,7 +43,9 @@ class SignalingService : SignalingDelegate {
         let content = try? JSONEncoder().encode(signal)
         let message = URLSessionWebSocketTask.Message.string(String(data: content!, encoding: .utf8)!)
         self.webSocket.send(message) { error in
-            print("Error sending message")
+            if (error != nil) {
+                print("Error sending message")
+            }
         }
     }
 }
