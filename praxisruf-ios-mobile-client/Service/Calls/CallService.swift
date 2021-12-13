@@ -8,7 +8,7 @@
 import Foundation
 import WebRTC
 
-class CallService : ObservableObject {
+class CallService : NSObject, ObservableObject {
     
     let clientId: String
     let webSocket: URLSessionWebSocketTask
@@ -16,12 +16,30 @@ class CallService : ObservableObject {
     // WebRTC
     private let mediaConstrains = [kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueTrue,
                                    kRTCMediaConstraintsOfferToReceiveVideo: kRTCMediaConstraintsValueTrue]
-    
-    private var peerConnection: RTCPeerConnection?
+    private var peerConnection: RTCPeerConnection
 
-    init() {
+    override required init() {
         self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId)!
         self.webSocket = PraxisrufApi().websocket("/name?clientId=\(clientId)")
+        
+        let config = RTCConfiguration()
+        //config.iceServers = [RTCIceServer(urlStrings: iceServers)]
+        config.sdpSemantics = .unifiedPlan
+        config.continualGatheringPolicy = .gatherContinually
+        let constraints = RTCMediaConstraints(mandatoryConstraints: nil,
+                                              optionalConstraints: ["DtlsSrtpKeyAgreement":kRTCMediaConstraintsValueTrue])
+       
+        RTCInitializeSSL()
+        let videoEncoderFactory = RTCDefaultVideoEncoderFactory()
+        let videoDecoderFactory = RTCDefaultVideoDecoderFactory()
+        
+        guard let peerConnection = RTCPeerConnectionFactory(encoderFactory: videoEncoderFactory, decoderFactory: videoDecoderFactory).peerConnection(with: config, constraints: constraints, delegate: nil)
+        else {
+            fatalError("Could not create new RTCPeerConnection")
+        }
+        peerConnection.delegate = self
+        self.peerConnection = peerConnection
+        
         listen()
     }
     
@@ -40,7 +58,7 @@ class CallService : ObservableObject {
                                 
                             if (signal!.type == "OFFER") {
                                 print("Received offer")
-                                self.acceptCall()
+                                self.acceptCall(singal: signal!)
                             } else {
                                 print("Call Accepted")
                             }
@@ -56,32 +74,16 @@ class CallService : ObservableObject {
     
     func startCall(id: UUID) {
         print("Starting call for \(id)")
+
+        let constrains = RTCMediaConstraints(mandatoryConstraints: self.mediaConstrains,
+                                             optionalConstraints: nil)
         
-        let config = RTCConfiguration()
-        //config.iceServers = [RTCIceServer(urlStrings: iceServers)]
-        config.sdpSemantics = .unifiedPlan
-        config.continualGatheringPolicy = .gatherContinually
-        
-        let c = RTCMediaConstraints(mandatoryConstraints: self.mediaConstrains,
-                                              optionalConstraints: ["DtlsSrtpKeyAgreement":kRTCMediaConstraintsValueTrue])
-        
-        
-        RTCInitializeSSL()
-        let videoEncoderFactory = RTCDefaultVideoEncoderFactory()
-        let videoDecoderFactory = RTCDefaultVideoDecoderFactory()
-        guard let peerConnection: RTCPeerConnection? = RTCPeerConnectionFactory(encoderFactory: videoEncoderFactory, decoderFactory: videoDecoderFactory).peerConnection(with: config, constraints: c, delegate: nil)
-        else {
-            print("Error initializing rtc connection")
-            return
-        }
-        self.peerConnection = peerConnection
-        
-        self.peerConnection?.offer(for: c) { (sdp, error) in
+        self.peerConnection.offer(for: constrains) { (sdp, error) in
             guard let sdp = sdp else {
                 print("No sdp")
                 return
             }
-            self.peerConnection?.setLocalDescription(sdp) { error in
+            self.peerConnection.setLocalDescription(sdp) { error in
                 let sdpWrapper = SessionDescription(from: sdp)
                 let payloadData = try? JSONEncoder().encode(sdpWrapper)
                 let payloadString = String(data: payloadData!, encoding: .utf8)
@@ -103,17 +105,86 @@ class CallService : ObservableObject {
         }
     }
     
-    func acceptCall() {
-        let signal = Signal(sender: clientId, type: "ANSWER", payload: "")
-        let content = try? JSONEncoder().encode(signal)
-        let message = URLSessionWebSocketTask.Message.string(String(data: content!, encoding: .utf8)!)
+    func acceptCall(singal: Signal) {
+        let constrains = RTCMediaConstraints(mandatoryConstraints: self.mediaConstrains,
+                                             optionalConstraints: nil)
         
-        webSocket.send(message) { error in
-            if (error != nil) {
-                print("Send failed")
-                print(error as Any)
-            }
+        let sdpWrapper = try? JSONDecoder().decode(SessionDescription.self, from: singal.payload.data(using: .utf8)!)
+        
+        self.peerConnection.setRemoteDescription(sdpWrapper!.rtcSessionDescription) { error in
+            print("Error setting remote SDP")
         }
+        
+        self.peerConnection.answer(for: constrains) { (sdp, error) in
+            guard let sdp = sdp else {
+                return
+            }
+            
+            self.peerConnection.setLocalDescription(sdp, completionHandler: { (error) in
+                print("Answer failed")
+            })
+        
+            let sdpWrapper = SessionDescription(from: sdp)
+            let payloadData = try? JSONEncoder().encode(sdpWrapper)
+            let payloadString = String(data: payloadData!, encoding: .utf8)
+            let signal = Signal(sender: self.clientId, type: "ANSWER", payload: payloadString!)
+            let content = try? JSONEncoder().encode(signal)
+            let message = URLSessionWebSocketTask.Message.string(String(data: content!, encoding: .utf8)!)
+            
+            print(String(data: content!, encoding: .utf8)!)
+            
+            self.webSocket.send(message) { error in
+                if (error != nil) {
+                    print("Send failed")
+                    print(error as Any)
+                }
+            }
+            
+            print("Answer Sent")
+        }
+        
+    }
+}
+
+
+extension CallService : RTCPeerConnectionDelegate {
+    
+    func peerConnection(_ peerConnection: RTCPeerConnection, didChange stateChanged: RTCSignalingState) {
+        print("peerConnection new signaling state: \(stateChanged)")
+    }
+    
+    func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {
+        print("peerConnection did add stream")
+    }
+    
+    func peerConnection(_ peerConnection: RTCPeerConnection, didRemove stream: RTCMediaStream) {
+        print("peerConnection did remove stream")
+    }
+    
+    func peerConnectionShouldNegotiate(_ peerConnection: RTCPeerConnection) {
+        print("peerConnection should negotiate")
+    }
+    
+    func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceConnectionState) {
+        print("peerConnection new connection state: \(newState)")
+        // TODO: Update connection state
+    }
+    
+    func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceGatheringState) {
+        print("peerConnection new gathering state: \(newState)")
+    }
+    
+    func peerConnection(_ peerConnection: RTCPeerConnection, didGenerate candidate: RTCIceCandidate) {
+        //TODO: Set discovered local candidate
+    }
+    
+    func peerConnection(_ peerConnection: RTCPeerConnection, didRemove candidates: [RTCIceCandidate]) {
+        debugPrint("peerConnection did remove candidate(s)")
+    }
+    
+    func peerConnection(_ peerConnection: RTCPeerConnection, didOpen dataChannel: RTCDataChannel) {
+        debugPrint("peerConnection did open data channel")
+        // TODO: Set Remote data channel
     }
 }
 
