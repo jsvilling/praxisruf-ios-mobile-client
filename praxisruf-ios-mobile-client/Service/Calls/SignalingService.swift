@@ -47,5 +47,6 @@ class SignalingService : SignalingDelegate {
                 print("Error sending message")
             }
         }
+        print("Sent Signal with type \(signal.type)")
     }
 }
