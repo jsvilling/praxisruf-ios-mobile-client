@@ -15,7 +15,7 @@ class CallService : ObservableObject {
     let signalingService: SignalingService
     
     init() {
-        self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId)!
+        self.clientId = UserDefaults.standard§.string(forKey: UserDefaultKeys.clientId)!
         self.signalingService = SignalingService()
         self.callClient = WebRTCClient(signalingDelegate: self.signalingService)
         self.signalingService.listen(completion: receive)
@@ -28,10 +28,6 @@ class CallService : ObservableObject {
     
     func receive(_ signal: Signal) {
         print("Received Signal with type \(signal.type)")
-        
-        if (signal.type == "OFFER") {
-            callClient.accept(signal: signal)
-        }
-        
+        callClient.accept(signal: signal)
     }
 }

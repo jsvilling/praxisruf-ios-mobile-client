@@ -30,12 +30,15 @@ class WebRTCClient : NSObject, CallClient {
     private let rtcAudioSession =  RTCAudioSession.sharedInstance()
     private let factory: RTCPeerConnectionFactory
     
-    
     required init(signalingDelegate: SignalingDelegate) {
         self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId)!
         
         let config = RTCConfiguration()
-        //config.iceServers = [RTCIceServer(urlStrings: iceServers)]
+        config.iceServers = [RTCIceServer(urlStrings:  ["stun:stun.l.google.com:19302",
+                                                        "stun:stun1.l.google.com:19302",
+                                                        "stun:stun2.l.google.com:19302",
+                                                        "stun:stun3.l.google.com:19302",
+                                                        "stun:stun4.l.google.com:19302"])]
         config.sdpSemantics = .unifiedPlan
         config.continualGatheringPolicy = .gatherContinually
         let constraints = RTCMediaConstraints(mandatoryConstraints: nil,
@@ -136,12 +139,27 @@ class WebRTCClient : NSObject, CallClient {
             self.signalingDelegate.send(answer)
         }
     }
+    
+    private func acceptOffer(signal: Signal) {
+        print("Accepting Offer")
+    }
+    
+    private func acceptAnswer(signal: Signal) {
+        print("Accepting Answer")
+    }
+    
+    private func acceptIceCandidate(signal: Signal) {
+        print("Accepting IceCandidate")
+    }
+    
+
+    
 }
 
 extension WebRTCClient : RTCPeerConnectionDelegate {
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange stateChanged: RTCSignalingState) {
-        print("peerConnection new signaling state: \(stateChanged)")
+        print("peerConnection new signaling state: \(self.peerConnection.signalingState)")
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {
@@ -170,7 +188,7 @@ extension WebRTCClient : RTCPeerConnectionDelegate {
         let payloadData = try? JSONEncoder().encode(iceCandidate)
         let payloadString = String(data: payloadData!, encoding: .utf8)
         let signal = Signal(sender: self.clientId, type: "ICE_CANDIDATE", payload: payloadString!)
-        //self.signalingDelegate.send(signal)
+        self.signalingDelegate.send(signal)
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didRemove candidates: [RTCIceCandidate]) {

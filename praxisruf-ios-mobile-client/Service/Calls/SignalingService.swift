@@ -26,6 +26,7 @@ class SignalingService : SignalingDelegate {
                     switch(content) {
                         case .string(let string):
                             let signal = try? JSONDecoder().decode(Signal.self, from: string.data(using: .utf8)!)
+                            print("Received Signal with type \(signal!.type)")
                             completion(signal!)
                         default:
                             fatalError("Invalid Signal received")
