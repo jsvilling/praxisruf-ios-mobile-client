@@ -110,40 +110,30 @@ class WebRTCClient : NSObject, CallClient {
     
     func accept(signal: Signal) {
         if (signal.type == "OFFER") {
-            acceptOffer(signal: signal)
+            setRemoteSdp(signal: signal)
+            answer()
         } else if (signal.type == "ANSWER") {
-            acceptAnswer(signal: signal)
+            setRemoteSdp(signal: signal)
         } else if (signal.type == "ICE_CANDIDATE") {
-            acceptIceCandidate(signal: signal)
+            addIceCandidate(signal: signal)
         } else {
             print("Unknown Signal Type \(signal.type)")
         }
     }
     
-    private func acceptOffer(signal: Signal) {
-        print("Accepting Offer")
-        let constrains = RTCMediaConstraints(mandatoryConstraints: self.mediaConstrains,
-                                             optionalConstraints: nil)
-        
+    private func setRemoteSdp(signal: Signal) {
         let sdpWrapper = try? JSONDecoder().decode(SessionDescription.self, from: signal.payload.data(using: .utf8)!)
-        
-        self.peerConnection.setRemoteDescription(sdpWrapper!.rtcSessionDescription) { error in
-            if (error != nil) {
-                print("Error setting remote SDP")
-                print(error)
-            }
-        }
-        
+        self.peerConnection.setRemoteDescription(sdpWrapper!.rtcSessionDescription, completionHandler: self.printError)
+    }
+    
+    private func answer() {
+        let constrains = RTCMediaConstraints(mandatoryConstraints: self.mediaConstrains, optionalConstraints: nil)
         self.peerConnection.answer(for: constrains) { (sdp, error) in
             guard let sdp = sdp else {
                 return
             }
             
-            self.peerConnection.setLocalDescription(sdp, completionHandler: { (error) in
-                if (error != nil) {
-                    print("Answer failed")
-                }
-            })
+            self.peerConnection.setLocalDescription(sdp, completionHandler: self.printError)
         
             let sdpWrapper = SessionDescription(from: sdp)
             let payloadData = try? JSONEncoder().encode(sdpWrapper)
@@ -153,27 +143,17 @@ class WebRTCClient : NSObject, CallClient {
         }
     }
     
-    private func acceptAnswer(signal: Signal) {
-        print("Accepting Answer")
-        let constrains = RTCMediaConstraints(mandatoryConstraints: self.mediaConstrains,
-                                             optionalConstraints: nil)
-        
-        let sdpWrapper = try? JSONDecoder().decode(SessionDescription.self, from: signal.payload.data(using: .utf8)!)
-        
-        self.peerConnection.setRemoteDescription(sdpWrapper!.rtcSessionDescription) { error in
-            if (error != nil) {
-                print("Error setting remote SDP")
-                print(error)
-            }
+    private func addIceCandidate(signal: Signal) {
+        let iceWrapper = try? JSONDecoder().decode(IceCandidate.self, from: signal.payload.data(using: .utf8)!)
+        self.peerConnection.add(iceWrapper!.rtcIceCandidate, completionHandler: self.printError)
+    }
+    
+    private func printError(error: Error?) {
+        if (error != nil) {
+            print("Error in CallClient")
+            print(error!)
         }
-    }
-    
-    private func acceptIceCandidate(signal: Signal) {
-        print("Accepting IceCandidate")
-    }
-    
-
-    
+    }    
 }
 
 extension WebRTCClient : RTCPeerConnectionDelegate {
