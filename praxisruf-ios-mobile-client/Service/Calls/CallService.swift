@@ -10,9 +10,10 @@ import WebRTC
 
 class CallService : ObservableObject {
     
-    let clientId: String
-    let callClient: CallClient
-    let signalingService: SignalingService
+    private var connected: Bool = false
+    private let clientId: String
+    private let callClient: CallClient
+    private let signalingService: SignalingService
     
     init() {
         self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId)!
@@ -21,13 +22,20 @@ class CallService : ObservableObject {
         self.signalingService.listen(completion: receive)
     }
     
-    func startCall(id: UUID) {
-        print("Starting call for \(id)")
-        callClient.offer()
+    func startOrEndCall(id: UUID) {
+        if (self.connected) {
+            callClient.endCall()
+        } else {
+            callClient.offer()
+        }
     }
     
     func receive(_ signal: Signal) {
         print("Received Signal with type \(signal.type)")
         callClient.accept(signal: signal)
+    }
+    
+    func updateConnectionState(connected: Bool) {
+        self.connected = connected
     }
 }

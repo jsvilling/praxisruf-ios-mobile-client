@@ -22,7 +22,6 @@ class SignalingService : SignalingDelegate {
             
             switch(message) {
                 case .success(let content):
-                    print("Success")
                     switch(content) {
                         case .string(let string):
                             let signal = try? JSONDecoder().decode(Signal.self, from: string.data(using: .utf8)!)

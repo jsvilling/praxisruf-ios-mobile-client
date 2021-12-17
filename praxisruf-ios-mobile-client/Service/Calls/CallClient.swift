@@ -14,10 +14,13 @@ protocol CallClient {
     func offer()
     
     func accept(signal: Signal)
+    
+    func endCall()
 }
 
 protocol SignalingDelegate {
     func send(_ signal: Signal)
+    func updateConnectionState(connected: Bool)
 }
 
 class WebRTCClient : NSObject, CallClient {
@@ -108,6 +111,10 @@ class WebRTCClient : NSObject, CallClient {
         }
     }
     
+    func endCall() {
+        self.peerConnection.close()
+    }
+    
     func accept(signal: Signal) {
         if (signal.type == "OFFER") {
             setRemoteSdp(signal: signal)
@@ -176,7 +183,7 @@ extension WebRTCClient : RTCPeerConnectionDelegate {
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceConnectionState) {
         print("peerConnection new connection state: \(newState)")
-        // TODO: Update connection state
+        self.signalingDelegate.updateConnectionState(connected: RTCIceConnectionState.connected == newState)
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceGatheringState) {

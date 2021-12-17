@@ -17,7 +17,7 @@ struct IntercomView: View {
     var body: some View {
         VStack {
             Section(header: Text("intercom").font(.title2)) {
-                ButtonGridView(entries: $configuration.callTypes, action: callService.startCall)
+                ButtonGridView(entries: $configuration.callTypes, action: callService.startOrEndCall)
             }
             
             Section(header: Text("notifications").font(.title2)) {
