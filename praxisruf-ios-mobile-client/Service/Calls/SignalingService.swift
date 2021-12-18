@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SignalingService : SignalingDelegate {
+class SignalingService {
 
     private let clientId: String
     private let webSocket: URLSessionWebSocketTask
@@ -49,4 +49,5 @@ class SignalingService : SignalingDelegate {
         }
         print("Sent Signal with type \(signal.type)")
     }
+    
 }
