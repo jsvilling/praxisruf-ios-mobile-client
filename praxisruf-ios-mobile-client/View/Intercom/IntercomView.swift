@@ -16,10 +16,12 @@ struct IntercomView: View {
     @StateObject var notificationService = NotificationService()
     @StateObject var callService = CallService()
 
+    @State var isCallStarted = false
+    
     var body: some View {
         VStack {
             Section(header: Text("intercom").font(.title2)) {
-                ButtonGridView(entries: $configuration.callTypes, action: callService.startOrEndCall)
+                ButtonGridView(entries: $configuration.callTypes, action: callService.initCall)
             }
             
             Section(header: Text("notifications").font(.title2)) {
@@ -28,8 +30,14 @@ struct IntercomView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
+        .onAppear() {
+            self.callService.listen()
+        }
         .onReceive(keepAliveSignalingConnection) { input in
             self.callService.ping()
+        }
+        .fullScreenCover(isPresented: $callService.callStarted) {
+                ActiveCallView(callService: callService)
         }
     }
 }

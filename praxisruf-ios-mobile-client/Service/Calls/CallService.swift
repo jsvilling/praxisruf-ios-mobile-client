@@ -10,17 +10,23 @@ import WebRTC
 
 class CallService : ObservableObject, CallClientDelegate {
 
+    @Published var callStarted: Bool = false
+    @Published var callTypeId: String = ""
+    
     private var connected: Bool = false
     private let clientId: String
     private var callClient: CallClient
     private let signalingService: SignalingService
     
     init() {
-        self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId)!
+        self.clientId = UserDefaults.standard.string(forKey: "clientId") ?? "clientName"
         self.signalingService = SignalingService()
         self.callClient = WebRTCClient()
-        self.signalingService.listen(completion: receive)
         callClient.delegate = self
+    }
+    
+    func listen() {
+        self.signalingService.listen(completion: receive)
     }
     
     func ping() {
@@ -40,23 +46,27 @@ class CallService : ObservableObject, CallClientDelegate {
         self.connected = connected
     }
     
-    func startOrEndCall(id: UUID) {
-        if (self.connected) {
-            callClient.endCall()
-        } else {
-            startCall(id: id)
-        }
+    func initCall(id: UUID) {
+        self.callStarted = true
+        self.callTypeId = id.uuidString
     }
     
-    private func startCall(id: UUID) {
-        PraxisrufApi().getCallType(callTypeId: id.uuidString) { result in
+    func startCall() {
+        PraxisrufApi().getCallType(callTypeId: self.callTypeId) { result in
             switch result {
                 case .success(let callType):
                     print("Starting call for \(callType.id)")
-                self.callClient.offer(targetId: callType.participants[0])
+                    self.callClient.offer(targetId: callType.participants[0])
                 case .failure(let error):
                     print(error.localizedDescription)
             }
         }
+    }
+    
+    func endCall() {
+        self.callTypeId = ""
+        self.callStarted = false
+        self.connected = false
+        callClient.endCall()
     }
 }

@@ -33,7 +33,7 @@ class WebRTCClient : NSObject, CallClient {
     private let factory: RTCPeerConnectionFactory
     
     override required init() {
-        self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId)!
+        self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId) ?? ""
         
         let config = RTCConfiguration()
         config.iceServers = [RTCIceServer(urlStrings:  ["stun:stun.l.google.com:19302",

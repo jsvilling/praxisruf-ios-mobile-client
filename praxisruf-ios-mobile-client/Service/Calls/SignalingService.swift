@@ -9,16 +9,11 @@ import Foundation
 
 class SignalingService {
 
-    private let clientId: String
-    private let webSocket: URLSessionWebSocketTask
-    
-    init() {
-        self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId)!
-        self.webSocket = PraxisrufApi().websocket("/signaling?clientId=\(clientId)")
-    }
+    private let clientId: String = UserDefaults.standard.string(forKey: "clientId") ?? ""
+    private var webSocket: URLSessionWebSocketTask? = nil
     
     func ping() {
-        self.webSocket.sendPing() { error in
+        self.webSocket!.sendPing() { error in
             if (error != nil) {
                 print("Error")
             }
@@ -27,7 +22,10 @@ class SignalingService {
     }
     
     func listen(completion: @escaping (Signal) -> Void) {
-        webSocket.receive() { message in
+        if (webSocket == nil) {
+            self.webSocket = PraxisrufApi().websocket("/signaling?clientId=\(clientId)")
+        }
+        webSocket!.receive() { message in
             
             switch(message) {
                 case .success(let content):
@@ -51,7 +49,7 @@ class SignalingService {
     func send(_ signal: Signal) {
         let content = try? JSONEncoder().encode(signal)
         let message = URLSessionWebSocketTask.Message.string(String(data: content!, encoding: .utf8)!)
-        self.webSocket.send(message) { error in
+        self.webSocket!.send(message) { error in
             if (error != nil) {
                 print("Error sending message")
             }
