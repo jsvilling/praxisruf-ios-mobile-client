@@ -9,6 +9,7 @@ import Foundation
 
 struct Signal : Codable {
     let sender: String
+    let recipient: String
     let type: String
     let payload: String
 }

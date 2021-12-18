@@ -10,7 +10,7 @@ import WebRTC
 
 protocol CallClient {
     var delegate: CallClientDelegate? { get set }
-    func offer()
+    func offer(targetId: String)
     func accept(signal: Signal)
     func endCall()
 }
@@ -23,6 +23,7 @@ protocol CallClientDelegate {
 class WebRTCClient : NSObject, CallClient {
     
     var delegate: CallClientDelegate?
+    var targetId: String = ""
     
     private let clientId: String
     private let mediaConstrains = [kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueTrue,
@@ -90,7 +91,8 @@ class WebRTCClient : NSObject, CallClient {
         return audioTrack
     }
     
-    func offer() {
+    func offer(targetId: String) {
+        self.targetId = targetId
         let constrains = RTCMediaConstraints(mandatoryConstraints: mediaConstrains, optionalConstraints: nil)
         
         self.peerConnection.offer(for: constrains) { (sdp, error) in
@@ -102,20 +104,21 @@ class WebRTCClient : NSObject, CallClient {
                 let sdpWrapper = SessionDescription(from: sdp)
                 let payloadData = try? JSONEncoder().encode(sdpWrapper)
                 let payloadString = String(data: payloadData!, encoding: .utf8)
-                let offer = Signal(sender: self.clientId, type: "OFFER", payload: payloadString!)
+                let offer = Signal(sender: self.clientId, recipient: targetId, type: "OFFER", payload: payloadString!)
                 self.delegate!.send(offer)
             }
         }
     }
     
     func endCall() {
+        self.targetId = ""
         self.peerConnection.close()
     }
     
     func accept(signal: Signal) {
         if (signal.type == "OFFER") {
             setRemoteSdp(signal: signal)
-            answer()
+            answer(targetId: signal.sender)
         } else if (signal.type == "ANSWER") {
             setRemoteSdp(signal: signal)
         } else if (signal.type == "ICE_CANDIDATE") {
@@ -130,7 +133,8 @@ class WebRTCClient : NSObject, CallClient {
         self.peerConnection.setRemoteDescription(sdpWrapper!.rtcSessionDescription, completionHandler: self.printError)
     }
     
-    private func answer() {
+    private func answer(targetId: String) {
+        self.targetId = targetId
         let constrains = RTCMediaConstraints(mandatoryConstraints: self.mediaConstrains, optionalConstraints: nil)
         self.peerConnection.answer(for: constrains) { (sdp, error) in
             guard let sdp = sdp else {
@@ -142,7 +146,7 @@ class WebRTCClient : NSObject, CallClient {
             let sdpWrapper = SessionDescription(from: sdp)
             let payloadData = try? JSONEncoder().encode(sdpWrapper)
             let payloadString = String(data: payloadData!, encoding: .utf8)
-            let answer = Signal(sender: self.clientId, type: "ANSWER", payload: payloadString!)
+            let answer = Signal(sender: self.clientId, recipient: targetId, type: "ANSWER", payload: payloadString!)
             self.delegate!.send(answer)
         }
     }
@@ -183,6 +187,7 @@ extension WebRTCClient : RTCPeerConnectionDelegate {
         if (newState == RTCIceConnectionState.connected) {
             self.delegate!.updateConnectionState(connected: true)
         } else if (newState == RTCIceConnectionState.disconnected || newState == RTCIceConnectionState.closed || newState == RTCIceConnectionState.failed) {
+            self.targetId = ""
             self.delegate!.updateConnectionState(connected: false)
         }
     }
@@ -192,10 +197,13 @@ extension WebRTCClient : RTCPeerConnectionDelegate {
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didGenerate candidate: RTCIceCandidate) {
+        if (self.targetId == "") {
+            return
+        }
         let iceCandidate = IceCandidate(from: candidate)
         let payloadData = try? JSONEncoder().encode(iceCandidate)
         let payloadString = String(data: payloadData!, encoding: .utf8)
-        let signal = Signal(sender: self.clientId, type: "ICE_CANDIDATE", payload: payloadString!)
+        let signal = Signal(sender: self.clientId, recipient: self.targetId, type: "ICE_CANDIDATE", payload: payloadString!)
         self.delegate!.send(signal)
     }
     

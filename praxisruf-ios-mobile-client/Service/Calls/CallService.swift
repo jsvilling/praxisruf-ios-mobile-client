@@ -49,7 +49,7 @@ class CallService : ObservableObject, CallClientDelegate {
             switch result {
                 case .success(let callType):
                     print("Starting call for \(callType.id)")
-                    self.callClient.offer()
+                self.callClient.offer(targetId: callType.participants[0])
                 case .failure(let error):
                     print(error.localizedDescription)
             }
