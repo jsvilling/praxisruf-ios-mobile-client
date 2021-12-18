@@ -17,7 +17,7 @@ struct ActiveCallView: View {
                 Spacer()
                 CallActionButton(image: "mic.slash", width: 35, height: 40, action: callService.toggleMute)
                 CallActionButton(image: "speaker.slash", width: 35, height: 40, action: {})
-                CallActionButton(image: "phone.down", tapped: Color.red, untapped: Color.black, action: callService.endCall)
+                CallActionButton(image: "phone.down", tapped: Color.red, untapped: Color.red, action: callService.endCall)
                 Spacer()
             }
         }

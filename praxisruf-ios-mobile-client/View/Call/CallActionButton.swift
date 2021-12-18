@@ -15,6 +15,8 @@ struct CallActionButton: View {
     private let untapped: Color
     private let action: () -> Void
     
+    @State var pressed: Bool = false
+    
     init (image: String, width: CGFloat? = 50, height: CGFloat? = 25, tapped: Color = Color.black, untapped: Color = Color.gray, action: @escaping () -> Void) {
         self.image = image
         self.width = width
@@ -25,29 +27,21 @@ struct CallActionButton: View {
     }
     
     var body: some View {
-        Button(action: self.action) {
+        Button(action: {
+            self.pressed.toggle()
+            self.action()
+        }) {
             ZStack {
                 Image(systemName: self.image)
                     .resizable()
                     .frame(width: width, height: height)
                     .foregroundColor(Color.white)
             }
-        }.buttonStyle(GradientButtonStyle(tapped: tapped, untapped: untapped))
-    }
-}
-
-struct GradientButtonStyle: ButtonStyle {
-    
-    let tapped: Color
-    let untapped: Color
-    
-    func makeBody(configuration: Self.Configuration) -> some View {
-       
-        configuration.label
-                    .frame(width: 100, height: 100)
-                    .foregroundColor(Color.black)
-                    .background(configuration.isPressed ? tapped : untapped)
-                    .clipShape(Circle())
+        }
+        .frame(width: 100, height: 100)
+            .foregroundColor(Color.black)
+            .background(self.pressed ? tapped : untapped)
+            .clipShape(Circle())
     }
 }
 
