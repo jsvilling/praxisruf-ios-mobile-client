@@ -40,7 +40,19 @@ class CallService : ObservableObject, CallClientDelegate {
         if (self.connected) {
             callClient.endCall()
         } else {
-            callClient.offer()
+            startCall(id: id)
+        }
+    }
+    
+    private func startCall(id: UUID) {
+        PraxisrufApi().getCallType(callTypeId: id.uuidString) { result in
+            switch result {
+                case .success(let callType):
+                    print("Starting call for \(callType.id)")
+                    self.callClient.offer()
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
         }
     }
 }

@@ -29,6 +29,7 @@
 		CE212BB12767717B001131BF /* SdpType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE212BB02767717B001131BF /* SdpType.swift */; };
 		CE212BB3276771AA001131BF /* SessionDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE212BB2276771AA001131BF /* SessionDescription.swift */; };
 		CE212BB5276771D0001131BF /* IceCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE212BB4276771D0001131BF /* IceCandidate.swift */; };
+		CE212BBD276DCB6D001131BF /* CallType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE212BBC276DCB6D001131BF /* CallType.swift */; };
 		CE413BC82761156F009F2B3F /* CallService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE413BC72761156F009F2B3F /* CallService.swift */; };
 		CE51D02C2723DAA9000D09C1 /* IntercomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D02B2723DAA9000D09C1 /* IntercomItem.swift */; };
 		CE51D02E272540ED000D09C1 /* PraxisrufApi+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D02D272540ED000D09C1 /* PraxisrufApi+Registration.swift */; };
@@ -61,7 +62,7 @@
 		CE94AC5C27567BDB00C93410 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CE94AC5B27567BDB00C93410 /* SwiftKeychainWrapper */; };
 		CE94AC5F275688AF00C93410 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC5E275688AF00C93410 /* SplashScreen.swift */; };
 		CE94AC65275BC1C100C93410 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC64275BC1C100C93410 /* Configuration.swift */; };
-		CE94AC67275BC1D800C93410 /* CallType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC66275BC1D800C93410 /* CallType.swift */; };
+		CE94AC67275BC1D800C93410 /* DiesplayCallType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC66275BC1D800C93410 /* DiesplayCallType.swift */; };
 		CE94AC69275BCCB800C93410 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC68275BCCB700C93410 /* HomeViewModel.swift */; };
 		CE97F1B32723589A00B1CA0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE97F1B22723589A00B1CA0D /* AppDelegate.swift */; };
 		CEE9A2DE27620C3B006810BC /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9A2DD27620C3B006810BC /* Signal.swift */; };
@@ -109,6 +110,7 @@
 		CE212BB02767717B001131BF /* SdpType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SdpType.swift; sourceTree = "<group>"; };
 		CE212BB2276771AA001131BF /* SessionDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDescription.swift; sourceTree = "<group>"; };
 		CE212BB4276771D0001131BF /* IceCandidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IceCandidate.swift; sourceTree = "<group>"; };
+		CE212BBC276DCB6D001131BF /* CallType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallType.swift; sourceTree = "<group>"; };
 		CE413BC72761156F009F2B3F /* CallService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallService.swift; sourceTree = "<group>"; };
 		CE51D02B2723DAA9000D09C1 /* IntercomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomItem.swift; sourceTree = "<group>"; };
 		CE51D02D272540ED000D09C1 /* PraxisrufApi+Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PraxisrufApi+Registration.swift"; sourceTree = "<group>"; };
@@ -140,7 +142,7 @@
 		CE94AC5827566B6900C93410 /* InboxReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxReminderService.swift; sourceTree = "<group>"; };
 		CE94AC5E275688AF00C93410 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		CE94AC64275BC1C100C93410 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
-		CE94AC66275BC1D800C93410 /* CallType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallType.swift; sourceTree = "<group>"; };
+		CE94AC66275BC1D800C93410 /* DiesplayCallType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiesplayCallType.swift; sourceTree = "<group>"; };
 		CE94AC68275BCCB700C93410 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		CE97F1B22723589A00B1CA0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEE9A2DD27620C3B006810BC /* Signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
@@ -360,8 +362,9 @@
 				CE51D02B2723DAA9000D09C1 /* IntercomItem.swift */,
 				CE53ABF2271EB28C00BAD1F1 /* Client.swift */,
 				CE53ABFC271EF9D700BAD1F1 /* NotificationType.swift */,
+				CE212BBC276DCB6D001131BF /* CallType.swift */,
 				CE94AC64275BC1C100C93410 /* Configuration.swift */,
-				CE94AC66275BC1D800C93410 /* CallType.swift */,
+				CE94AC66275BC1D800C93410 /* DiesplayCallType.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -598,7 +601,7 @@
 				CE94AC5927566B6900C93410 /* InboxReminderService.swift in Sources */,
 				CE53ABE1271DA32300BAD1F1 /* InboxView.swift in Sources */,
 				CE01406027317ACF00B71AB7 /* SpeechSynthesisService.swift in Sources */,
-				CE94AC67275BC1D800C93410 /* CallType.swift in Sources */,
+				CE94AC67275BC1D800C93410 /* DiesplayCallType.swift in Sources */,
 				CE53ABF5271EB30100BAD1F1 /* ClientSelectViewModel.swift in Sources */,
 				CE212BB5276771D0001131BF /* IceCandidate.swift in Sources */,
 				CE212BB12767717B001131BF /* SdpType.swift in Sources */,
@@ -622,6 +625,7 @@
 				CE51D035272563D6000D09C1 /* PraxisrufApi+Notification.swift in Sources */,
 				CE53ABE3271DA56300BAD1F1 /* PraxisrufApi.swift in Sources */,
 				CE0140532726E39500B71AB7 /* IntercomButton.swift in Sources */,
+				CE212BBD276DCB6D001131BF /* CallType.swift in Sources */,
 				CE53ABFF271EFAFC00BAD1F1 /* NotificationService.swift in Sources */,
 				CE212BB3276771AA001131BF /* SessionDescription.swift in Sources */,
 				CE413BC82761156F009F2B3F /* CallService.swift in Sources */,

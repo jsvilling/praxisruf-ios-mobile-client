@@ -20,4 +20,8 @@ extension PraxisrufApi {
     func getRelevantNotificationTypes(clientId: String, completion: @escaping (Result<[NotificationType], PraxisrufApiError>) -> Void) {
         get("/notificationtypes/search?clientId=\(clientId)", completion: completion)
     }
+    
+    func getCallType(callTypeId: String, completion: @escaping (Result<CallType, PraxisrufApiError>) -> Void) {
+        get("/calltypes/\(callTypeId)", completion: completion)
+    }
 }
