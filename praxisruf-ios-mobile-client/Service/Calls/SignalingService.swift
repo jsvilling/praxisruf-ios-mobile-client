@@ -14,7 +14,7 @@ class SignalingService {
     
     init() {
         self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId)!
-        self.webSocket = PraxisrufApi().websocket("/name?clientId=\(clientId)")
+        self.webSocket = PraxisrufApi().websocket("/signaling?clientId=\(clientId)")
     }
     
     func listen(completion: @escaping (Signal) -> Void) {

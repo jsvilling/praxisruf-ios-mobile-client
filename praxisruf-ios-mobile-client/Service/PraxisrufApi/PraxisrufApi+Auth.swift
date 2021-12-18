@@ -10,7 +10,7 @@ import Foundation
 extension PraxisrufApi {
     
     func login(username: String, password: String, completion: @escaping (Result<String, PraxisrufApiError>) -> Void) {
-        let url = URL(string: "\(baseUrlValue)/users/login")!
+        let url = URL(string: "\(PraxisrufApi.httpBaseUrlValue)/users/login")!
         let loginString = "\(username):\(password)"
         let loginData = loginString.data(using: String.Encoding.utf8)!
         let base64LoginString = loginData.base64EncodedString()

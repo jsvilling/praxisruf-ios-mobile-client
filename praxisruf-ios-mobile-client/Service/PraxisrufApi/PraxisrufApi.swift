@@ -19,7 +19,9 @@ class PraxisrufApi {
         case custom(errorMessage: String)
     }
         
-    let baseUrlValue = "https://www.praxisruf.ch/api"
+    static let httpBaseUrlValue = "https://www.praxisruf.ch/api"
+    static let webSocketBaseUrlValue = "ws://192.168.0.193:5000"
+    
                 
     func get<T>(_ subUrl: String, completion: @escaping (Result<T, PraxisrufApiError>) -> Void) where T : Decodable {
         http(subUrl, completion: completion)
@@ -34,7 +36,7 @@ class PraxisrufApi {
     }
     
     private func http<T>(_ subUrl: String, method: String = "GET", body: Data? = nil, completion: @escaping (Result<T, PraxisrufApiError>) -> Void) where T : Decodable {
-        let url = URL(string: "\(baseUrlValue)\(subUrl)")!
+        let url = URL(string: "\(PraxisrufApi.httpBaseUrlValue)\(subUrl)")!
                 
         guard let authToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.authToken) else {
             completion(.failure(.invalidCredential))
@@ -71,7 +73,7 @@ class PraxisrufApi {
     }
     
     func download(_ subUrl: String, completion: @escaping (Result<URL, PraxisrufApiError>) -> Void) {
-        guard let url = URL(string: "\(baseUrlValue)\(subUrl)") else {
+        guard let url = URL(string: "\(PraxisrufApi.httpBaseUrlValue)\(subUrl)") else {
             completion(.failure(.invalidData))
             return
         }
@@ -92,14 +94,14 @@ class PraxisrufApi {
             completion(.success(audioFileLocation))
         }.resume()
     }
-    
+        
     func websocket(_ subUrl: String) -> URLSessionWebSocketTask {
         guard let authToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.authToken) else {
             print("No authToken found")
             fatalError()
         }
         
-        let url = URL(string: "wss://www.praxisruf.ch/name?clientId=123")!
+        let url = URL(string: "\(PraxisrufApi.webSocketBaseUrlValue)\(subUrl)")!
         
         var request = URLRequest(url: url)
         request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
