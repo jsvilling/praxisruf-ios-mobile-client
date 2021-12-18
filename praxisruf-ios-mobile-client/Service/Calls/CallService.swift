@@ -39,6 +39,9 @@ class CallService : ObservableObject, CallClientDelegate {
     
     func receive(_ signal: Signal) {
         print("Received Signal with type \(signal.type)")
+        if (signal.type == "OFFER") {
+            self.callStarted = true
+        }
         callClient.accept(signal: signal)
     }
     
