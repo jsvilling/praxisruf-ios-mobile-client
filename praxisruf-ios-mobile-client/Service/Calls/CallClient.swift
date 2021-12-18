@@ -8,19 +8,12 @@
 import Foundation
 import WebRTC
 
-protocol CallClient {
-    var delegate: CallClientDelegate? { get set }
-    func offer(targetId: String)
-    func accept(signal: Signal)
-    func endCall()
-}
-
 protocol CallClientDelegate {
     func send(_ signal: Signal)
     func updateConnectionState(connected: Bool)
 }
 
-class WebRTCClient : NSObject, CallClient {
+class CallClient : NSObject {
     
     var delegate: CallClientDelegate?
     var targetId: String = ""
@@ -31,6 +24,8 @@ class WebRTCClient : NSObject, CallClient {
     private var peerConnection: RTCPeerConnection
     private let rtcAudioSession =  RTCAudioSession.sharedInstance()
     private let factory: RTCPeerConnectionFactory
+    
+    private var muted = false;
     
     override required init() {
         self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId) ?? ""
@@ -161,10 +156,21 @@ class WebRTCClient : NSObject, CallClient {
             print("Error in CallClient")
             print(error!)
         }
-    }    
+    }
+    
+    func toggleMute() {
+        self.muted = !self.muted
+        setTrackEnabled(RTCAudioTrack.self, isEnabled: !self.muted)
+    }
+    
+    private func setTrackEnabled<T: RTCMediaStreamTrack>(_ type: T.Type, isEnabled: Bool) {
+        peerConnection.transceivers
+            .compactMap { return $0.sender.track as? T }
+            .forEach { $0.isEnabled = isEnabled }
+    }
 }
 
-extension WebRTCClient : RTCPeerConnectionDelegate {
+extension CallClient : RTCPeerConnectionDelegate {
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange stateChanged: RTCSignalingState) {
         print("peerConnection new signaling state: \(self.peerConnection.signalingState)")

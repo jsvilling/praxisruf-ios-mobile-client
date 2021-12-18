@@ -15,7 +15,7 @@ struct ActiveCallView: View {
         VStack {
             HStack {
                 Spacer()
-                CallActionButton(image: "mic.slash", width: 40, height: 35, action: {})
+                CallActionButton(image: "mic.slash", width: 40, height: 35, action: callService.toggleMute)
                 CallActionButton(image: "speaker.slash", width: 35, height: 35, action: {})
                 CallActionButton(image: "phone.down", action: callService.endCall)
                 Spacer()

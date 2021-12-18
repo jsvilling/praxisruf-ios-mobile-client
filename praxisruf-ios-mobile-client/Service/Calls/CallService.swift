@@ -21,7 +21,7 @@ class CallService : ObservableObject, CallClientDelegate {
     init() {
         self.clientId = UserDefaults.standard.string(forKey: "clientId") ?? "clientName"
         self.signalingService = SignalingService()
-        self.callClient = WebRTCClient()
+        self.callClient = CallClient()
         callClient.delegate = self
     }
     
@@ -47,6 +47,10 @@ class CallService : ObservableObject, CallClientDelegate {
     
     func updateConnectionState(connected: Bool) {
         self.connected = connected
+    }
+    
+    func toggleMute() {
+        self.callClient.toggleMute()
     }
     
     func initCall(id: UUID) {
