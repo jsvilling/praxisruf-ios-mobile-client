@@ -30,9 +30,7 @@ struct IntercomView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .onAppear() {
-            self.callService.listen()
-        }
+        .onAppear(perform: callService.listen)
         .onReceive(keepAliveSignalingConnection) { input in
             self.callService.ping()
         }

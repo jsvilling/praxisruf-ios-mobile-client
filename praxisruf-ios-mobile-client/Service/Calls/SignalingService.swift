@@ -12,6 +12,8 @@ class SignalingService {
     private let clientId: String = UserDefaults.standard.string(forKey: "clientId") ?? ""
     private var webSocket: URLSessionWebSocketTask? = nil
     
+    private let api: PraxisrufApi = PraxisrufApi()
+    
     func ping() {
         self.webSocket!.sendPing() { error in
             if (error != nil) {
@@ -21,11 +23,23 @@ class SignalingService {
         }
     }
     
+    func connect() {
+        PraxisrufApi().authorizedWebSocket("/signaling?clientId=\(clientId)") { result in
+            switch(result) {
+                case .success(let webSocket):
+                    webSocket.resume()
+                case .failure(let error):
+                    print(error)
+                    return
+            }
+        }
+    }
+    
     func listen(completion: @escaping (Signal) -> Void) {
         if (webSocket == nil) {
-            self.webSocket = PraxisrufApi().websocket("/signaling?clientId=\(clientId)")
+            connect()
         }
-        webSocket!.receive() { message in
+        webSocket?.receive() { message in
             
             switch(message) {
                 case .success(let content):

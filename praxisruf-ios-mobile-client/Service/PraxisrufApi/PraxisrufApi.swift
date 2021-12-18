@@ -12,7 +12,7 @@ class PraxisrufApi {
     
     struct Nothing : Decodable {}
     
-    enum PraxisrufApiError: Error {
+    public enum PraxisrufApiError: Error {
         case invalidCredential
         case invalidData
         case errorResponse
@@ -112,4 +112,51 @@ class PraxisrufApi {
         return task
     }
     
+    func authorizedWebSocket(_ subUrl: String, completion: @escaping (Result<URLSessionWebSocketTask, PraxisrufApiError>) -> Void) {
+        let url = URL(string: "\(PraxisrufApi.webSocketBaseUrlValue)\(subUrl)")!
+        guard let authToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.authToken) else {
+            completion(.failure(.invalidCredential))
+            return
+        }
+        var request = URLRequest(url: url)
+        request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        let task = URLSession(configuration: .default).webSocketTask(with: request)
+        completion(.success(task))
+    }
+    
+    func websocket<T>(_ subUrl: String, completion: @escaping (Result<T, PraxisrufApiError>) -> Void) -> URLSessionWebSocketTask? where T : Decodable {
+        let url = URL(string: "\(PraxisrufApi.webSocketBaseUrlValue)\(subUrl)")!
+        guard let authToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.authToken) else {
+            completion(.failure(.invalidCredential))
+            return nil
+        }
+        var request = URLRequest(url: url)
+        request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        let task = URLSession(configuration: .default).webSocketTask(with: request)
+        task.resume()
+        task.receive() { message in
+            switch(message) {
+                case .success(let content):
+                    self.processWebsocketSuccessResponse(content: content, completion: completion)
+                case .failure(let error):
+                    completion(.failure(PraxisrufApiError.custom(errorMessage: error.localizedDescription)))
+            }
+        }
+        return task
+    }
+    
+    private func processWebsocketSuccessResponse<T>(content: URLSessionWebSocketTask.Message, completion: @escaping (Result<T, PraxisrufApiError>) -> Void) where T : Decodable {
+        switch(content) {
+            case .string(let string):
+            guard let result = try? JSONDecoder().decode(T.self, from: string.data(using: .utf8)!) else {
+                    completion(.failure(.invalidData))
+                    return
+                }
+                completion(.success(result))
+            default:
+                completion(.failure(.invalidData))
+        }
+    }
+    
 }
+

@@ -18,23 +18,26 @@ class CallService : ObservableObject, CallClientDelegate {
     private var callClient: CallClient
     private let signalingService: SignalingService
     
+    private let praxisrufApi = PraxisrufApi()
+    
     init() {
-        self.clientId = UserDefaults.standard.string(forKey: "clientId") ?? "clientName"
+        self.clientId = UserDefaults.standard.string(forKey: "clientId") ?? "clientId"
         self.signalingService = SignalingService()
         self.callClient = CallClient()
         callClient.delegate = self
     }
     
     func listen() {
-        self.signalingService.listen(completion: receive)
+        self.praxisrufApi.connectSignalingServer(clientId: clientId)
+        self.praxisrufApi.listenForSignal(completion: receive)
     }
     
     func ping() {
-        self.signalingService.ping()
+        self.praxisrufApi.pingSignalingConnection()
     }
     
     func send(_ signal: Signal) {
-        self.signalingService.send(signal)
+        self.praxisrufApi.sendSignal(signal: signal)
     }
     
     func receive(_ signal: Signal) {
