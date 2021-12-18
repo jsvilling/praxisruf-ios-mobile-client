@@ -9,7 +9,7 @@ import Foundation
 import WebRTC
 
 protocol CallClient {
-    var delegate: CallClientDelegate { get set }
+    var delegate: CallClientDelegate? { get set }
     func offer()
     func accept(signal: Signal)
     func endCall()
@@ -22,7 +22,7 @@ protocol CallClientDelegate {
 
 class WebRTCClient : NSObject, CallClient {
     
-    var delegate: CallClientDelegate
+    var delegate: CallClientDelegate?
     
     private let clientId: String
     private let mediaConstrains = [kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueTrue,
@@ -103,7 +103,7 @@ class WebRTCClient : NSObject, CallClient {
                 let payloadData = try? JSONEncoder().encode(sdpWrapper)
                 let payloadString = String(data: payloadData!, encoding: .utf8)
                 let offer = Signal(sender: self.clientId, type: "OFFER", payload: payloadString!)
-                self.delegate.send(offer)
+                self.delegate!.send(offer)
             }
         }
     }
@@ -143,7 +143,7 @@ class WebRTCClient : NSObject, CallClient {
             let payloadData = try? JSONEncoder().encode(sdpWrapper)
             let payloadString = String(data: payloadData!, encoding: .utf8)
             let answer = Signal(sender: self.clientId, type: "ANSWER", payload: payloadString!)
-            self.delegate.send(answer)
+            self.delegate!.send(answer)
         }
     }
     
@@ -181,9 +181,9 @@ extension WebRTCClient : RTCPeerConnectionDelegate {
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceConnectionState) {
         print("peerConnection new connection state: \(newState)")
         if (newState == RTCIceConnectionState.connected) {
-            self.delegate.updateConnectionState(connected: true)
+            self.delegate!.updateConnectionState(connected: true)
         } else if (newState == RTCIceConnectionState.disconnected || newState == RTCIceConnectionState.closed || newState == RTCIceConnectionState.failed) {
-            self.delegate.updateConnectionState(connected: false)
+            self.delegate!.updateConnectionState(connected: false)
         }
     }
     
@@ -196,7 +196,7 @@ extension WebRTCClient : RTCPeerConnectionDelegate {
         let payloadData = try? JSONEncoder().encode(iceCandidate)
         let payloadString = String(data: payloadData!, encoding: .utf8)
         let signal = Signal(sender: self.clientId, type: "ICE_CANDIDATE", payload: payloadString!)
-        self.delegate.send(signal)
+        self.delegate!.send(signal)
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didRemove candidates: [RTCIceCandidate]) {
