@@ -112,7 +112,6 @@ class CallClient : NSObject {
         }
         self.targetId = ""
         self.peerConnection.close()
-
     }
     
     func accept(signal: Signal) {

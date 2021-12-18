@@ -41,6 +41,8 @@ class CallService : ObservableObject, CallClientDelegate {
         print("Received Signal with type \(signal.type)")
         if (signal.type == "OFFER") {
             self.callStarted = true
+        } else if (signal.type == "END") {
+            self.callStarted = false
         }
         callClient.accept(signal: signal)
     }
