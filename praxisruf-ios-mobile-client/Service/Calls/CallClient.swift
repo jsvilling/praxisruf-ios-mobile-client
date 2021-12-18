@@ -104,10 +104,15 @@ class CallClient : NSObject {
             }
         }
     }
-    
-    func endCall() {
+        
+    func endCall(signalOther: Bool = true) {
+        if (signalOther) {
+            let endSignal = Signal(sender: clientId, recipient: targetId, type: "END", payload: "")
+            self.delegate?.send(endSignal)
+        }
         self.targetId = ""
         self.peerConnection.close()
+
     }
     
     func accept(signal: Signal) {
@@ -118,6 +123,8 @@ class CallClient : NSObject {
             setRemoteSdp(signal: signal)
         } else if (signal.type == "ICE_CANDIDATE") {
             addIceCandidate(signal: signal)
+        } else if (signal.type == "END") {
+            endCall(signalOther: false)
         } else {
             print("Unknown Signal Type \(signal.type)")
         }
