@@ -23,6 +23,10 @@ class CallService : ObservableObject, CallClientDelegate {
         callClient.delegate = self
     }
     
+    func ping() {
+        self.signalingService.ping()
+    }
+    
     func send(_ signal: Signal) {
         self.signalingService.send(signal)
     }

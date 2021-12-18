@@ -17,6 +17,15 @@ class SignalingService {
         self.webSocket = PraxisrufApi().websocket("/signaling?clientId=\(clientId)")
     }
     
+    func ping() {
+        self.webSocket.sendPing() { error in
+            if (error != nil) {
+                print("Error")
+            }
+            print("Pong")
+        }
+    }
+    
     func listen(completion: @escaping (Signal) -> Void) {
         webSocket.receive() { message in
             

@@ -10,6 +10,8 @@ import AVFoundation
 
 struct IntercomView: View {
     
+    let keepAliveSignalingConnection = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
+    
     @Binding var configuration: Configuration
     @StateObject var notificationService = NotificationService()
     @StateObject var callService = CallService()
@@ -26,6 +28,9 @@ struct IntercomView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
+        .onReceive(keepAliveSignalingConnection) { input in
+            self.callService.ping()
+        }
     }
 }
 
