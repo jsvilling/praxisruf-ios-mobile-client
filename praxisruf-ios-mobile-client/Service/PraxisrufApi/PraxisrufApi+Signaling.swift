@@ -29,9 +29,7 @@ extension PraxisrufApi {
         PraxisrufApi.websocket?.sendPing() { error in
             if (error != nil) {
                 print("Error")
-                return
             }
-            print("Pong")
         }
     }
     

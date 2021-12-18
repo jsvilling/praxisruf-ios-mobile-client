@@ -15,14 +15,12 @@ class CallService : ObservableObject, CallClientDelegate {
     
     private var connected: Bool = false
     private let clientId: String
-    private var callClient: CallClient
-    private let signalingService: SignalingService
-    
-    private let praxisrufApi = PraxisrufApi()
+    private let callClient: CallClient
+    private let praxisrufApi: PraxisrufApi
     
     init() {
         self.clientId = UserDefaults.standard.string(forKey: "clientId") ?? "clientId"
-        self.signalingService = SignalingService()
+        self.praxisrufApi = PraxisrufApi()
         self.callClient = CallClient()
         callClient.delegate = self
     }
@@ -32,7 +30,7 @@ class CallService : ObservableObject, CallClientDelegate {
         self.praxisrufApi.listenForSignal(completion: receive)
     }
     
-    func ping() {
+    func ping(_ input: Any? = nil) {
         self.praxisrufApi.pingSignalingConnection()
     }
     

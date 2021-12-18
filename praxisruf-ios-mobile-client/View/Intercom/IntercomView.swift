@@ -31,9 +31,7 @@ struct IntercomView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onAppear(perform: callService.listen)
-        .onReceive(keepAliveSignalingConnection) { input in
-            self.callService.ping()
-        }
+        .onReceive(keepAliveSignalingConnection, perform: callService.ping)
         .fullScreenCover(isPresented: $callService.callStarted) {
                 ActiveCallView(callService: callService)
         }
