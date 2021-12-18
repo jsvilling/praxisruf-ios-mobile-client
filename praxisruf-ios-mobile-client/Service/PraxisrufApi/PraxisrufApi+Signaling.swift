@@ -17,7 +17,7 @@ extension PraxisrufApi {
             print("No authToken found")
             return
         }
-        let url = URL(string: "\(PraxisrufApi.webSocketBaseUrlValue)?clientId=\(clientId)")!
+        let url = URL(string: "\(PraxisrufApi.webSocketBaseUrlValue)/signaling?clientId=\(clientId)")!
         var request = URLRequest(url: url)
         request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         let task = URLSession(configuration: .default).webSocketTask(with: request)
