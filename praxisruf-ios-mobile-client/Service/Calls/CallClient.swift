@@ -26,6 +26,7 @@ class CallClient : NSObject {
     private let factory: RTCPeerConnectionFactory
     
     private let config: RTCConfiguration
+    private let constraints: RTCMediaConstraints
     
     private var muted = false;
     
@@ -40,14 +41,12 @@ class CallClient : NSObject {
                                                         "stun:stun4.l.google.com:19302"])]
         config.sdpSemantics = .unifiedPlan
         config.continualGatheringPolicy = .gatherContinually
-        let constraints = RTCMediaConstraints(mandatoryConstraints: nil,
+        constraints = RTCMediaConstraints(mandatoryConstraints: nil,
                                               optionalConstraints: ["DtlsSrtpKeyAgreement":kRTCMediaConstraintsValueTrue])
        
         RTCInitializeSSL()
-        let videoEncoderFactory = RTCDefaultVideoEncoderFactory()
-        let videoDecoderFactory = RTCDefaultVideoDecoderFactory()
-        self.factory = RTCPeerConnectionFactory(encoderFactory: videoEncoderFactory, decoderFactory: videoDecoderFactory)
-        
+        self.factory = RTCPeerConnectionFactory()
+                
         guard let peerConnection = factory.peerConnection(with: config, constraints: constraints, delegate: nil)
         else {
             fatalError("Could not create new RTCPeerConnection")
@@ -57,6 +56,18 @@ class CallClient : NSObject {
         
         super.init()
         
+        self.createMediaSenders()
+        self.configureAudioSession()
+        peerConnection.delegate = self
+    }
+    
+    private func initNextPeerConnection() {
+        guard let peerConnection = factory.peerConnection(with: config, constraints: constraints, delegate: nil)
+        else {
+            fatalError("Could not create new RTCPeerConnection")
+        }
+        
+        self.peerConnection = peerConnection
         self.createMediaSenders()
         self.configureAudioSession()
         peerConnection.delegate = self
