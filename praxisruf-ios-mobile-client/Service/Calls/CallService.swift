@@ -15,7 +15,7 @@ class CallService : ObservableObject, CallClientDelegate {
     
     private var connected: Bool = false
     private let clientId: String
-    private let callClient: CallClient
+    private var callClient: CallClient
     private let praxisrufApi: PraxisrufApi
     
     init() {
@@ -74,9 +74,17 @@ class CallService : ObservableObject, CallClientDelegate {
     }
     
     func endCall() {
+        // Update model
         self.callTypeId = ""
         self.callStarted = false
         self.connected = false
+        
+        // Dispose of old client
         callClient.endCall()
+        callClient.delegate = nil
+        
+        // Init new client
+        callClient = CallClient()
+        callClient.delegate = self
     }
 }
