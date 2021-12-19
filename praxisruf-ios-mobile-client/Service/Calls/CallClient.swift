@@ -45,8 +45,6 @@ class CallClient : NSObject {
         constraints = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: ["DtlsSrtpKeyAgreement":kRTCMediaConstraintsValueTrue])
         RTCInitializeSSL()
         factory = RTCPeerConnectionFactory()
-        super.init()
-        initNextPeerConnection()
     }
     
     private func initNextPeerConnection() {
@@ -88,6 +86,7 @@ class CallClient : NSObject {
     }
     
     func offer(targetId: String) {
+        initNextPeerConnection()
         self.targetId = targetId
         let constrains = RTCMediaConstraints(mandatoryConstraints: mediaConstrains, optionalConstraints: nil)
         
@@ -120,6 +119,7 @@ class CallClient : NSObject {
     
     func accept(signal: Signal) {
         if (signal.type == "OFFER") {
+            initNextPeerConnection()
             setRemoteSdp(signal: signal)
             answer(targetId: signal.sender)
         } else if (signal.type == "ANSWER") {
