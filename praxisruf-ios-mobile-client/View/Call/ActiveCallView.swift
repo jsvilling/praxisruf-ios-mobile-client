@@ -22,11 +22,8 @@ struct ActiveCallView: View {
             }
         }
         .onAppear() {
-            if (self.callService.callTypeId == "") {
+            if (self.callService.callTypeId == "RECEIVING") {
                 print("Incomming call")
-                // The callTypeId is only set it the client is the one initiating the call
-                // This solution is only a temporary workaround and will not work in the long run
-                // TODO: Proper state handling for call direction
             } else {
                 self.callService.startCall()
             }

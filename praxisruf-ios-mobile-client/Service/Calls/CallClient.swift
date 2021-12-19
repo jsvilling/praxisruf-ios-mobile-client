@@ -16,13 +16,13 @@ protocol CallClientDelegate {
 class CallClient : NSObject {
     
     var delegate: CallClientDelegate?
-    var targetId: String = ""
+    var direction: String = ""
     
     private let clientId: String
     private let mediaConstrains = [kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueTrue,
                                    kRTCMediaConstraintsOfferToReceiveVideo: kRTCMediaConstraintsValueTrue]
     
-    private var peerConnections: [RTCPeerConnection] = []
+    private var peerConnections: [String: RTCPeerConnection] = [:]
     
     private let rtcAudioSession =  RTCAudioSession.sharedInstance()
     private let factory: RTCPeerConnectionFactory
@@ -47,19 +47,19 @@ class CallClient : NSObject {
         factory = RTCPeerConnectionFactory()
     }
     
-    private func initNextPeerConnection() {
+    private func initNextPeerConnection(targetId: String) {
         guard let peerConnection = factory.peerConnection(with: config, constraints: constraints, delegate: nil)
         else {
             fatalError("Could not create new RTCPeerConnection")
         }
-        self.peerConnections.append(peerConnection)
-        self.createMediaSenders()
-        self.configureAudioSession()
+        self.peerConnections[targetId.uppercased()] = peerConnection
+        self.createMediaSenders(targetId: targetId)
+        self.configureAudioSession(targetId: targetId)
         peerConnection.delegate = self
         
     }
     
-    private func configureAudioSession() {
+    private func configureAudioSession(targetId: String) {
         self.rtcAudioSession.lockForConfiguration()
         do {
             try self.rtcAudioSession.setCategory(AVAudioSession.Category.playAndRecord.rawValue)
@@ -70,12 +70,12 @@ class CallClient : NSObject {
         self.rtcAudioSession.unlockForConfiguration()
     }
     
-    private func createMediaSenders() {
+    private func createMediaSenders(targetId: String) {
         let streamId = "stream"
         
         // Audio
         let audioTrack = self.createAudioTrack()
-        self.peerConnections[0].add(audioTrack, streamIds: [streamId])
+        self.peerConnections[targetId.uppercased()]!.add(audioTrack, streamIds: [streamId])
     }
     
     private func createAudioTrack() -> RTCAudioTrack {
@@ -86,16 +86,16 @@ class CallClient : NSObject {
     }
     
     func offer(targetId: String) {
-        initNextPeerConnection()
-        self.targetId = targetId
+        initNextPeerConnection(targetId: targetId)
+        self.direction = "SENDING"
         let constrains = RTCMediaConstraints(mandatoryConstraints: mediaConstrains, optionalConstraints: nil)
         
-        self.peerConnections[0].offer(for: constrains) { (sdp, error) in
+        self.peerConnections[targetId.uppercased()]!.offer(for: constrains) { (sdp, error) in
             guard let sdp = sdp else {
                 print("No sdp")
                 return
             }
-            self.peerConnections[0].setLocalDescription(sdp) { error in
+            self.peerConnections[targetId.uppercased()]!.setLocalDescription(sdp) { error in
                 let sdpWrapper = SessionDescription(from: sdp)
                 let payloadData = try? JSONEncoder().encode(sdpWrapper)
                 let payloadString = String(data: payloadData!, encoding: .utf8)
@@ -106,20 +106,20 @@ class CallClient : NSObject {
     }
         
     func endCall(signalOther: Bool = true) {
-        if (signalOther) {
-            let endSignal = Signal(sender: clientId, recipient: targetId, type: "END", payload: "")
-            self.delegate?.send(endSignal)
+        self.peerConnections.forEach() { cv in
+            if (signalOther) {
+                let endSignal = Signal(sender: clientId, recipient: cv.key, type: "END", payload: "")
+                self.delegate?.send(endSignal)
+            }
+            cv.value.close()
+            cv.value.delegate = nil
         }
-        self.targetId = ""
-        self.peerConnections[0].close()
-        self.peerConnections[0].delegate = nil
-        self.peerConnections.remove(at: 0)
-        initNextPeerConnection()
+        self.peerConnections.removeAll()
     }
     
     func accept(signal: Signal) {
         if (signal.type == "OFFER") {
-            initNextPeerConnection()
+            initNextPeerConnection(targetId: signal.sender)
             setRemoteSdp(signal: signal)
             answer(targetId: signal.sender)
         } else if (signal.type == "ANSWER") {
@@ -135,19 +135,17 @@ class CallClient : NSObject {
     
     private func setRemoteSdp(signal: Signal) {
         let sdpWrapper = try? JSONDecoder().decode(SessionDescription.self, from: signal.payload.data(using: .utf8)!)
-        self.peerConnections[0].setRemoteDescription(sdpWrapper!.rtcSessionDescription, completionHandler: self.printError)
+        self.peerConnections[signal.sender.uppercased()]!.setRemoteDescription(sdpWrapper!.rtcSessionDescription, completionHandler: self.printError)
     }
     
     private func answer(targetId: String) {
-        self.targetId = targetId
+        self.direction = "RECEIVING"
         let constrains = RTCMediaConstraints(mandatoryConstraints: self.mediaConstrains, optionalConstraints: nil)
-        self.peerConnections[0].answer(for: constrains) { (sdp, error) in
+        self.peerConnections[targetId.uppercased()]!.answer(for: constrains) { (sdp, error) in
             guard let sdp = sdp else {
                 return
             }
-            
-            self.peerConnections[0].setLocalDescription(sdp, completionHandler: self.printError)
-        
+            self.peerConnections[targetId.uppercased()]!.setLocalDescription(sdp, completionHandler: self.printError)
             let sdpWrapper = SessionDescription(from: sdp)
             let payloadData = try? JSONEncoder().encode(sdpWrapper)
             let payloadString = String(data: payloadData!, encoding: .utf8)
@@ -158,7 +156,7 @@ class CallClient : NSObject {
     
     private func addIceCandidate(signal: Signal) {
         let iceWrapper = try? JSONDecoder().decode(IceCandidate.self, from: signal.payload.data(using: .utf8)!)
-        self.peerConnections[0].add(iceWrapper!.rtcIceCandidate, completionHandler: self.printError)
+        self.peerConnections[signal.sender.uppercased()]!.add(iceWrapper!.rtcIceCandidate, completionHandler: self.printError)
     }
     
     private func printError(error: Error?) {
@@ -174,16 +172,18 @@ class CallClient : NSObject {
     }
     
     private func setTrackEnabled<T: RTCMediaStreamTrack>(_ type: T.Type, isEnabled: Bool) {
-        peerConnections[0].transceivers
-            .compactMap { return $0.sender.track as? T }
-            .forEach { $0.isEnabled = isEnabled }
+        peerConnections.values.forEach() { c in
+                c.transceivers
+                    .compactMap { return $0.sender.track as? T }
+                    .forEach { $0.isEnabled = isEnabled }
+        }
     }
 }
 
 extension CallClient : RTCPeerConnectionDelegate {
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange stateChanged: RTCSignalingState) {
-        print("peerConnection new signaling state: \(self.peerConnections[0].signalingState)")
+        print("peerConnection new signaling state: \(stateChanged)")
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {
@@ -203,7 +203,6 @@ extension CallClient : RTCPeerConnectionDelegate {
         if (newState == RTCIceConnectionState.connected) {
             self.delegate!.updateConnectionState(connected: true)
         } else if (newState == RTCIceConnectionState.disconnected || newState == RTCIceConnectionState.closed || newState == RTCIceConnectionState.failed) {
-            self.targetId = ""
             self.delegate!.updateConnectionState(connected: false)
         }
     }
@@ -213,13 +212,18 @@ extension CallClient : RTCPeerConnectionDelegate {
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didGenerate candidate: RTCIceCandidate) {
-        if (self.targetId == "") {
+        if (self.direction == "") {
             return
         }
         let iceCandidate = IceCandidate(from: candidate)
         let payloadData = try? JSONEncoder().encode(iceCandidate)
         let payloadString = String(data: payloadData!, encoding: .utf8)
-        let signal = Signal(sender: self.clientId, recipient: self.targetId, type: "ICE_CANDIDATE", payload: payloadString!)
+        
+        guard let targetId = self.peerConnections.first(where: { $1 == peerConnection })?.key else {
+            return
+        }
+        
+        let signal = Signal(sender: self.clientId, recipient: targetId, type: "ICE_CANDIDATE", payload: payloadString!)
         self.delegate!.send(signal)
     }
     
