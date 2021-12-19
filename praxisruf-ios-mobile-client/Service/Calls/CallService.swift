@@ -78,13 +78,6 @@ class CallService : ObservableObject, CallClientDelegate {
         self.callTypeId = ""
         self.callStarted = false
         self.connected = false
-        
-        // Dispose of old client
         callClient.endCall()
-        callClient.delegate = nil
-        
-        // Init new client
-        callClient = CallClient()
-        callClient.delegate = self
     }
 }

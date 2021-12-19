@@ -25,12 +25,14 @@ class CallClient : NSObject {
     private let rtcAudioSession =  RTCAudioSession.sharedInstance()
     private let factory: RTCPeerConnectionFactory
     
+    private let config: RTCConfiguration
+    
     private var muted = false;
     
     override required init() {
         self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId) ?? ""
         
-        let config = RTCConfiguration()
+        self.config = RTCConfiguration()
         config.iceServers = [RTCIceServer(urlStrings:  ["stun:stun.l.google.com:19302",
                                                         "stun:stun1.l.google.com:19302",
                                                         "stun:stun2.l.google.com:19302",
@@ -112,6 +114,21 @@ class CallClient : NSObject {
         }
         self.targetId = ""
         self.peerConnection.close()
+        self.peerConnection.delegate = nil
+        
+        
+        let constraints = RTCMediaConstraints(mandatoryConstraints: nil,
+                                              optionalConstraints: ["DtlsSrtpKeyAgreement":kRTCMediaConstraintsValueTrue])
+       
+        guard let peerConnection = factory.peerConnection(with: config, constraints: constraints, delegate: nil)
+        else {
+            fatalError("Could not create new RTCPeerConnection")
+        }
+        
+        self.peerConnection = peerConnection
+        self.createMediaSenders()
+        self.configureAudioSession()
+        peerConnection.delegate = self
     }
     
     func accept(signal: Signal) {
