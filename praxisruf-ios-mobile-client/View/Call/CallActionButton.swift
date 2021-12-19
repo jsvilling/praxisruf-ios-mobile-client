@@ -11,8 +11,8 @@ struct CallActionButton: View {
     private let image: String
     private var width: CGFloat?
     private var height: CGFloat?
-    private let tapped: Color
-    private let untapped: Color
+    private let activeColor: Color
+    private let inactiveColor: Color
     private let action: () -> Void
     
     @State var pressed: Bool = false
@@ -21,8 +21,8 @@ struct CallActionButton: View {
         self.image = image
         self.width = width
         self.height = height
-        self.tapped = tapped
-        self.untapped = untapped
+        self.activeColor = tapped
+        self.inactiveColor = untapped
         self.action = action
     }
     
@@ -40,7 +40,7 @@ struct CallActionButton: View {
         }
         .frame(width: 100, height: 100)
             .foregroundColor(Color.black)
-            .background(self.pressed ? tapped : untapped)
+            .background(self.pressed ? activeColor : inactiveColor)
             .clipShape(Circle())
     }
 }
