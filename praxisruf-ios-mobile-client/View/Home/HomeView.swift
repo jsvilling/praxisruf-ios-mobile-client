@@ -15,7 +15,7 @@ struct HomeView: View {
     let clientName: String
     
     init (clientName: String?) {
-        self.clientName = clientName ?? UserDefaults.standard.string(forKey: "clientName") ?? "clientName"
+        self.clientName = clientName ?? UserDefaults.standard.string(forKey: "clientName") ?? "UNKNOWN"
     }
     
     var body: some View {

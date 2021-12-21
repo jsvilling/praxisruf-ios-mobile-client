@@ -13,6 +13,9 @@ extension PraxisrufApi {
     private static var websocket: URLSessionWebSocketTask? = nil;
     
     func connectSignalingServer(clientId: String) {
+        if (PraxisrufApi.websocket != nil) {
+            return
+        }
         guard let authToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.authToken) else {
             print("No authToken found")
             return
@@ -25,10 +28,13 @@ extension PraxisrufApi {
         PraxisrufApi.websocket = task
     }
     
-    func pingSignalingConnection() {
+    func pingSignalingConnection(onConnectionClosed: @escaping () -> Void) {
         PraxisrufApi.websocket?.sendPing() { error in
             if (error != nil) {
-                print("Error")
+                print("Error in ping")
+            }
+            if (PraxisrufApi.websocket?.closeCode.rawValue != 0) {
+                onConnectionClosed()
             }
         }
     }
@@ -55,14 +61,22 @@ extension PraxisrufApi {
                         case .string(let string):
                             let signal = try? JSONDecoder().decode(Signal.self, from: string.data(using: .utf8)!)
                             completion(signal!)
+                            self.listenForSignal(completion: completion)
                         default:
-                            fatalError("Invalid Signal received")
+                            print("Invalid Signal received")
+                            return
                     }
                 case .failure(let error):
-                    print("Error")
                     print(error)
             }
-            self.listenForSignal(completion: completion)
+        }
+        print("Linstening for intercom signals")
+    }
+    
+    private static func printError(error: Error?) {
+        if (error != nil) {
+            print("Error")
+            print(error)
         }
     }
 }

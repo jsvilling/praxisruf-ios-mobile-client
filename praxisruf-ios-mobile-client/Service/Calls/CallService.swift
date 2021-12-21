@@ -20,32 +20,32 @@ class CallService : ObservableObject, CallClientDelegate {
     private let praxisrufApi: PraxisrufApi
     
     init() {
-        self.clientId = UserDefaults.standard.string(forKey: "clientId") ?? "clientId"
-        self.praxisrufApi = PraxisrufApi()
-        self.callClient = CallClient()
+        clientId = UserDefaults.standard.string(forKey: "clientId") ?? "clientId"
+        praxisrufApi = PraxisrufApi()
+        callClient = CallClient()
         callClient.delegate = self
     }
     
     func listen() {
-        self.praxisrufApi.connectSignalingServer(clientId: clientId)
-        self.praxisrufApi.listenForSignal(completion: receive)
+        praxisrufApi.connectSignalingServer(clientId: clientId)
+        praxisrufApi.listenForSignal(completion: receive)
     }
     
     func ping(_ input: Any? = nil) {
-        self.praxisrufApi.pingSignalingConnection()
+        praxisrufApi.pingSignalingConnection(onConnectionClosed: listen)
     }
     
     func send(_ signal: Signal) {
-        self.praxisrufApi.sendSignal(signal: signal)
+        praxisrufApi.sendSignal(signal: signal)
     }
     
     func receive(_ signal: Signal) {
         print("Received Signal with type \(signal.type)")
         if (signal.type == "OFFER") {
-            self.callStarted = true
+            callStarted = true
             Inbox.shared.receive(signal)
         } else if (signal.type == "END") {
-            self.callStarted = false
+            callStarted = false
         }
         callClient.accept(signal: signal)
     }
