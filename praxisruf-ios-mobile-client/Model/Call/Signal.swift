@@ -12,4 +12,5 @@ struct Signal : Codable {
     let recipient: String
     let type: String
     let payload: String
+    var description: String = ""
 }

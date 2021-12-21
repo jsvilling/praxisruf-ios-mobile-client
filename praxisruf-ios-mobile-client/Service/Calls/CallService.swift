@@ -15,6 +15,7 @@ class CallService : ObservableObject, CallClientDelegate {
     
     private var connected: Bool = false
     private let clientId: String
+    
     private var callClient: CallClient
     private let praxisrufApi: PraxisrufApi
     
@@ -42,6 +43,7 @@ class CallService : ObservableObject, CallClientDelegate {
         print("Received Signal with type \(signal.type)")
         if (signal.type == "OFFER") {
             self.callStarted = true
+            Inbox.shared.receive(signal)
         } else if (signal.type == "END") {
             self.callStarted = false
         }
@@ -66,7 +68,7 @@ class CallService : ObservableObject, CallClientDelegate {
             switch result {
                 case .success(let callType):
                     print("Starting call for \(callType.id)")
-                    self.callClient.offer(targetId: callType.participants[0])
+                    self.callClient.offer(targetIds: callType.participants)
                 case .failure(let error):
                     print(error.localizedDescription)
             }

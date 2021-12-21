@@ -10,18 +10,25 @@ import Foundation
 struct InboxItem: Identifiable {
     var id: UUID = UUID()
     var type: String
-    var title: String
-    var body: String
+    var title: String = ""
+    var body: String = ""
     var ack: Bool = false
     var receivedAt = Date()
     var sender: String
+    
+    func fullTitle() -> String {
+        if (title != "") {
+            return "\(title) (\(sender))"
+        }
+        return sender
+    }
 }
 
 extension InboxItem {
         static var data: [InboxItem] = [
-            InboxItem(type: "phone", title: "Alarm", body: "Ganz üble Sache", sender: "Behandlungszimmer 1"),
+            InboxItem(type: "phone", title: "", body: "", sender: "Behandlungszimmer 1"),
             InboxItem(type: "mail", title: "Zahnpasta", body: "Zahnpasta", sender: "Empfang"),
-            InboxItem(type: "phone", title: "Alarm", body: "Alarm", ack: true, sender: "Benhandlungszimmer 1"),
+            InboxItem(type: "phone", title: "", body: "", ack: true, sender: "Benhandlungszimmer 1"),
             InboxItem(type: "mail", title: "Zahnpasta", body: "Zahnpasta", ack: true, sender: "Empfang")
         ]
 }

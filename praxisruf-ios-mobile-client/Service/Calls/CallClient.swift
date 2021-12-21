@@ -19,6 +19,7 @@ class CallClient : NSObject {
     var direction: String = ""
     
     private let clientId: String
+    private let clientName: String
     private let mediaConstrains = [kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueTrue,
                                    kRTCMediaConstraintsOfferToReceiveVideo: kRTCMediaConstraintsValueTrue]
     
@@ -34,6 +35,8 @@ class CallClient : NSObject {
     
     override required init() {
         self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId) ?? ""
+        self.clientName = UserDefaults.standard.string(forKey: UserDefaultKeys.clientName) ?? "UNKNOWN"
+        
         self.config = RTCConfiguration()
         config.iceServers = [RTCIceServer(urlStrings:  ["stun:stun.l.google.com:19302",
                                                         "stun:stun1.l.google.com:19302",
@@ -85,7 +88,11 @@ class CallClient : NSObject {
         return audioTrack
     }
     
-    func offer(targetId: String) {
+    func offer(targetIds: [String]) {
+        targetIds.forEach(offer)
+    }
+    
+    private func offer(targetId: String) {
         initNextPeerConnection(targetId: targetId)
         self.direction = "SENDING"
         let constrains = RTCMediaConstraints(mandatoryConstraints: mediaConstrains, optionalConstraints: nil)
@@ -99,7 +106,7 @@ class CallClient : NSObject {
                 let sdpWrapper = SessionDescription(from: sdp)
                 let payloadData = try? JSONEncoder().encode(sdpWrapper)
                 let payloadString = String(data: payloadData!, encoding: .utf8)
-                let offer = Signal(sender: self.clientId, recipient: targetId, type: "OFFER", payload: payloadString!)
+                let offer = Signal(sender: self.clientId, recipient: targetId, type: "OFFER", payload: payloadString!, description: self.clientName)
                 self.delegate!.send(offer)
             }
         }
