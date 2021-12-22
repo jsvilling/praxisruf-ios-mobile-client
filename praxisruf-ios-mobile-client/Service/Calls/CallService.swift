@@ -61,8 +61,7 @@ class CallService : ObservableObject {
         self.active = false
         callClient.endCall()
     }
-    
- 
+
 }
 
 extension CallService : CallClientDelegate {

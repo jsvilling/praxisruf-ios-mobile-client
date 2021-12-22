@@ -39,6 +39,10 @@ extension PraxisrufApi {
         task.resume()
         PraxisrufApi.singalingWebSocket = task
     }
+    
+    func disconnectSignalingService() {
+        PraxisrufApi.singalingWebSocket = nil
+    }
 
     func pingSignalingConnection() {
         if (disconnected) {

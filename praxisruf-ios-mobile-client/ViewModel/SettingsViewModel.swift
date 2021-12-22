@@ -36,6 +36,7 @@ class SettingsViewModel : ObservableObject {
     
     func logout() {
         RegistrationService().unregister()
+        PraxisrufApi().disconnectSignalingService()
         DispatchQueue.main.async {
             self.isLoggedOut = true
         }
