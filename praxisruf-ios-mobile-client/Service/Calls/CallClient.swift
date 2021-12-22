@@ -10,6 +10,7 @@ import WebRTC
 
 protocol CallClientDelegate {
     func send(_ signal: Signal)
+    func updateState(clientId: String, state: String)
 }
 
 class CallClient : NSObject {
@@ -205,7 +206,32 @@ extension CallClient : RTCPeerConnectionDelegate {
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceConnectionState) {
-        print("peerConnection new connection state: \(newState)")
+        var state = ""
+        switch(newState) {
+            case .new:
+                state = "NEW"
+            case .checking:
+                state = "CHECKING"
+            case .connected:
+                state = "CONNECTED"
+            case .completed:
+                state = "COMPLETED"
+            case .failed:
+                state = "FAILED"
+            case .disconnected:
+                state = "DISCONNECTED"
+            case .closed:
+                state = "CLOSED"
+            case .count:
+                state = "COUNT"
+            default:
+                state = "UNKNOWN"
+            }
+        
+        let id = peerConnections.first { $0.value == peerConnection }?.key
+        if (id != nil) {
+            delegate?.updateState(clientId: id!, state: state)
+        }
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceGatheringState) {

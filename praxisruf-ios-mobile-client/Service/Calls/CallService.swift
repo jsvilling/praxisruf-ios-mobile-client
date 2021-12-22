@@ -12,7 +12,7 @@ class CallService : ObservableObject {
 
     @Published var active: Bool = false
     @Published var callTypeId: String = ""
-    @Published var state: String = "NONE"
+    @Published var states: [String:String] = [:]
     @Published var callPartnerName: String = ""
     
     private let clientId: String
@@ -51,6 +51,9 @@ class CallService : ObservableObject {
             switch result {
                 case .success(let callType):
                     print("Starting call for \(callType.id)")
+                    callType.participants.forEach() { p in
+                        self.updateState(clientId: p.uppercased(), state: "WAITING")
+                    }
                     self.callClient.offer(targetIds: callType.participants)
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -60,7 +63,7 @@ class CallService : ObservableObject {
     
     func endCall() {
         self.callTypeId = ""
-        self.state = "NONE"
+        self.states.removeAll()
         self.active = false
         callClient.endCall()
     }
@@ -68,6 +71,11 @@ class CallService : ObservableObject {
 }
 
 extension CallService : CallClientDelegate {
+    
+    func updateState(clientId: String, state: String) {
+        states[clientId] = state
+    }
+    
     
     func send(_ signal: Signal) {
         praxisrufApi.sendSignal(signal: signal)
@@ -82,8 +90,6 @@ extension CallService : PraxisrufApiSignalingDelegate {
     }
     
     func onSignalReceived(_ signal: Signal) {
-        self.state = "RECEIVED \(signal.type)"
-        
         if (signal.description != "") {
             self.callPartnerName = signal.description
         }

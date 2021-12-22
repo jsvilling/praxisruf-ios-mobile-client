@@ -17,8 +17,14 @@ struct ActiveCallView: View {
                 .font(.largeTitle)
                 .fontWeight(.semibold)
                 .padding(.bottom, 50)
-            Text(callService.state)
-                .padding(.bottom, 50)
+            
+            
+            ForEach(callService.states.sorted(by: >), id: \.key) { k, v in
+                Text("\(k): \(v)")
+                    .padding(.bottom, 50)
+            }
+            
+
             HStack {
                 Spacer()
                 CallActionButton(image: "mic.slash", width: 35, height: 40, action: callService.toggleMute)
