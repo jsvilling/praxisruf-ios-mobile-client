@@ -10,7 +10,6 @@ import WebRTC
 
 protocol CallClientDelegate {
     func send(_ signal: Signal)
-    func updateConnectionState(connected: Bool)
 }
 
 class CallClient : NSObject {
@@ -207,11 +206,6 @@ extension CallClient : RTCPeerConnectionDelegate {
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceConnectionState) {
         print("peerConnection new connection state: \(newState)")
-        if (newState == RTCIceConnectionState.connected) {
-            self.delegate!.updateConnectionState(connected: true)
-        } else if (newState == RTCIceConnectionState.disconnected || newState == RTCIceConnectionState.closed || newState == RTCIceConnectionState.failed) {
-            self.delegate!.updateConnectionState(connected: false)
-        }
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceGatheringState) {

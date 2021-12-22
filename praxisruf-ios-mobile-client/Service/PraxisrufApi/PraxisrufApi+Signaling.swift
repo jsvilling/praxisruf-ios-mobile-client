@@ -16,11 +16,12 @@ protocol PraxisrufApiSignalingDelegate {
 
 extension PraxisrufApi {
     
-    private static var delegate: PraxisrufApiSignalingDelegate?
-    private static var websocket: URLSessionWebSocketTask? = nil;
+    static var signalingDelegate: PraxisrufApiSignalingDelegate?
+    
+    private static var singalingWebSocket: URLSessionWebSocketTask? = nil;
     
     private var disconnected: Bool {
-        return PraxisrufApi.websocket == nil || PraxisrufApi.websocket?.closeCode.rawValue != 0
+        return PraxisrufApi.singalingWebSocket == nil || PraxisrufApi.singalingWebSocket?.closeCode.rawValue != 0
     }
 
     func connectSignalingServer(clientId: String) {
@@ -36,68 +37,52 @@ extension PraxisrufApi {
         request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         let task = URLSession(configuration: .default).webSocketTask(with: request)
         task.resume()
-        PraxisrufApi.websocket = task
+        PraxisrufApi.singalingWebSocket = task
     }
 
     func pingSignalingConnection() {
         if (disconnected) {
-            PraxisrufApi.delegate?.onConnectionLost()
+            PraxisrufApi.signalingDelegate?.onConnectionLost()
         }
-        PraxisrufApi.websocket?.sendPing() { error in
+        PraxisrufApi.singalingWebSocket?.sendPing() { error in
             if (error != nil) {
-                PraxisrufApi.delegate?.onErrorReceived(error: error!)
-            }
-        }
-    }
-    
-    func pingSignalingConnection(completion: @escaping (Result<Nothing, PraxisrufApiError>) -> Void) {
-        if (disconnected) {
-            completion(.failure(PraxisrufApiError.connectionClosedTemp))
-        }
-        PraxisrufApi.websocket?.sendPing() { error in
-            if (error != nil) {
-                completion(.failure(PraxisrufApiError.errorResponse))
-            } else {
-                completion(.success(Nothing()))
+                PraxisrufApi.signalingDelegate?.onErrorReceived(error: error!)
             }
         }
     }
 
-    func sendSignal(signal: Signal, completion: @escaping (Result<Nothing, PraxisrufApiError>) -> Void) {
+    func sendSignal(signal: Signal) {
         let content = try? JSONEncoder().encode(signal)
         let message = URLSessionWebSocketTask.Message.string(String(data: content!, encoding: .utf8)!)
         
         if (disconnected) {
-            completion(.failure(PraxisrufApiError.connectionClosedTemp))
+            PraxisrufApi.signalingDelegate?.onConnectionLost()
         }
         
-        PraxisrufApi.websocket?.send(message) { error in
+        PraxisrufApi.singalingWebSocket?.send(message) { error in
             if (error != nil) {
-                completion(.failure(PraxisrufApiError.errorResponse))
-            } else {
-                completion(.success(Nothing()))
+                PraxisrufApi.signalingDelegate?.onErrorReceived(error: error!)
             }
         }
     }
     
-    func listenForSignal(completion: @escaping (Result<Signal, PraxisrufApiError>) -> Void) {
+    func listenForSignal() {
         if (disconnected) {
-            completion(.failure(PraxisrufApiError.connectionClosedTemp))
+            PraxisrufApi.signalingDelegate?.onConnectionLost()
         }
-        PraxisrufApi.websocket?.receive() { message in
+        PraxisrufApi.singalingWebSocket?.receive() { message in
             switch(message) {
                 case .success(let content):
                     switch(content) {
                         case .string(let string):
                             let signal = try? JSONDecoder().decode(Signal.self, from: string.data(using: .utf8)!)
-                            completion(.success(signal!))
-                            self.listenForSignal(completion: completion)
+                            PraxisrufApi.signalingDelegate?.onSignalReceived(signal!)
+                            self.listenForSignal()
                         default:
-                            completion(.failure(PraxisrufApiError.invalidData))
-                            return
+                            PraxisrufApi.signalingDelegate?.onErrorReceived(error: PraxisrufApiError.invalidData)
                     }
                 case .failure(let error):
-                    completion(.failure(PraxisrufApiError.custom(errorMessage: error.localizedDescription)))
+                    PraxisrufApi.signalingDelegate?.onErrorReceived(error: error)
             }
         }
     }

@@ -10,7 +10,7 @@ import WebRTC
 
 class CallService : ObservableObject {
 
-    @Published var callStarted: Bool = false
+    @Published var active: Bool = false
     @Published var callTypeId: String = ""
     
     private let clientId: String
@@ -23,39 +23,16 @@ class CallService : ObservableObject {
         praxisrufApi = PraxisrufApi()
         callClient = CallClient()
         callClient.delegate = self
+        PraxisrufApi.signalingDelegate = self
     }
     
     func listen() {
         praxisrufApi.connectSignalingServer(clientId: clientId)
-        praxisrufApi.listenForSignal() { result in
-            switch(result) {
-                case .failure(let error):
-                    self.onSignalingError(error)
-                case .success(let signal):
-                    self.receive(signal)
-            }
-        }
+        praxisrufApi.listenForSignal()
     }
     
     func ping(_ input: Any? = nil) {
-        praxisrufApi.pingSignalingConnection() { result in
-            switch(result) {
-                case .failure(let error):
-                    self.onSignalingError(error)
-                case .success(_):
-                    print()
-            }
-        }
-    }
-        
-    func receive(_ signal: Signal) {
-        if (signal.type == "OFFER") {
-            callStarted = true
-            Inbox.shared.receive(signal)
-        } else if (signal.type == "END") {
-            callStarted = false
-        }
-        callClient.accept(signal: signal)
+        praxisrufApi.pingSignalingConnection() 
     }
     
     func toggleMute() {
@@ -63,7 +40,7 @@ class CallService : ObservableObject {
     }
     
     func initCall(id: UUID) {
-        self.callStarted = true
+        self.active = true
         self.callTypeId = id.uuidString
     }
     
@@ -81,37 +58,17 @@ class CallService : ObservableObject {
     
     func endCall() {
         self.callTypeId = ""
-        self.callStarted = false
+        self.active = false
         callClient.endCall()
     }
     
-    
-    private func onSignalingError(_ error: PraxisrufApiError) {
-        switch(error) {
-            case PraxisrufApiError.connectionClosedTemp:
-                print("Attempting reconnect")
-                listen()
-            default:
-                print(error.localizedDescription)
-        }
-    }
+ 
 }
 
 extension CallService : CallClientDelegate {
     
     func send(_ signal: Signal) {
-        praxisrufApi.sendSignal(signal: signal) { result in
-            switch(result) {
-                case .failure(let error):
-                    self.onSignalingError(error)
-                case .success(_):
-                    print()
-            }
-        }
-    }
-    
-    func updateConnectionState(connected: Bool) {
-        self.callStarted = connected
+        praxisrufApi.sendSignal(signal: signal)
     }
     
 }
@@ -124,10 +81,10 @@ extension CallService : PraxisrufApiSignalingDelegate {
     
     func onSignalReceived(_ signal: Signal) {
         if (signal.type == "OFFER") {
-            callStarted = true
+            active = true
             Inbox.shared.receive(signal)
         } else if (signal.type == "END") {
-            callStarted = false
+            active = false
         }
         callClient.accept(signal: signal)
     }
@@ -135,6 +92,5 @@ extension CallService : PraxisrufApiSignalingDelegate {
     func onErrorReceived(error: Error) {
         print(error.localizedDescription)
     }
-    
     
 }
