@@ -11,14 +11,7 @@ import SwiftKeychainWrapper
 class PraxisrufApi {
     
     struct Nothing : Decodable {}
-    
-    public enum PraxisrufApiError: Error {
-        case invalidCredential
-        case invalidData
-        case errorResponse
-        case custom(errorMessage: String)
-    }
-        
+            
     static let httpBaseUrlValue = "https://www.praxisruf.ch/api"
     static let webSocketBaseUrlValue = "wss://www.praxisruf.ch"
     

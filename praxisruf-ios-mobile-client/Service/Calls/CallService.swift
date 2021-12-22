@@ -8,12 +8,11 @@
 import Foundation
 import WebRTC
 
-class CallService : ObservableObject, CallClientDelegate {
+class CallService : ObservableObject {
 
     @Published var callStarted: Bool = false
     @Published var callTypeId: String = ""
     
-    private var connected: Bool = false
     private let clientId: String
     
     private var callClient: CallClient
@@ -28,19 +27,28 @@ class CallService : ObservableObject, CallClientDelegate {
     
     func listen() {
         praxisrufApi.connectSignalingServer(clientId: clientId)
-        praxisrufApi.listenForSignal(completion: receive)
+        praxisrufApi.listenForSignal() { result in
+            switch(result) {
+                case .failure(let error):
+                    self.onSignalingError(error)
+                case .success(let signal):
+                    self.receive(signal)
+            }
+        }
     }
     
     func ping(_ input: Any? = nil) {
-        praxisrufApi.pingSignalingConnection(onConnectionClosed: listen)
+        praxisrufApi.pingSignalingConnection() { result in
+            switch(result) {
+                case .failure(let error):
+                    self.onSignalingError(error)
+                case .success(_):
+                    print()
+            }
+        }
     }
-    
-    func send(_ signal: Signal) {
-        praxisrufApi.sendSignal(signal: signal)
-    }
-    
+        
     func receive(_ signal: Signal) {
-        print("Received Signal with type \(signal.type)")
         if (signal.type == "OFFER") {
             callStarted = true
             Inbox.shared.receive(signal)
@@ -48,10 +56,6 @@ class CallService : ObservableObject, CallClientDelegate {
             callStarted = false
         }
         callClient.accept(signal: signal)
-    }
-    
-    func updateConnectionState(connected: Bool) {
-        self.connected = connected
     }
     
     func toggleMute() {
@@ -76,10 +80,61 @@ class CallService : ObservableObject, CallClientDelegate {
     }
     
     func endCall() {
-        // Update model
         self.callTypeId = ""
         self.callStarted = false
-        self.connected = false
         callClient.endCall()
     }
+    
+    
+    private func onSignalingError(_ error: PraxisrufApiError) {
+        switch(error) {
+            case PraxisrufApiError.connectionClosedTemp:
+                print("Attempting reconnect")
+                listen()
+            default:
+                print(error.localizedDescription)
+        }
+    }
+}
+
+extension CallService : CallClientDelegate {
+    
+    func send(_ signal: Signal) {
+        praxisrufApi.sendSignal(signal: signal) { result in
+            switch(result) {
+                case .failure(let error):
+                    self.onSignalingError(error)
+                case .success(_):
+                    print()
+            }
+        }
+    }
+    
+    func updateConnectionState(connected: Bool) {
+        self.callStarted = connected
+    }
+    
+}
+
+extension CallService : PraxisrufApiSignalingDelegate {
+    
+    func onConnectionLost() {
+        listen()
+    }
+    
+    func onSignalReceived(_ signal: Signal) {
+        if (signal.type == "OFFER") {
+            callStarted = true
+            Inbox.shared.receive(signal)
+        } else if (signal.type == "END") {
+            callStarted = false
+        }
+        callClient.accept(signal: signal)
+    }
+    
+    func onErrorReceived(error: Error) {
+        print(error.localizedDescription)
+    }
+    
+    
 }

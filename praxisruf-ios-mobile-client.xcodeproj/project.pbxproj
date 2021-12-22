@@ -54,6 +54,7 @@
 		CE615529276E12E4007798C6 /* CallActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE615528276E12E4007798C6 /* CallActionButton.swift */; };
 		CE61552B276E170E007798C6 /* ActiveCallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61552A276E170E007798C6 /* ActiveCallView.swift */; };
 		CE61552D276E6CA8007798C6 /* PraxisrufApi+Signaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61552C276E6CA8007798C6 /* PraxisrufApi+Signaling.swift */; };
+		CE61552F27732B81007798C6 /* PraxisrufApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61552E27732B81007798C6 /* PraxisrufApiError.swift */; };
 		CE81C583275F5E7600F69B74 /* ReceiveNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81C582275F5E7600F69B74 /* ReceiveNotification.swift */; };
 		CE81C5852761107100F69B74 /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81C5842761107100F69B74 /* Registration.swift */; };
 		CE94AC532753E08200C93410 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC522753E08200C93410 /* SettingsViewModel.swift */; };
@@ -136,6 +137,7 @@
 		CE615528276E12E4007798C6 /* CallActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallActionButton.swift; sourceTree = "<group>"; };
 		CE61552A276E170E007798C6 /* ActiveCallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCallView.swift; sourceTree = "<group>"; };
 		CE61552C276E6CA8007798C6 /* PraxisrufApi+Signaling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PraxisrufApi+Signaling.swift"; sourceTree = "<group>"; };
+		CE61552E27732B81007798C6 /* PraxisrufApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PraxisrufApiError.swift; sourceTree = "<group>"; };
 		CE81C582275F5E7600F69B74 /* ReceiveNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveNotification.swift; sourceTree = "<group>"; };
 		CE81C5842761107100F69B74 /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
 		CE94AC522753E08200C93410 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				CE51D034272563D6000D09C1 /* PraxisrufApi+Notification.swift */,
 				CE01405D2731787500B71AB7 /* PraxisrufApi+SpeechSynth.swift */,
 				CE61552C276E6CA8007798C6 /* PraxisrufApi+Signaling.swift */,
+				CE61552E27732B81007798C6 /* PraxisrufApiError.swift */,
 			);
 			path = PraxisrufApi;
 			sourceTree = "<group>";
@@ -612,6 +615,7 @@
 				CE94AC5927566B6900C93410 /* InboxReminderService.swift in Sources */,
 				CE53ABE1271DA32300BAD1F1 /* InboxView.swift in Sources */,
 				CE01406027317ACF00B71AB7 /* SpeechSynthesisService.swift in Sources */,
+				CE61552F27732B81007798C6 /* PraxisrufApiError.swift in Sources */,
 				CE94AC67275BC1D800C93410 /* DiesplayCallType.swift in Sources */,
 				CE53ABF5271EB30100BAD1F1 /* ClientSelectViewModel.swift in Sources */,
 				CE212BB5276771D0001131BF /* IceCandidate.swift in Sources */,
