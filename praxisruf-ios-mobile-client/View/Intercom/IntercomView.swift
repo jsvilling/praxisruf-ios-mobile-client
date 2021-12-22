@@ -33,7 +33,7 @@ struct IntercomView: View {
         .onAppear(perform: callService.listen)
         .onReceive(keepAliveSignalingConnection, perform: callService.ping)
         .fullScreenCover(isPresented: $callService.active) {
-                ActiveCallView(callService: callService)
+            ActiveCallView(callService: callService)
         }
     }
 }

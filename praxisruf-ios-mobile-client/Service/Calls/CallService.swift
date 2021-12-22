@@ -12,6 +12,8 @@ class CallService : ObservableObject {
 
     @Published var active: Bool = false
     @Published var callTypeId: String = ""
+    @Published var state: String = "NONE"
+    @Published var callPartnerName: String = ""
     
     private let clientId: String
     
@@ -58,6 +60,7 @@ class CallService : ObservableObject {
     
     func endCall() {
         self.callTypeId = ""
+        self.state = "NONE"
         self.active = false
         callClient.endCall()
     }
@@ -79,6 +82,12 @@ extension CallService : PraxisrufApiSignalingDelegate {
     }
     
     func onSignalReceived(_ signal: Signal) {
+        self.state = "RECEIVED \(signal.type)"
+        
+        if (signal.description != "") {
+            self.callPartnerName = signal.description
+        }
+        
         if (signal.type == "OFFER") {
             active = true
             Inbox.shared.receive(signal)

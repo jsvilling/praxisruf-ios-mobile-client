@@ -9,10 +9,16 @@ import SwiftUI
 
 struct ActiveCallView: View {
     
-    let callService: CallService
+    @StateObject var callService: CallService
     
     var body: some View {
         VStack {
+            Text(callService.callPartnerName)
+                .font(.largeTitle)
+                .fontWeight(.semibold)
+                .padding(.bottom, 50)
+            Text(callService.state)
+                .padding(.bottom, 50)
             HStack {
                 Spacer()
                 CallActionButton(image: "mic.slash", width: 35, height: 40, action: callService.toggleMute)
@@ -22,7 +28,7 @@ struct ActiveCallView: View {
             }
         }
         .onAppear() {
-            if (self.callService.callTypeId == "RECEIVING") {
+            if (self.callService.callTypeId == "") {
                 print("Incomming call")
             } else {
                 self.callService.startCall()
