@@ -34,9 +34,7 @@ struct ActiveCallView: View {
             }
         }
         .onAppear() {
-            if (self.callService.callTypeId == "") {
-                print("Incomming call")
-            } else {
+            if (self.callService.callTypeId != "") {
                 self.callService.startCall()
             }
         }

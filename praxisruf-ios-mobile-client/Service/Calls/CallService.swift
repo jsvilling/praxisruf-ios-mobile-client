@@ -50,11 +50,13 @@ class CallService : ObservableObject {
         PraxisrufApi().getCallType(callTypeId: self.callTypeId) { result in
             switch result {
                 case .success(let callType):
-                    print("Starting call for \(callType.id)")
-                    callType.participants.forEach() { p in
-                        self.updateState(clientId: p.uppercased(), state: "WAITING")
+                    DispatchQueue.main.async {
+                        self.callPartnerName = callType.displayText
+                        callType.participants.forEach() { p in
+                            self.updateState(clientId: p.uppercased(), state: "WAITING")
+                        }
+                        self.callClient.offer(targetIds: callType.participants)
                     }
-                    self.callClient.offer(targetIds: callType.participants)
                 case .failure(let error):
                     print(error.localizedDescription)
             }
@@ -73,7 +75,12 @@ class CallService : ObservableObject {
 extension CallService : CallClientDelegate {
     
     func updateState(clientId: String, state: String) {
-        states[clientId] = state
+        DispatchQueue.main.async {
+            self.states[clientId] = state
+            if (state == "DISCONNECTED") {
+                self.active = false
+            }
+        }
     }
     
     
@@ -90,17 +97,16 @@ extension CallService : PraxisrufApiSignalingDelegate {
     }
     
     func onSignalReceived(_ signal: Signal) {
-        if (signal.description != "") {
-            self.callPartnerName = signal.description
+        DispatchQueue.main.async {
+            if (signal.type == "OFFER") {
+                self.active = true
+                self.callPartnerName = signal.description
+                Inbox.shared.receive(signal)
+            } else if (signal.type == "END") {
+                self.active = false
+            }
+            self.callClient.accept(signal: signal)
         }
-        
-        if (signal.type == "OFFER") {
-            active = true
-            Inbox.shared.receive(signal)
-        } else if (signal.type == "END") {
-            active = false
-        }
-        callClient.accept(signal: signal)
     }
     
     func onErrorReceived(error: Error) {

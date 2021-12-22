@@ -122,7 +122,7 @@ class CallClient : NSObject {
             }
             cv.value.delegate = nil
         }
-        self.peerConnections.removeAll()
+        //self.peerConnections.removeAll()
     }
     
     func accept(signal: Signal) {
