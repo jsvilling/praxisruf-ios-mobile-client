@@ -36,13 +36,8 @@ class CallClient : NSObject {
     override required init() {
         self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId) ?? ""
         self.clientName = UserDefaults.standard.string(forKey: UserDefaultKeys.clientName) ?? "UNKNOWN"
-        
         self.config = RTCConfiguration()
-        config.iceServers = [RTCIceServer(urlStrings:  ["stun:stun.l.google.com:19302",
-                                                        "stun:stun1.l.google.com:19302",
-                                                        "stun:stun2.l.google.com:19302",
-                                                        "stun:stun3.l.google.com:19302",
-                                                        "stun:stun4.l.google.com:19302"])]
+
         config.sdpSemantics = .unifiedPlan
         config.continualGatheringPolicy = .gatherContinually
         constraints = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: ["DtlsSrtpKeyAgreement":kRTCMediaConstraintsValueTrue])
