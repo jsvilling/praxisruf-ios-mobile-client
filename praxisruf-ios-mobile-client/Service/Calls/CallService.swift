@@ -16,8 +16,7 @@ class CallService : ObservableObject {
     @Published var callPartnerName: String = ""
     
     private let clientId: String
-    
-    private var callClient: CallClient
+    private let callClient: CallClient
     private let praxisrufApi: PraxisrufApi
     
     init() {
@@ -44,27 +43,32 @@ class CallService : ObservableObject {
     }
     
     func initCall(calltype: DisplayCallType) {
-        self.active = true
-        self.callTypeId = calltype.id.uuidString
-        self.callPartnerName = calltype.displayText
+        DispatchQueue.main.async {
+            self.active = true
+            self.callTypeId = calltype.id.uuidString
+            self.callPartnerName = calltype.displayText
+        }
     }
     
     func startCall() {
         PraxisrufApi().getCallTypeParticipants(callTypeId: self.callTypeId) { result in
             switch result {
                 case .success(let participants):
-                    DispatchQueue.main.async {
-                        participants
-                            .filter({ p in p.id.uuidString != self.clientId.uppercased() })
-                            .forEach() { p in
-                                self.states[p.id.uuidString] = (p.name, "REQUESTED")
-                                self.callClient.offer(targetId: p.id.uuidString)
-                            }
-
-                    }
+                    participants
+                        .filter({ p in p.id.uuidString != self.clientId.uppercased() })
+                        .forEach() { p in
+                            self.initCallPartnerState(p: p)
+                            self.callClient.offer(targetId: p.id.uuidString)
+                        }
                 case .failure(let error):
                     print(error.localizedDescription)
             }
+        }
+    }
+    
+    private func initCallPartnerState(p: Client) {
+        DispatchQueue.main.async {
+            self.states[p.id.uuidString] = (p.name, "REQUESTED")
         }
     }
     
@@ -76,9 +80,18 @@ class CallService : ObservableObject {
 
 extension CallService : CallClientDelegate {
     
+    func onIncomingCallStarted(signal: Signal) {
+        DispatchQueue.main.async {
+            self.active = true
+            self.callPartnerName = signal.description
+            Inbox.shared.receive(signal)
+        }
+    }
+    
     func onCallEnded() {
         DispatchQueue.main.async {
             self.callTypeId = ""
+            self.callPartnerName = ""
             self.states.removeAll()
             self.active = false
         }
@@ -106,13 +119,6 @@ extension CallService : PraxisrufApiSignalingDelegate {
     
     func onSignalReceived(_ signal: Signal) {
         self.callClient.accept(signal: signal)
-        DispatchQueue.main.async {
-            if (signal.type == "OFFER") {
-                self.active = true
-                self.callPartnerName = signal.description
-                Inbox.shared.receive(signal)
-            } 
-        }
     }
     
     func onErrorReceived(error: Error) {

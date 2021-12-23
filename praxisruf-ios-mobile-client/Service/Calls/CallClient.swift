@@ -11,6 +11,7 @@ import WebRTC
 protocol CallClientDelegate {
     func send(_ signal: Signal)
     func updateState(clientId: String, state: String)
+    func onIncomingCallStarted(signal: Signal)
     func onCallEnded()
 }
 
@@ -92,10 +93,7 @@ class CallClient : NSObject {
                 self.delegate?.send(endSignal)
                 cv.value.close()
                 cv.value.delegate = nil
-            } else {
-               
             }
-            
         }
         self.peerConnections.removeAll()
         self.delegate?.onCallEnded()
@@ -106,6 +104,7 @@ class CallClient : NSObject {
             let peerConnection = initNextPeerConnection(targetId: signal.sender)
             setRemoteSdp(signal: signal, peerConnection: peerConnection)
             answer(targetId: signal.sender, peerConnection: peerConnection)
+            self.delegate?.onIncomingCallStarted(signal: signal)
         } else if (signal.type == "ANSWER") {
             setRemoteSdp(signal: signal)
         } else if (signal.type == "ICE_CANDIDATE") {
@@ -215,7 +214,7 @@ extension CallClient : RTCPeerConnectionDelegate {
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceGatheringState) {
-        print("peerConnection new gathering state: \(newState)")
+        debugPrint("peerConnection new gathering state: \(newState)")
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didGenerate candidate: RTCIceCandidate) {
@@ -228,7 +227,7 @@ extension CallClient : RTCPeerConnectionDelegate {
         }
         
         let signal = Signal(sender: self.clientId, recipient: targetId, type: "ICE_CANDIDATE", payload: payloadString!)
-        self.delegate!.send(signal)
+        self.delegate?.send(signal)
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didRemove candidates: [RTCIceCandidate]) {
