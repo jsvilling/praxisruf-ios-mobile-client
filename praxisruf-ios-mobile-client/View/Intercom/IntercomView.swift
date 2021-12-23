@@ -31,6 +31,7 @@ struct IntercomView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onReceive(keepAliveSignalingConnection, perform: callService.ping)
+        .onAppear(perform: self.callService.listen)
         .onChange(of: scenePhase, perform: self.onPhaseChange)
         .fullScreenCover(isPresented: $callService.active) {
             ActiveCallView(callService: callService)
