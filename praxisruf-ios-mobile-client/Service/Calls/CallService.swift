@@ -111,6 +111,7 @@ extension CallService : PraxisrufApiSignalingDelegate {
                 Inbox.shared.receive(signal)
             } else if (signal.type == "END") {
                 self.active = false
+                self.states.removeAll()
             }
         }
     }
