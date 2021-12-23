@@ -11,6 +11,7 @@ import WebRTC
 protocol CallClientDelegate {
     func send(_ signal: Signal)
     func updateState(clientId: String, state: String)
+    func onCallEnded()
 }
 
 class CallClient : NSObject {
@@ -89,12 +90,15 @@ class CallClient : NSObject {
             if (signalOther) {
                 let endSignal = Signal(sender: clientId, recipient: cv.key, type: "END", payload: "")
                 self.delegate?.send(endSignal)
-            } else {
                 cv.value.close()
+                cv.value.delegate = nil
+            } else {
+               
             }
-            cv.value.delegate = nil
+            
         }
         self.peerConnections.removeAll()
+        self.delegate?.onCallEnded()
     }
     
     func accept(signal: Signal) {

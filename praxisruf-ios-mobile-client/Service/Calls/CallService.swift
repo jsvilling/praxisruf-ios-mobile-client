@@ -111,10 +111,7 @@ extension CallService : PraxisrufApiSignalingDelegate {
                 self.active = true
                 self.callPartnerName = signal.description
                 Inbox.shared.receive(signal)
-            } else if (signal.type == "END") {
-                self.active = false
-                self.states.removeAll()
-            }
+            } 
         }
     }
     
