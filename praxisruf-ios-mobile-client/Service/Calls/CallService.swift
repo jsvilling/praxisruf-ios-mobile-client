@@ -12,7 +12,7 @@ class CallService : ObservableObject {
 
     @Published var active: Bool = false
     @Published var callTypeId: String = ""
-    @Published var states: [String:String] = [:]
+    @Published var states: [String:(String, String)] = [:]
     @Published var callPartnerName: String = ""
     
     private let clientId: String
@@ -48,16 +48,17 @@ class CallService : ObservableObject {
     }
     
     func startCall() {
-        PraxisrufApi().getCallType(callTypeId: self.callTypeId) { result in
+        PraxisrufApi().getCallTypeParticipants(callTypeId: self.callTypeId) { result in
             switch result {
-                case .success(var callType):
+                case .success(let participants):
                     DispatchQueue.main.async {
-                        self.callPartnerName = callType.displayText
-                        callType.participants.removeAll(where: { id in id.uppercased() == self.clientId.uppercased()})
-                        callType.participants.forEach() { p in
-                            self.updateState(clientId: p.uppercased(), state: "REQUESTED")
-                        }
-                        self.callClient.offer(targetIds: callType.participants)
+                        participants
+                            .filter({ p in p.id.uuidString != self.clientId.uppercased() })
+                            .forEach() { p in
+                                self.states[p.id.uuidString] = (p.name, "REQUESTED")
+                                self.callClient.offer(targetId: p.id.uuidString)
+                            }
+
                     }
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -78,7 +79,7 @@ extension CallService : CallClientDelegate {
     
     func updateState(clientId: String, state: String) {
         DispatchQueue.main.async {
-            self.states[clientId] = state
+            self.states[clientId]?.1 = state
             if (state == "DISCONNECTED") {
                 self.active = false
             }

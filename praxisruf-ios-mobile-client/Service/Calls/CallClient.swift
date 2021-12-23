@@ -88,11 +88,7 @@ class CallClient : NSObject {
         return audioTrack
     }
     
-    func offer(targetIds: [String]) {
-        targetIds.forEach(offer)
-    }
-    
-    private func offer(targetId: String) {
+    func offer(targetId: String) {
         
         if (targetId.uppercased() == self.clientId.uppercased()) {
             return

@@ -19,11 +19,10 @@ struct ActiveCallView: View {
                 .padding(.bottom, 50)
             
             
-            ForEach(callService.states.sorted(by: >), id: \.key) { k, v in
-                Text("\(k): \(v)")
+            ForEach(callService.states.sorted { $0.key > $1.key }, id: \.key) { _, v in
+                Text("\(v.0): \(v.1)")
                     .padding(.bottom, 50)
             }
-            
 
             HStack {
                 Spacer()
@@ -34,7 +33,9 @@ struct ActiveCallView: View {
             }
         }
         .onAppear() {
-            if (self.callService.callTypeId != "") {
+            if (self.callService.callTypeId == "") {
+                print("Incomming call")
+            } else {
                 self.callService.startCall()
             }
         }
