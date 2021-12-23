@@ -69,9 +69,6 @@ class CallService : ObservableObject {
     }
     
     func endCall() {
-        self.callTypeId = ""
-        self.states.removeAll()
-        self.active = false
         callClient.endCall()
     }
 
@@ -79,12 +76,17 @@ class CallService : ObservableObject {
 
 extension CallService : CallClientDelegate {
     
+    func onCallEnded() {
+        DispatchQueue.main.async {
+            self.callTypeId = ""
+            self.states.removeAll()
+            self.active = false
+        }
+    }
+    
     func updateState(clientId: String, state: String) {
         DispatchQueue.main.async {
             self.states[clientId]?.1 = state
-            if (state == "DISCONNECTED") {
-                self.active = false
-            }
         }
     }
     
