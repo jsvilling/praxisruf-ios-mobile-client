@@ -15,37 +15,31 @@ protocol CallClientDelegate {
 
 class CallClient : NSObject {
     
-    var delegate: CallClientDelegate?
+    private let rtcAudioSession =  RTCAudioSession.sharedInstance()
+    private let factory: RTCPeerConnectionFactory = RTCPeerConnectionFactory()
+    private let config: RTCConfiguration = RTCConfiguration()
+    private let constraints: RTCMediaConstraints = RTCMediaConstraints(mandatoryConstraints: [kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueTrue, kRTCMediaConstraintsOfferToReceiveVideo: kRTCMediaConstraintsValueFalse], optionalConstraints: ["DtlsSrtpKeyAgreement":kRTCMediaConstraintsValueTrue])
+    
     private let clientId: String
     private let clientName: String
-    private let mediaConstrains = [kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueTrue,
-                                   kRTCMediaConstraintsOfferToReceiveVideo: kRTCMediaConstraintsValueTrue]
-    
     private var peerConnections: [String: RTCPeerConnection] = [:]
-    
-    private let rtcAudioSession =  RTCAudioSession.sharedInstance()
-    private let factory: RTCPeerConnectionFactory
-    
-    private let config: RTCConfiguration
-    private let constraints: RTCMediaConstraints
-    
     private var muted = false;
     
-    override required init() {
-        self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId) ?? ""
-        self.clientName = UserDefaults.standard.string(forKey: UserDefaultKeys.clientName) ?? "UNKNOWN"
-        self.config = RTCConfiguration()
-
-        config.sdpSemantics = .unifiedPlan
-        config.continualGatheringPolicy = .gatherContinually
-        constraints = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: ["DtlsSrtpKeyAgreement":kRTCMediaConstraintsValueTrue])
+    var delegate: CallClientDelegate?
+    
+    required init(clientId: String, clientName: String) {
+        self.clientId = clientId
+        self.clientName = clientName
+        self.config.sdpSemantics = .unifiedPlan
+        self.config.continualGatheringPolicy = .gatherContinually
         RTCInitializeSSL()
-        factory = RTCPeerConnectionFactory()
     }
     
     private func initNextPeerConnection(targetId: String) -> RTCPeerConnection {
         guard let peerConnection = factory.peerConnection(with: config, constraints: constraints, delegate: nil)
         else {
+            delegate?.updateState(clientId: targetId, state: "FAILED")
+            // TODO: Handle this properly
             fatalError("Could not create new RTCPeerConnection")
         }
         self.peerConnections[targetId.uppercased()] = peerConnection
@@ -68,17 +62,14 @@ class CallClient : NSObject {
     }
     
     private func createMediaSenders(targetId: String) {
-        let audioConstrains = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: nil)
-        let audioSource = self.factory.audioSource(with: audioConstrains)
+        let audioSource = self.factory.audioSource(with: constraints)
         let audioTrack = self.factory.audioTrack(with: audioSource, trackId: "audio0")
         self.peerConnections[targetId.uppercased()]!.add(audioTrack, streamIds: [targetId])
     }
     
     func offer(targetId: String) {
         let peerConnection = initNextPeerConnection(targetId: targetId)
-        let constrains = RTCMediaConstraints(mandatoryConstraints: mediaConstrains, optionalConstraints: nil)
-        
-        peerConnection.offer(for: constrains) { (sdp, error) in
+        peerConnection.offer(for: constraints) { (sdp, error) in
             guard let sdp = sdp else {
                 print("No sdp")
                 return
@@ -137,8 +128,7 @@ class CallClient : NSObject {
     }
     
     private func answer(targetId: String, peerConnection: RTCPeerConnection) {
-        let constrains = RTCMediaConstraints(mandatoryConstraints: self.mediaConstrains, optionalConstraints: nil)
-        peerConnection.answer(for: constrains) { (sdp, error) in
+        peerConnection.answer(for: constraints) { (sdp, error) in
             guard let sdp = sdp else {
                 return
             }
@@ -165,14 +155,10 @@ class CallClient : NSObject {
     
     func toggleMute() {
         self.muted = !self.muted
-        setTrackEnabled(RTCAudioTrack.self, isEnabled: !self.muted)
-    }
-    
-    private func setTrackEnabled<T: RTCMediaStreamTrack>(_ type: T.Type, isEnabled: Bool) {
         peerConnections.values.forEach() { c in
                 c.transceivers
-                    .compactMap { return $0.sender.track as? T }
-                    .forEach { $0.isEnabled = isEnabled }
+                    .compactMap { return $0.sender.track as? RTCAudioTrack }
+                    .forEach { $0.isEnabled = !self.muted }
         }
     }
 }

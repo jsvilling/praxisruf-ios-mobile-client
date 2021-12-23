@@ -21,9 +21,11 @@ class CallService : ObservableObject {
     private let praxisrufApi: PraxisrufApi
     
     init() {
-        clientId = UserDefaults.standard.string(forKey: "clientId") ?? "clientId"
+        self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId) ?? ""
+        let clientName = UserDefaults.standard.string(forKey: UserDefaultKeys.clientName) ?? "UNKNOWN"
+        
         praxisrufApi = PraxisrufApi()
-        callClient = CallClient()
+        callClient = CallClient(clientId: clientId, clientName: clientName)
         callClient.delegate = self
         PraxisrufApi.signalingDelegate = self
     }
