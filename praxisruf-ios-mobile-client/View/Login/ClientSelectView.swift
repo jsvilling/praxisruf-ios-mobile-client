@@ -14,10 +14,10 @@ struct ClientSelectView: View {
     
     var body: some View {
         VStack {
-            if (clientSelectVM.availableClients.count < 1) {
+            if (clientSelectVM.availableClients.isEmpty) {
                 Text("noClients")
             } else {
-                NavigationLink(destination: HomeView(clientName: clientSelectVM.selectedClient.name), isActive: $clientSelectVM.selectionConfirmed) {EmptyView()}.hidden()
+                NavigationLink(destination: HomeView(clientName: clientSelectVM.selectedClientName), isActive: $clientSelectVM.selectionConfirmed) {EmptyView()}.hidden()
                 List(clientSelectVM.availableClients, selection: $clientSelectVM.selection) { client in
                     Text("\(client.name)")
                 }
@@ -25,13 +25,8 @@ struct ClientSelectView: View {
         }
         .environment(\.editMode, $isEditMode)
         .navigationTitle("clientSelection")
-        .navigationBarItems(trailing: Button("finish", action: {
-            clientSelectVM.confirm()
-            })
-        )
-        .onAppear() {
-            clientSelectVM.getAvailableClients()
-        }
+        .navigationBarItems(trailing: Button("finish", action: clientSelectVM.confirm))
+        .onAppear(perform: clientSelectVM.getAvailableClients)
     }
 }
 
