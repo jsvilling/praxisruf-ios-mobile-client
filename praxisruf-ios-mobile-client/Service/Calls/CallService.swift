@@ -53,7 +53,7 @@ class CallService : ObservableObject {
                     DispatchQueue.main.async {
                         self.callPartnerName = callType.displayText
                         callType.participants.forEach() { p in
-                            self.updateState(clientId: p.uppercased(), state: "WAITING")
+                            self.updateState(clientId: p.uppercased(), state: "REQUESTED")
                         }
                         self.callClient.offer(targetIds: callType.participants)
                     }
@@ -83,8 +83,8 @@ extension CallService : CallClientDelegate {
         }
     }
     
-    
     func send(_ signal: Signal) {
+        print("Sending Signal with type \(signal.type)")
         praxisrufApi.sendSignal(signal: signal)
     }
     
@@ -97,6 +97,8 @@ extension CallService : PraxisrufApiSignalingDelegate {
     }
     
     func onSignalReceived(_ signal: Signal) {
+        print("Received Signal with Type \(signal.type)")
+        self.callClient.accept(signal: signal)
         DispatchQueue.main.async {
             if (signal.type == "OFFER") {
                 self.active = true
@@ -105,7 +107,6 @@ extension CallService : PraxisrufApiSignalingDelegate {
             } else if (signal.type == "END") {
                 self.active = false
             }
-            self.callClient.accept(signal: signal)
         }
     }
     

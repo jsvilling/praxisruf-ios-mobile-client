@@ -122,7 +122,7 @@ class CallClient : NSObject {
             }
             cv.value.delegate = nil
         }
-        //self.peerConnections.removeAll()
+        self.peerConnections.removeAll()
     }
     
     func accept(signal: Signal) {
@@ -136,6 +136,8 @@ class CallClient : NSObject {
             addIceCandidate(signal: signal)
         } else if (signal.type == "END") {
             endCall(signalOther: false)
+        } else if (signal.type == "UNAVAILABLE") {
+            delegate?.updateState(clientId: signal.sender, state: "UNAVAILABLE")
         } else {
             print("Unknown Signal Type \(signal.type)")
         }
