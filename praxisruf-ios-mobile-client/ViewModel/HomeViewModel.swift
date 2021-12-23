@@ -23,7 +23,7 @@ class HomeViewModel : ObservableObject {
                     case .success(var configuration):
                         DispatchQueue.main.async {
                             configuration.notificationTypes = configuration.notificationTypes.sorted(by: NotificationType.compareByDisplayText)
-                            configuration.callTypes = configuration.callTypes.sorted(by: DiesplayCallType.compareByDisplayText)
+                            configuration.callTypes = configuration.callTypes.sorted(by: DisplayCallType.compareByDisplayText)
                             self.configuration = configuration
                         }
                     case .failure(let error):

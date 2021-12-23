@@ -10,5 +10,5 @@ import Foundation
 struct CallType : Decodable {
     let displayText: String
     let id: String
-    let participants: [String]
+    var participants: [String]
 }

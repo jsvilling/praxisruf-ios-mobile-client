@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Signal : Codable {
+struct Signal : Decodable, Encodable {
     let sender: String
     let recipient: String
     let type: String

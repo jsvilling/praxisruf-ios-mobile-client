@@ -86,7 +86,11 @@ extension PraxisrufApi {
                             PraxisrufApi.signalingDelegate?.onErrorReceived(error: PraxisrufApiError.invalidData)
                     }
                 case .failure(let error):
+                    if (self.disconnected) {
+                        PraxisrufApi.signalingDelegate?.onConnectionLost()
+                    }
                     PraxisrufApi.signalingDelegate?.onErrorReceived(error: error)
+                    self.listenForSignal()
             }
         }
     }

@@ -12,14 +12,14 @@ class NotificationService: ObservableObject {
     @Published var hasErrorResponse: Bool = false
     @Published var notificationSendResult: NotificationSendResult = NotificationSendResult(notificationId: NotificationType.data[0].id, allSuccess: true)
     
-    func sendNotification(notificationTypeId: UUID) {
+    func sendNotification(notificationType: NotificationType) {
         let defaults = UserDefaults.standard
         guard let clientId = defaults.string(forKey: UserDefaultKeys.clientId) else {
             print("No clientId found")
             return
         }
         
-        let notification = SendNotification(notificationTypeId: notificationTypeId, sender: clientId)
+        let notification = SendNotification(notificationTypeId: notificationType.id, sender: clientId)
         
         PraxisrufApi().sendNotification(sendNotification: notification) { result in
             switch result {

@@ -93,6 +93,11 @@ class CallClient : NSObject {
     }
     
     private func offer(targetId: String) {
+        
+        if (targetId.uppercased() == self.clientId.uppercased()) {
+            return
+        }
+        
         initNextPeerConnection(targetId: targetId)
         self.direction = "SENDING"
         let constrains = RTCMediaConstraints(mandatoryConstraints: mediaConstrains, optionalConstraints: nil)
@@ -137,7 +142,7 @@ class CallClient : NSObject {
         } else if (signal.type == "END") {
             endCall(signalOther: false)
         } else if (signal.type == "UNAVAILABLE") {
-            delegate?.updateState(clientId: signal.sender, state: "UNAVAILABLE")
+            delegate?.updateState(clientId: signal.sender.uppercased(), state: "UNAVAILABLE")
         } else {
             print("Unknown Signal Type \(signal.type)")
         }

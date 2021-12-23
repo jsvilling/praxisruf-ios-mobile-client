@@ -9,9 +9,9 @@ import Foundation
 
 struct Configuration : Hashable, Codable {
     var notificationTypes: [NotificationType]
-    var callTypes: [DiesplayCallType]
+    var callTypes: [DisplayCallType]
 }
 
 extension Configuration {
-    static var data = Configuration(notificationTypes: NotificationType.data, callTypes: DiesplayCallType.data)
+    static var data = Configuration(notificationTypes: NotificationType.data, callTypes: DisplayCallType.data)
 }

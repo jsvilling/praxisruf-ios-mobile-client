@@ -41,17 +41,19 @@ class CallService : ObservableObject {
         self.callClient.toggleMute()
     }
     
-    func initCall(id: UUID) {
+    func initCall(calltype: DisplayCallType) {
         self.active = true
-        self.callTypeId = id.uuidString
+        self.callTypeId = calltype.id.uuidString
+        self.callPartnerName = calltype.displayText
     }
     
     func startCall() {
         PraxisrufApi().getCallType(callTypeId: self.callTypeId) { result in
             switch result {
-                case .success(let callType):
+                case .success(var callType):
                     DispatchQueue.main.async {
                         self.callPartnerName = callType.displayText
+                        callType.participants.removeAll(where: { id in id.uppercased() == self.clientId.uppercased()})
                         callType.participants.forEach() { p in
                             self.updateState(clientId: p.uppercased(), state: "REQUESTED")
                         }
@@ -84,8 +86,9 @@ extension CallService : CallClientDelegate {
     }
     
     func send(_ signal: Signal) {
-        print("Sending Signal with type \(signal.type)")
-        praxisrufApi.sendSignal(signal: signal)
+        if (signal.recipient.uppercased() != self.clientId.uppercased()) {
+            praxisrufApi.sendSignal(signal: signal)
+        }
     }
     
 }
@@ -97,7 +100,6 @@ extension CallService : PraxisrufApiSignalingDelegate {
     }
     
     func onSignalReceived(_ signal: Signal) {
-        print("Received Signal with Type \(signal.type)")
         self.callClient.accept(signal: signal)
         DispatchQueue.main.async {
             if (signal.type == "OFFER") {

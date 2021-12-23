@@ -64,7 +64,7 @@
 		CE94AC5C27567BDB00C93410 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CE94AC5B27567BDB00C93410 /* SwiftKeychainWrapper */; };
 		CE94AC5F275688AF00C93410 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC5E275688AF00C93410 /* SplashScreen.swift */; };
 		CE94AC65275BC1C100C93410 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC64275BC1C100C93410 /* Configuration.swift */; };
-		CE94AC67275BC1D800C93410 /* DiesplayCallType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC66275BC1D800C93410 /* DiesplayCallType.swift */; };
+		CE94AC67275BC1D800C93410 /* DisplayCallType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC66275BC1D800C93410 /* DisplayCallType.swift */; };
 		CE94AC69275BCCB800C93410 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC68275BCCB700C93410 /* HomeViewModel.swift */; };
 		CE97F1B32723589A00B1CA0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE97F1B22723589A00B1CA0D /* AppDelegate.swift */; };
 		CEE9A2DE27620C3B006810BC /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9A2DD27620C3B006810BC /* Signal.swift */; };
@@ -146,7 +146,7 @@
 		CE94AC5827566B6900C93410 /* InboxReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxReminderService.swift; sourceTree = "<group>"; };
 		CE94AC5E275688AF00C93410 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		CE94AC64275BC1C100C93410 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
-		CE94AC66275BC1D800C93410 /* DiesplayCallType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiesplayCallType.swift; sourceTree = "<group>"; };
+		CE94AC66275BC1D800C93410 /* DisplayCallType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayCallType.swift; sourceTree = "<group>"; };
 		CE94AC68275BCCB700C93410 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		CE97F1B22723589A00B1CA0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEE9A2DD27620C3B006810BC /* Signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
@@ -369,7 +369,7 @@
 				CE53ABFC271EF9D700BAD1F1 /* NotificationType.swift */,
 				CE212BBC276DCB6D001131BF /* CallType.swift */,
 				CE94AC64275BC1C100C93410 /* Configuration.swift */,
-				CE94AC66275BC1D800C93410 /* DiesplayCallType.swift */,
+				CE94AC66275BC1D800C93410 /* DisplayCallType.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -616,7 +616,7 @@
 				CE53ABE1271DA32300BAD1F1 /* InboxView.swift in Sources */,
 				CE01406027317ACF00B71AB7 /* SpeechSynthesisService.swift in Sources */,
 				CE61552F27732B81007798C6 /* PraxisrufApiError.swift in Sources */,
-				CE94AC67275BC1D800C93410 /* DiesplayCallType.swift in Sources */,
+				CE94AC67275BC1D800C93410 /* DisplayCallType.swift in Sources */,
 				CE53ABF5271EB30100BAD1F1 /* ClientSelectViewModel.swift in Sources */,
 				CE212BB5276771D0001131BF /* IceCandidate.swift in Sources */,
 				CE97F1B32723589A00B1CA0D /* AppDelegate.swift in Sources */,

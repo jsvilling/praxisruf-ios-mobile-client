@@ -11,7 +11,7 @@ struct ButtonGridView<I>: View where I: IntercomItem, I: Hashable {
     
     let columns = [GridItem(.adaptive(minimum: 200))]
     @Binding var entries: [I]
-    let action: (UUID) -> Void
+    let action: (I) -> Void
     
     var body: some View {
         ScrollView {
@@ -31,5 +31,5 @@ struct ButtonGridView_Previews: PreviewProvider {
     static var previews: some View {
         ButtonGridView(entries: .constant(NotificationType.data), action: noop)
     }
-    static func noop(id: UUID) {}
+    static func noop(item: NotificationType) {}
 }
