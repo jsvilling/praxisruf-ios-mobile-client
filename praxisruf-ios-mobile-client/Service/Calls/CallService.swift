@@ -34,6 +34,10 @@ class CallService : ObservableObject {
         praxisrufApi.listenForSignal()
     }
     
+    func disconnect() {
+        praxisrufApi.disconnectSignalingService()
+    }
+    
     func ping(_ input: Any? = nil) {
         praxisrufApi.pingSignalingConnection() 
     }
@@ -114,6 +118,7 @@ extension CallService : CallClientDelegate {
 extension CallService : PraxisrufApiSignalingDelegate {
     
     func onConnectionLost() {
+        praxisrufApi.disconnectSignalingService()
         listen()
     }
     
@@ -122,7 +127,7 @@ extension CallService : PraxisrufApiSignalingDelegate {
     }
     
     func onErrorReceived(error: Error) {
-        print(error.localizedDescription)
+        //print(error.localizedDescription)
     }
     
 }

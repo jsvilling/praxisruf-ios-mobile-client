@@ -12,11 +12,11 @@ struct IntercomView: View {
     
     let keepAliveSignalingConnection = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
     
+    @Environment(\.scenePhase) var scenePhase
+    
     @Binding var configuration: Configuration
     @StateObject var notificationService = NotificationService()
     @StateObject var callService = CallService()
-
-    @State var isCallStarted = false
     
     var body: some View {
         VStack {
@@ -30,10 +30,18 @@ struct IntercomView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .onAppear(perform: callService.listen)
         .onReceive(keepAliveSignalingConnection, perform: callService.ping)
+        .onChange(of: scenePhase, perform: self.onPhaseChange)
         .fullScreenCover(isPresented: $callService.active) {
             ActiveCallView(callService: callService)
+        }
+    }
+    
+    private func onPhaseChange(newPhase: ScenePhase) {
+        if (newPhase == .inactive || newPhase == .background) {
+            self.callService.disconnect()
+        } else if (newPhase == .active) {
+            self.callService.listen()
         }
     }
 }

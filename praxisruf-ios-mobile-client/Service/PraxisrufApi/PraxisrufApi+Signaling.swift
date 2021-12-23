@@ -86,7 +86,8 @@ extension PraxisrufApi {
                             PraxisrufApi.signalingDelegate?.onErrorReceived(error: PraxisrufApiError.invalidData)
                     }
                 case .failure(let error):
-                    if (self.disconnected) {
+                    // This is a workaround to detect that ios shut down the connection in the background
+                    if (self.disconnected || error.localizedDescription.contains("error 53")) {
                         PraxisrufApi.signalingDelegate?.onConnectionLost()
                     }
                     PraxisrufApi.signalingDelegate?.onErrorReceived(error: error)
