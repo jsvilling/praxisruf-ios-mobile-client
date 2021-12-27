@@ -23,7 +23,7 @@ class Inbox: ObservableObject {
     }
     
     func receiveCall(_ signal: Signal) {
-        let call = InboxItem(type: "phone.phill.arrow.down.left", body: "Received Call", ack: true, sender: signal.description)
+        let call = InboxItem(type: "phone.fill.arrow.down.left", body: "Received Call", ack: true, sender: signal.description)
         DispatchQueue.main.async {
             self.content.append(call)
         }
