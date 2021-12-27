@@ -126,7 +126,7 @@ extension CallService : PraxisrufApiSignalingDelegate {
         if (settings.isIncomingCallsEnabled) {
             self.callClient.accept(signal: signal)
         } else {
-            print("Call declined")
+            self.callClient.decline(signal: signal)
         }
 
     }

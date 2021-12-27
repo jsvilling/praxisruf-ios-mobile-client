@@ -113,8 +113,17 @@ class CallClient : NSObject {
             endCall(signalOther: false)
         } else if (signal.type == "UNAVAILABLE") {
             delegate?.updateState(clientId: signal.sender.uppercased(), state: "UNAVAILABLE")
+        } else if (signal.type == "DECLINE") {
+            self.delegate?.updateState(clientId: signal.sender, state: "DECLINED")
         } else {
             print("Unknown Signal Type \(signal.type)")
+        }
+    }
+    
+    func decline(signal: Signal) {
+        if (signal.type == "OFFER") {
+            let signal = Signal(sender: self.clientId, recipient: signal.sender, type: "DECLINE", payload: "", description: self.clientName)
+            self.delegate?.send(signal)
         }
     }
     
