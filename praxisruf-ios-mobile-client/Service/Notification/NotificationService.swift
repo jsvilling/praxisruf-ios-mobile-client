@@ -12,15 +12,10 @@ class NotificationService: ObservableObject {
     @Published var hasErrorResponse: Bool = false
     @Published var notificationSendResult: NotificationSendResult = NotificationSendResult(notificationId: NotificationType.data[0].id, allSuccess: true)
     
+    private let settings = Settings()
+    
     func sendNotification(notificationType: NotificationType) {
-        let defaults = UserDefaults.standard
-        guard let clientId = defaults.string(forKey: UserDefaultKeys.clientId) else {
-            print("No clientId found")
-            return
-        }
-        
-        let notification = SendNotification(notificationTypeId: notificationType.id, sender: clientId)
-        
+        let notification = SendNotification(notificationTypeId: notificationType.id, sender: settings.clientId)
         PraxisrufApi().sendNotification(sendNotification: notification) { result in
             switch result {
             case .success(let notificationSendResponse):
@@ -51,7 +46,7 @@ class NotificationService: ObservableObject {
     
     func receiveNotification(notification: ReceiveNotification) {
         Inbox.shared.receive(notification)
-        if (notification.isTextToSpeech == "true" && UserDefaults.standard.bool(forKey: UserDefaultKeys.isTextToSpeech)) {
+        if (notification.isTextToSpeech == "true" && settings.isSpeechSynthEnabled) {
             SpeechSynthesisService().synthesize(notification)
         }
     }

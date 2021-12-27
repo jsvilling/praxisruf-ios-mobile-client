@@ -6,19 +6,20 @@
 //
 
 import Foundation
+import SwiftUI
 
 class ClientSelectViewModel: ObservableObject {
     
     @Published var availableClients: [Client]
     @Published var selectionConfirmed: Bool
     @Published var selection: UUID?
-    @Published var selectedClientName: String
+    
+    @ObservedObject var settings: Settings = Settings()
     
     init(availableClients: [Client] = []) {
         self.availableClients = availableClients
         self.selectionConfirmed = false
         self.selection = nil
-        self.selectedClientName = "UNKNOWN"
     }
     
     func getAvailableClients() {
@@ -43,11 +44,12 @@ class ClientSelectViewModel: ObservableObject {
             return
         }
     
-        UserDefaults.standard.setValue("\(clientId)", forKey: UserDefaultKeys.clientId)
+        settings.clientId = clientId.uuidString
+        settings.clientName = client.name
+        
         UserDefaults.standard.setValue(client.name, forKey: UserDefaultKeys.clientName)
         
         DispatchQueue.main.async {
-            self.selectedClientName = client.name
             self.selectionConfirmed  = true
         }
     }

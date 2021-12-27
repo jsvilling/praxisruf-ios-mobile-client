@@ -9,14 +9,10 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @StateObject private var homeVM = HomeViewModel()
-    
     let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
-    let clientName: String
     
-    init (clientName: String?) {
-        self.clientName = clientName ?? UserDefaults.standard.string(forKey: "clientName") ?? "UNKNOWN"
-    }
+    @StateObject private var homeVM = HomeViewModel()
+    @ObservedObject var settings = Settings()
     
     var body: some View {
         TabView {
@@ -36,23 +32,26 @@ struct HomeView: View {
                     Image(systemName: "gearshape")
                     Text("Settings")
                 }
-
         }
-        .navigationTitle(clientName)
-        .onReceive(timer) { input in
-            InboxReminderService.checkInbox()
-        }
-        .onAppear() {
-            homeVM.loadConfiguration()
-            RegistrationService().register()
-        }
+        .navigationTitle(settings.clientName)
+        .onReceive(timer, perform: self.onInboxReminderTimerReceived)
+        .onAppear(perform: self.onAppear)
+    }
+    
+    func onInboxReminderTimerReceived(_ input: Any? = nil) {
+        InboxReminderService.checkInbox()
+    }
+    
+    func onAppear() {
+        homeVM.loadConfiguration(clientId: settings.clientId)
+        RegistrationService().register()
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            HomeView(clientName: "ClientName")
+            HomeView()
         }
         .navigationViewStyle(.stack)
         .navigationBarBackButtonHidden(true)

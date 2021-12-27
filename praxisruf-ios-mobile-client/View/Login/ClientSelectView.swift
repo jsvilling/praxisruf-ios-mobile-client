@@ -17,7 +17,7 @@ struct ClientSelectView: View {
             if (clientSelectVM.availableClients.isEmpty) {
                 Text("noClients")
             } else {
-                NavigationLink(destination: HomeView(clientName: clientSelectVM.selectedClientName), isActive: $clientSelectVM.selectionConfirmed) {EmptyView()}.hidden()
+                NavigationLink(destination: HomeView(), isActive: $clientSelectVM.selectionConfirmed) {EmptyView()}.hidden()
                 List(clientSelectVM.availableClients, selection: $clientSelectVM.selection) { client in
                     Text("\(client.name)")
                 }

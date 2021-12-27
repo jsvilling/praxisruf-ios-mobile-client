@@ -14,18 +14,15 @@ import SwiftKeychainWrapper
 
 class RegistrationService: ObservableObject {
     
+    let settings = Settings()
+    
     func register() {
         guard let fcmToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.fcmToken) else {
             print("No fmc token found")
             return
         }
-
-        guard let clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId) else {
-            print("No clientId found")
-            return
-        }
         
-        PraxisrufApi().register(fcmToken: fcmToken, clientId: clientId) { result in
+        PraxisrufApi().register(fcmToken: fcmToken, clientId: settings.clientId) { result in
             switch result {
                 case .success(_):
                     print("Registration successful")
@@ -37,13 +34,12 @@ class RegistrationService: ObservableObject {
     
     func unregister() {
         let authToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.authToken)
-        let clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId)
         
-        if (authToken == nil || clientId == nil) {
+        if (authToken == nil) {
             print("Incomplete registration. Cannot unregister with cloud service")
             return
         } else {
-            PraxisrufApi().unregister(clientId: clientId!) { result in
+            PraxisrufApi().unregister(clientId: settings.clientId) { result in
                 switch result {
                     case .success (let response):
                         print(response)
@@ -56,16 +52,16 @@ class RegistrationService: ObservableObject {
         KeychainWrapper.standard.removeObject(forKey: UserDefaultKeys.authToken)
         KeychainWrapper.standard.removeObject(forKey: UserDefaultKeys.userName)
         KeychainWrapper.standard.removeObject(forKey: UserDefaultKeys.password)
-        UserDefaults.standard.removeObject(forKey: UserDefaultKeys.clientId)
+      
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
+        
         // The firebase token is not removed. As far as firebase is concerned
         // it belongs to the hardware device. Leaving the stored token here,
         // allows us to re-use it. When the user logs in after a logout, without
         // terminating the app in between. This is fine because the association
         // to the client has already been removed.
     }
-    
-    private func clearStoredInformation() {
-        
-    }
-    
+
 }

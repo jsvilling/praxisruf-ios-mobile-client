@@ -10,6 +10,8 @@ import SwiftKeychainWrapper
 
 class LoginViewModel: ObservableObject {
     
+    let settings: Settings = Settings()
+    
     var username: String = "admin"
     var password: String = "admin"
     @Published var isAuthenticated: Bool = false
@@ -23,6 +25,7 @@ class LoginViewModel: ObservableObject {
                     KeychainWrapper.standard.set(self.password, forKey: UserDefaultKeys.password)
                     DispatchQueue.main.async {
                         self.isAuthenticated = true
+                        self.settings.userName = self.username
                     }
                 case .failure(let error):
                     print(error.localizedDescription)

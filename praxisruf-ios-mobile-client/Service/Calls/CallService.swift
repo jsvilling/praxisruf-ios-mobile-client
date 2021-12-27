@@ -15,22 +15,20 @@ class CallService : ObservableObject {
     @Published var states: [String:(String, String)] = [:]
     @Published var callPartnerName: String = ""
     
-    private let clientId: String
     private let callClient: CallClient
     private let praxisrufApi: PraxisrufApi
+    private let settings: Settings
     
     init() {
-        self.clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId) ?? ""
-        let clientName = UserDefaults.standard.string(forKey: UserDefaultKeys.clientName) ?? "UNKNOWN"
-        
+        settings = Settings()
         praxisrufApi = PraxisrufApi()
-        callClient = CallClient(clientId: clientId, clientName: clientName)
+        callClient = CallClient(clientId: settings.clientId, clientName: settings.clientName)
         callClient.delegate = self
         PraxisrufApi.signalingDelegate = self
     }
     
     func listen() {
-        praxisrufApi.connectSignalingServer(clientId: clientId)
+        praxisrufApi.connectSignalingServer(clientId: settings.clientId)
         praxisrufApi.listenForSignal()
     }
     
@@ -59,7 +57,7 @@ class CallService : ObservableObject {
             switch result {
                 case .success(let participants):
                     participants
-                        .filter({ p in p.id.uuidString != self.clientId.uppercased() })
+                        .filter({ p in p.id.uuidString != self.settings.clientId.uppercased() })
                         .forEach() { p in
                             self.initCallPartnerState(p: p)
                             self.callClient.offer(targetId: p.id.uuidString)
@@ -108,7 +106,7 @@ extension CallService : CallClientDelegate {
     }
     
     func send(_ signal: Signal) {
-        if (signal.recipient.uppercased() != self.clientId.uppercased()) {
+        if (signal.recipient.uppercased() != self.settings.clientId.uppercased()) {
             praxisrufApi.sendSignal(signal: signal)
         }
     }
@@ -123,6 +121,7 @@ extension CallService : PraxisrufApiSignalingDelegate {
     }
     
     func onSignalReceived(_ signal: Signal) {
+        print(settings.isIncomingCallsEnabled)
         self.callClient.accept(signal: signal)
     }
     

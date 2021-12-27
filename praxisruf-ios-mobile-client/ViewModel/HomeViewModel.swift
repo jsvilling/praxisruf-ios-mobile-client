@@ -11,12 +11,7 @@ class HomeViewModel : ObservableObject {
     
     @Published var configuration: Configuration = Configuration(notificationTypes: [], callTypes: [])
     
-    func loadConfiguration() {
-        guard let clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId) else {
-            print("No clientId found")
-            return
-        }
-        
+    func loadConfiguration(clientId: String) {        
         PraxisrufApi().getDisplayConfiguration(clientId: clientId) {
             result in
                 switch result {

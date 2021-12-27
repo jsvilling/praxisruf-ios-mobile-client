@@ -18,7 +18,7 @@ struct SplashScreen: View {
         VStack {
             NavigationLink(destination: LoginView(), isActive: $redirectToLogin) {EmptyView()}.hidden()
             NavigationLink(destination: ClientSelectView(), isActive: $redirectToClientSelect) {EmptyView()}.hidden()
-            NavigationLink(destination: HomeView(clientName: ""), isActive: $redirectToHome) {EmptyView()}.hidden()
+            NavigationLink(destination: HomeView(), isActive: $redirectToHome) {EmptyView()}.hidden()
         }.onAppear() {
             let username = KeychainWrapper.standard.string(forKey: UserDefaultKeys.userName)
             let password = KeychainWrapper.standard.string(forKey: UserDefaultKeys.password)

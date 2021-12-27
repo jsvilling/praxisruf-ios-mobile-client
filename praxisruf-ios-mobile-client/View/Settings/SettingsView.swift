@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @StateObject var settingsVM: SettingsViewModel = SettingsViewModel()
+    @StateObject var settingsVM: Settings = Settings()
     
     var body: some View {
         VStack {
@@ -44,7 +44,6 @@ struct SettingsView: View {
             NavigationLink(destination: LoginView(), isActive: $settingsVM.isLoggedOut) {EmptyView()}.hidden()
         }
         .navigationBarBackButtonHidden(true)
-        .onDisappear(perform: settingsVM.save)
     }    
 }
 
