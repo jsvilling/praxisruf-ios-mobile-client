@@ -44,6 +44,6 @@ struct ActiveCallView: View {
 
 struct ActiveCallView_Previews: PreviewProvider {
     static var previews: some View {
-        ActiveCallView(callService: CallService())
+        ActiveCallView(callService: CallService(settings: Settings()))
     }
 }

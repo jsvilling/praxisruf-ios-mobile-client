@@ -16,7 +16,15 @@ struct IntercomView: View {
     
     @Binding var configuration: Configuration
     @StateObject var notificationService = NotificationService()
-    @StateObject var callService = CallService()
+    
+    @ObservedObject var callService: CallService
+    @ObservedObject var settings: Settings
+        
+    init(configuration: Binding<Configuration>, settings: Settings) {
+        self._configuration = configuration
+        self.settings = settings
+        self.callService = CallService(settings: settings)
+    }
     
     var body: some View {
         VStack {
@@ -38,6 +46,10 @@ struct IntercomView: View {
         }
     }
     
+    private func onAppear() {
+        self.callService.listen()
+    }
+    
     private func onPhaseChange(newPhase: ScenePhase) {
         if (newPhase == .inactive || newPhase == .background) {
             self.callService.disconnect()
@@ -49,7 +61,7 @@ struct IntercomView: View {
 
 struct IntercomHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        IntercomView(configuration: .constant(Configuration.data), notificationService: NotificationService())
+        IntercomView(configuration: .constant(Configuration.data), settings: Settings())
     }
 }
 

@@ -12,11 +12,11 @@ struct HomeView: View {
     let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     
     @StateObject private var homeVM = HomeViewModel()
-    @ObservedObject var settings = Settings()
+    @StateObject var settings = Settings()
     
     var body: some View {
         TabView {
-            IntercomView(configuration: $homeVM.configuration)
+            IntercomView(configuration: $homeVM.configuration, settings: settings)
              .tabItem {
                  Image(systemName: "phone.fill")
                  Text("Home")
@@ -27,7 +27,7 @@ struct HomeView: View {
                   Image(systemName: "tray.and.arrow.down")
                   Text("Inbox")
                }
-            SettingsView()
+            SettingsView(settingsVM: settings)
                 .tabItem() {
                     Image(systemName: "gearshape")
                     Text("Settings")

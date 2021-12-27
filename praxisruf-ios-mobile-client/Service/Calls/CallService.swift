@@ -7,6 +7,7 @@
 
 import Foundation
 import WebRTC
+import SwiftUI
 
 class CallService : ObservableObject {
 
@@ -15,12 +16,13 @@ class CallService : ObservableObject {
     @Published var states: [String:(String, String)] = [:]
     @Published var callPartnerName: String = ""
     
+    private let settings: Settings
     private let callClient: CallClient
     private let praxisrufApi: PraxisrufApi
-    private let settings: Settings
     
-    init() {
-        settings = Settings()
+    
+    init(settings: Settings) {
+        self.settings = settings
         praxisrufApi = PraxisrufApi()
         callClient = CallClient(clientId: settings.clientId, clientName: settings.clientName)
         callClient.delegate = self
@@ -121,8 +123,12 @@ extension CallService : PraxisrufApiSignalingDelegate {
     }
     
     func onSignalReceived(_ signal: Signal) {
-        print(settings.isIncomingCallsEnabled)
-        self.callClient.accept(signal: signal)
+        if (settings.isIncomingCallsEnabled) {
+            self.callClient.accept(signal: signal)
+        } else {
+            print("Call declined")
+        }
+
     }
     
     func onErrorReceived(error: Error) {
