@@ -128,6 +128,8 @@ class CallClient : NSObject {
             self.delegate?.send(declineSignal)
             self.delegate?.onIncomingCallDeclined(signal: signal)
             print("Declined signal")
+        } else {
+            self.accept(signal: signal)
         }
     }
     
