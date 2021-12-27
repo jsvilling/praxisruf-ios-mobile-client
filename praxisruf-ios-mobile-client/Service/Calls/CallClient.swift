@@ -12,6 +12,7 @@ protocol CallClientDelegate {
     func send(_ signal: Signal)
     func updateState(clientId: String, state: String)
     func onIncomingCallStarted(signal: Signal)
+    func onIncomingCallDeclined(signal: Signal)
     func onCallEnded()
 }
 
@@ -123,8 +124,9 @@ class CallClient : NSObject {
     
     func decline(signal: Signal) {
         if (signal.type == "OFFER") {
-            let signal = Signal(sender: self.clientId, recipient: signal.sender, type: "DECLINE", payload: "", description: self.clientName)
-            self.delegate?.send(signal)
+            let declineSignal = Signal(sender: self.clientId, recipient: signal.sender, type: "DECLINE", payload: "", description: self.clientName)
+            self.delegate?.send(declineSignal)
+            self.delegate?.onIncomingCallDeclined(signal: signal)
             print("Declined signal")
         }
     }

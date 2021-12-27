@@ -87,7 +87,13 @@ extension CallService : CallClientDelegate {
         DispatchQueue.main.async {
             self.active = true
             self.callPartnerName = signal.description
-            Inbox.shared.receive(signal)
+            Inbox.shared.receiveCall(signal)
+        }
+    }
+    
+    func onIncomingCallDeclined(signal: Signal) {
+        DispatchQueue.main.async {
+            Inbox.shared.receiveDeclinedCall(signal)
         }
     }
     
