@@ -76,6 +76,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let userInfo = notification.request.content.userInfo
         Messaging.messaging().appDidReceiveMessage(userInfo)
 
+          if (notification.request.content.categoryIdentifier == "local") {
+              completionHandler([[.banner, .badge, .sound]])
+          }
+      
         guard let aps = userInfo["aps"] as? NSDictionary else {
             print("no aps")
             return

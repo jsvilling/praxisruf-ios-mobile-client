@@ -92,6 +92,18 @@ extension CallService : CallClientDelegate {
     }
     
     func onIncomingCallDeclined(signal: Signal) {
+        let content = UNMutableNotificationContent()
+        content.title = signal.description
+        content.body = "Automatically declined call"
+        content.categoryIdentifier = "local"
+        content.sound = UNNotificationSound.default
+
+        let uuidString = UUID().uuidString
+        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: nil)
+        let notificationCenter = UNUserNotificationCenter.current()
+    
+        notificationCenter.add(request) { (error) in }
+        
         DispatchQueue.main.async {
             Inbox.shared.receiveDeclinedCall(signal)
         }
