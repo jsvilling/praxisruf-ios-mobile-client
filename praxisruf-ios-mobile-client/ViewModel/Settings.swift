@@ -24,9 +24,9 @@ class Settings : ObservableObject {
         }
     }
     
-    @Published var isIncomingCallsEnabled: Bool = storedOrFalseBoolFor(UserDefaultKeys.isCallsEnabled)  {
+    @Published var isIncomingCallsDisabled: Bool = storedOrFalseBoolFor(UserDefaultKeys.isCallsDisabled)  {
         didSet {
-            UserDefaults.standard.set(isIncomingCallsEnabled, forKey: UserDefaultKeys.isCallsEnabled)
+            UserDefaults.standard.set(isIncomingCallsDisabled, forKey: UserDefaultKeys.isCallsDisabled)
         }
     }
     

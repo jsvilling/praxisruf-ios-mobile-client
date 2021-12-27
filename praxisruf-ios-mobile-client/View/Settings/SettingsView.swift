@@ -35,7 +35,7 @@ struct SettingsView: View {
                     }
                 }
                 Section(header: Text("Gegensprechanalge")) {
-                    Toggle(isOn: $settingsVM.isIncomingCallsEnabled) {
+                    Toggle(isOn: !$settingsVM.isIncomingCallsDisabled) {
                         Text("Anrufe empfangen")
                     }
                 }
@@ -44,7 +44,14 @@ struct SettingsView: View {
             NavigationLink(destination: LoginView(), isActive: $settingsVM.isLoggedOut) {EmptyView()}.hidden()
         }
         .navigationBarBackButtonHidden(true)
-    }    
+    }
+}
+
+prefix func ! (value: Binding<Bool>) -> Binding<Bool> {
+    Binding<Bool>(
+        get: { !value.wrappedValue },
+        set: { value.wrappedValue = !$0 }
+    )
 }
 
 struct SettingsView_Previews: PreviewProvider {

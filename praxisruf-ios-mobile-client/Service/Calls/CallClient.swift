@@ -114,6 +114,7 @@ class CallClient : NSObject {
         } else if (signal.type == "UNAVAILABLE") {
             delegate?.updateState(clientId: signal.sender.uppercased(), state: "UNAVAILABLE")
         } else if (signal.type == "DECLINE") {
+            self.peerConnections[signal.sender]?.close()
             self.delegate?.updateState(clientId: signal.sender, state: "DECLINED")
         } else {
             print("Unknown Signal Type \(signal.type)")
@@ -124,6 +125,7 @@ class CallClient : NSObject {
         if (signal.type == "OFFER") {
             let signal = Signal(sender: self.clientId, recipient: signal.sender, type: "DECLINE", payload: "", description: self.clientName)
             self.delegate?.send(signal)
+            print("Declined signal")
         }
     }
     
@@ -177,21 +179,13 @@ class CallClient : NSObject {
 
 extension CallClient : RTCPeerConnectionDelegate {
     
-    func peerConnection(_ peerConnection: RTCPeerConnection, didChange stateChanged: RTCSignalingState) {
-        print("peerConnection new signaling state: \(stateChanged)")
-    }
+    func peerConnection(_ peerConnection: RTCPeerConnection, didChange stateChanged: RTCSignalingState) {}
     
-    func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {
-        print("peerConnection did add stream")
-    }
+    func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {}
     
-    func peerConnection(_ peerConnection: RTCPeerConnection, didRemove stream: RTCMediaStream) {
-        print("peerConnection did remove stream")
-    }
+    func peerConnection(_ peerConnection: RTCPeerConnection, didRemove stream: RTCMediaStream) {}
     
-    func peerConnectionShouldNegotiate(_ peerConnection: RTCPeerConnection) {
-        print("peerConnection should negotiate")
-    }
+    func peerConnectionShouldNegotiate(_ peerConnection: RTCPeerConnection) {}
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceConnectionState) {
         var state = ""

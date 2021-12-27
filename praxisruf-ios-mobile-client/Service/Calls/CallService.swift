@@ -20,7 +20,6 @@ class CallService : ObservableObject {
     private let callClient: CallClient
     private let praxisrufApi: PraxisrufApi
     
-    
     init(settings: Settings) {
         self.settings = settings
         praxisrufApi = PraxisrufApi()
@@ -123,12 +122,11 @@ extension CallService : PraxisrufApiSignalingDelegate {
     }
     
     func onSignalReceived(_ signal: Signal) {
-        if (settings.isIncomingCallsEnabled) {
-            self.callClient.accept(signal: signal)
-        } else {
+        if (settings.isIncomingCallsDisabled) {
             self.callClient.decline(signal: signal)
+        } else {
+            self.callClient.accept(signal: signal)
         }
-
     }
     
     func onErrorReceived(error: Error) {
