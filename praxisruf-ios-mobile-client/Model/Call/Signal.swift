@@ -13,4 +13,5 @@ struct Signal : Decodable, Encodable {
     let type: String
     let payload: String
     var description: String = ""
+    var notificationOnFailedDelivery: Bool = false
 }

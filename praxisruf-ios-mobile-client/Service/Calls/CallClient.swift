@@ -81,7 +81,7 @@ class CallClient : NSObject {
                 let sdpWrapper = SessionDescription(from: sdp)
                 let payloadData = try? JSONEncoder().encode(sdpWrapper)
                 let payloadString = String(data: payloadData!, encoding: .utf8)
-                let offer = Signal(sender: self.clientId, recipient: targetId, type: "OFFER", payload: payloadString!, description: self.clientName)
+                let offer = Signal(sender: self.clientId, recipient: targetId, type: "OFFER", payload: payloadString!, description: self.clientName, notificationOnFailedDelivery: true)
                 self.delegate?.send(offer)
             }
         }
