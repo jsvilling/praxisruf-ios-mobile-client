@@ -16,11 +16,11 @@ struct InboxItem: Identifiable {
     var receivedAt = Date()
     var sender: String
     
-    func fullTitle() -> String {
+    func fullBody() -> String {
         if (title != "") {
-            return "\(title) (\(sender))"
+            return "\(title) - \(body)"
         }
-        return sender
+        return body
     }
 }
 

@@ -19,12 +19,12 @@ struct InboxItemView: View {
                 .padding(.leading)
                 .frame(width: 25, height: 40, alignment: .center)
             VStack(alignment: .leading) {
-                Text("\(inboxItem.fullTitle())")
+                Text("\(inboxItem.sender)")
                      .font(.headline)
                      .lineLimit(1)
                      .truncationMode(.tail)
                 
-                Text(inboxItem.body)
+                Text(inboxItem.fullBody())
                     .font(.body)
                     .opacity(0.54)
                     .lineLimit(2)

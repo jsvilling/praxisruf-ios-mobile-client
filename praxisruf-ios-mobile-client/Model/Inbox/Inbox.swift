@@ -23,14 +23,14 @@ class Inbox: ObservableObject {
     }
     
     func receiveCall(_ signal: Signal) {
-        let call = InboxItem(type: "phone.fill.arrow.down.left", body: "Received Call", ack: true, sender: signal.description)
+        let call = InboxItem(type: "phone.fill.arrow.down.left", body: "Empfangener Anruf", ack: true, sender: signal.description)
         DispatchQueue.main.async {
             self.content.append(call)
         }
     }
     
     func receiveDeclinedCall(_ signal: Signal) {
-        let call = InboxItem(type: "phone.arrow.down.left", body: "Declined Call", ack: false, sender: signal.description)
+        let call = InboxItem(type: "phone.arrow.down.left", body: "Abgelehnter Anruf", ack: false, sender: signal.description)
         DispatchQueue.main.async {
             self.content.append(call)
         }
