@@ -41,45 +41,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                      didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult)
                        -> Void) {
-      completionHandler(UIBackgroundFetchResult.newData)
-    }
-    
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print("Unable to register for remote notifications: \(error.localizedDescription)")
-    }
-    
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        print("APNs token retrieved: \(deviceToken)")
-        Messaging.messaging().apnsToken = deviceToken
-    }
+        
+        print("The groundy in the backy")
 
-}
-
-extension AppDelegate: MessagingDelegate {
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        guard let token = fcmToken else {
-            print("Firebase registration token was empty")
-            return
-        }
-        KeychainWrapper.standard.set(token, forKey: UserDefaultKeys.fcmToken)
-        RegistrationService().register()
-    }
-}
-
-extension AppDelegate: UNUserNotificationCenterDelegate {
-  
-  func userNotificationCenter(_ center: UNUserNotificationCenter,
-                              willPresent notification: UNNotification,
-                              withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions)
-                                -> Void) {
-
-        let userInfo = notification.request.content.userInfo
-        Messaging.messaging().appDidReceiveMessage(userInfo)
-
-          if (notification.request.content.categoryIdentifier == "local") {
-              completionHandler([[.banner, .badge, .sound]])
-          }
-      
         guard let aps = userInfo["aps"] as? NSDictionary else {
             print("no aps")
             return
@@ -119,7 +83,88 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
           print("no notification type")
           return
         }
-        
+
+        completionHandler(UIBackgroundFetchResult.newData)
+        let notification = ReceiveNotification(notificationType: notificationType, version: version, title: title, body: body, sender: sender, isTextToSpeech: isTextToSpeech)
+        NotificationService().receiveNotification(notification: notification)
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Unable to register for remote notifications: \(error.localizedDescription)")
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("APNs token retrieved: \(deviceToken)")
+        Messaging.messaging().apnsToken = deviceToken
+    }
+
+}
+
+extension AppDelegate: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        guard let token = fcmToken else {
+            print("Firebase registration token was empty")
+            return
+        }
+        KeychainWrapper.standard.set(token, forKey: UserDefaultKeys.fcmToken)
+        RegistrationService().register()
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+  
+  func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              willPresent notification: UNNotification,
+                              withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions)
+                                -> Void) {
+
+        let userInfo = notification.request.content.userInfo
+        Messaging.messaging().appDidReceiveMessage(userInfo)
+
+        if (notification.request.content.categoryIdentifier == "local") {
+          completionHandler([[.banner, .badge, .sound]])
+        }
+
+        guard let aps = userInfo["aps"] as? NSDictionary else {
+            print("no aps")
+            return
+        }
+
+        guard let alert = aps["alert"] as? NSDictionary else {
+            print("no alert")
+            return
+        }
+
+        guard let title = alert["title"] as? String else {
+            print("no title")
+            return
+        }
+
+        guard let body = alert["body"] as? String else {
+            print("no body")
+            return
+        }
+
+        guard let sender = userInfo["senderName"] as? String else {
+            print("no sender")
+            return
+        }
+
+        guard let version = userInfo["version"] as? String else {
+          print("no version")
+          return
+        }
+
+        guard let isTextToSpeech = userInfo["isTextToSpeech"] as? String else {
+          print("no t2s flag")
+          return
+        }
+
+        guard let notificationType = userInfo["notificationType"] as? String else {
+          print("no notification type")
+          return
+        }
+
         completionHandler([[.banner, .badge, .sound]])
         let notification = ReceiveNotification(notificationType: notificationType, version: version, title: title, body: body, sender: sender, isTextToSpeech: isTextToSpeech)
         NotificationService().receiveNotification(notification: notification)
@@ -133,6 +178,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
       if let messageID = userInfo[gcmMessageIDKey] {
         print("Message ID: \(messageID)")
       }
+      
+      print("background !!!")
       
     Messaging.messaging().appDidReceiveMessage(userInfo)
     completionHandler()
