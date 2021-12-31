@@ -14,7 +14,9 @@ class LoginViewModel: ObservableObject {
     
     var username: String = "admin"
     var password: String = "admin"
+    
     @Published var isAuthenticated: Bool = false
+    @Published var error: Error? = nil
     
     func login() {
         PraxisrufApi().login(username: username, password: password) { result in
@@ -28,7 +30,9 @@ class LoginViewModel: ObservableObject {
                         self.settings.userName = self.username
                     }
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        self.error = error
+                    }
                 }
         }
     }

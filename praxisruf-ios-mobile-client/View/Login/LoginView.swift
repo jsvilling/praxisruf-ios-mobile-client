@@ -70,6 +70,7 @@ struct LoginForm: View {
         }
         .padding()
         .navigationBarBackButtonHidden(true)
+        .emittingError(loginVM.error, retryHandler: {})
     }
 }
 

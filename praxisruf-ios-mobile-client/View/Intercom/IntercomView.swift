@@ -15,8 +15,8 @@ struct IntercomView: View {
     @Environment(\.scenePhase) var scenePhase
     
     @Binding var configuration: Configuration
-    @StateObject var notificationService = NotificationService()
     
+    @ObservedObject var notificationService: NotificationService
     @ObservedObject var callService: CallService
     @ObservedObject var settings: Settings
         
@@ -24,6 +24,7 @@ struct IntercomView: View {
         self._configuration = configuration
         self.settings = settings
         self.callService = CallService(settings: settings)
+        self.notificationService = NotificationService(settings: settings)
     }
     
     var body: some View {

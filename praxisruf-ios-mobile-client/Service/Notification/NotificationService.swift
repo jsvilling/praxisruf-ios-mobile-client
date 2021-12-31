@@ -6,13 +6,18 @@
 //
 
 import Foundation
+import SwiftUI
 
 class NotificationService: ObservableObject {
     
     @Published var hasErrorResponse: Bool = false
     @Published var notificationSendResult: NotificationSendResult = NotificationSendResult(notificationId: NotificationType.data[0].id, allSuccess: true)
     
-    private let settings = Settings()
+    private let settings: Settings
+    
+    init(settings: Settings = Settings()) {
+        self.settings = settings
+    }
     
     func sendNotification(notificationType: NotificationType) {
         let notification = SendNotification(notificationTypeId: notificationType.id, sender: settings.clientId)
