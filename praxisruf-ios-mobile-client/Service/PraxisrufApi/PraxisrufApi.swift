@@ -1,5 +1,5 @@
 //
-//  Api.swift
+//  PraxisrufApi.swift
 //  praxisruf-ios-mobile-client
 //
 //  Created by J. Villing on 18.10.21.

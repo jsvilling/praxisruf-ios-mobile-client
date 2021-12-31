@@ -9,7 +9,8 @@ import SwiftUI
 
 struct HomeView: View {
     
-    let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
+    let inboxReminderTimer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()     // Every 60s
+    let tokenRefreshTimer = Timer.publish(every: 43200, on: .main, in: .common).autoconnect()   // Every 12h
     
     @StateObject private var homeVM = HomeViewModel()
     @StateObject var settings = Settings()
@@ -34,12 +35,16 @@ struct HomeView: View {
                 }
         }
         .navigationTitle(settings.clientName)
-        .onReceive(timer, perform: self.onInboxReminderTimerReceived)
+        .onReceive(inboxReminderTimer, perform: self.onInboxReminderTimerReceived)
         .onAppear(perform: self.onAppear)
     }
     
     func onInboxReminderTimerReceived(_ input: Any? = nil) {
         InboxReminderService.checkInbox()
+    }
+    
+    func onTokenRefreshTimer(_ input: Any? = nil) {
+        AuthService().refresh()
     }
     
     func onAppear() {

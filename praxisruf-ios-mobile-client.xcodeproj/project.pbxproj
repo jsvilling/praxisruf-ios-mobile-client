@@ -17,6 +17,7 @@
 		CE01406027317ACF00B71AB7 /* SpeechSynthesisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01405F27317ACF00B71AB7 /* SpeechSynthesisService.swift */; };
 		CE01406227317EF600B71AB7 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01406127317EF600B71AB7 /* AudioPlayer.swift */; };
 		CE068134277F35C200E8D4BE /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE068133277F35C200E8D4BE /* ErrorHandling.swift */; };
+		CE068137277F4E7F00E8D4BE /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE068136277F4E7F00E8D4BE /* AuthService.swift */; };
 		CE1D5C88271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5C87271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift */; };
 		CE1D5C8A271C4AAA007EA5AC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5C89271C4AAA007EA5AC /* LoginView.swift */; };
 		CE1D5C8C271C4AAB007EA5AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1D5C8B271C4AAB007EA5AC /* Assets.xcassets */; };
@@ -42,7 +43,6 @@
 		CE53ABDF271DA1FE00BAD1F1 /* IntercomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABDE271DA1FE00BAD1F1 /* IntercomView.swift */; };
 		CE53ABE1271DA32300BAD1F1 /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABE0271DA32300BAD1F1 /* InboxView.swift */; };
 		CE53ABE3271DA56300BAD1F1 /* PraxisrufApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABE2271DA56300BAD1F1 /* PraxisrufApi.swift */; };
-		CE53ABE9271EA84A00BAD1F1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABE8271EA84A00BAD1F1 /* LoginViewModel.swift */; };
 		CE53ABED271EAF3200BAD1F1 /* PraxisrufApi+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABEC271EAF3200BAD1F1 /* PraxisrufApi+Auth.swift */; };
 		CE53ABEF271EB11900BAD1F1 /* PraxisrufApi+Conf.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABEE271EB11900BAD1F1 /* PraxisrufApi+Conf.swift */; };
 		CE53ABF1271EB15E00BAD1F1 /* ClientSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE53ABF0271EB15E00BAD1F1 /* ClientSelectView.swift */; };
@@ -98,6 +98,7 @@
 		CE01405F27317ACF00B71AB7 /* SpeechSynthesisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechSynthesisService.swift; sourceTree = "<group>"; };
 		CE01406127317EF600B71AB7 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		CE068133277F35C200E8D4BE /* ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
+		CE068136277F4E7F00E8D4BE /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		CE1D5C84271C4AAA007EA5AC /* praxisruf-ios-mobile-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "praxisruf-ios-mobile-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1D5C87271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = praxisruf_ios_mobile_clientApp.swift; sourceTree = "<group>"; };
 		CE1D5C89271C4AAA007EA5AC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -126,7 +127,6 @@
 		CE53ABDE271DA1FE00BAD1F1 /* IntercomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomView.swift; sourceTree = "<group>"; };
 		CE53ABE0271DA32300BAD1F1 /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
 		CE53ABE2271DA56300BAD1F1 /* PraxisrufApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PraxisrufApi.swift; sourceTree = "<group>"; };
-		CE53ABE8271EA84A00BAD1F1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		CE53ABEC271EAF3200BAD1F1 /* PraxisrufApi+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PraxisrufApi+Auth.swift"; sourceTree = "<group>"; };
 		CE53ABEE271EB11900BAD1F1 /* PraxisrufApi+Conf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PraxisrufApi+Conf.swift"; sourceTree = "<group>"; };
 		CE53ABF0271EB15E00BAD1F1 /* ClientSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSelectView.swift; sourceTree = "<group>"; };
@@ -202,6 +202,14 @@
 			path = Inbox;
 			sourceTree = "<group>";
 		};
+		CE068135277F4E7000E8D4BE /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				CE068136277F4E7F00E8D4BE /* AuthService.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		CE1D5C7B271C4AAA007EA5AC = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +236,7 @@
 				CE53AC13271F134600BAD1F1 /* praxisruf-ios-mobile-client.entitlements */,
 				CE1D5CB3271C4C8C007EA5AC /* App */,
 				CE1D5CB2271C4C83007EA5AC /* Model */,
+				CE94AC522753E08200C93410 /* Settings.swift */,
 				CE1D5CB6271C4E8E007EA5AC /* Resources */,
 				CE53ABE6271EA76B00BAD1F1 /* Service */,
 				CE1D5CB1271C4C79007EA5AC /* View */,
@@ -423,6 +432,7 @@
 		CE53ABE6271EA76B00BAD1F1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				CE068135277F4E7000E8D4BE /* Auth */,
 				CE413BC9276115BD009F2B3F /* Calls */,
 				CE413BCA276115CC009F2B3F /* Notification */,
 				CE51D03127254369000D09C1 /* PraxisrufApi */,
@@ -433,9 +443,7 @@
 		CE53ABE7271EA82F00BAD1F1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				CE53ABE8271EA84A00BAD1F1 /* LoginViewModel.swift */,
 				CE53ABF4271EB30100BAD1F1 /* ClientSelectViewModel.swift */,
-				CE94AC522753E08200C93410 /* Settings.swift */,
 				CE94AC68275BCCB700C93410 /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
@@ -628,6 +636,7 @@
 				CE61552B276E170E007798C6 /* ActiveCallView.swift in Sources */,
 				CE94AC552753F1FE00C93410 /* NotificationSendResult.swift in Sources */,
 				CE94AC572756552900C93410 /* RetryAlert.swift in Sources */,
+				CE068137277F4E7F00E8D4BE /* AuthService.swift in Sources */,
 				CE53ABF1271EB15E00BAD1F1 /* ClientSelectView.swift in Sources */,
 				CE51D02C2723DAA9000D09C1 /* IntercomItem.swift in Sources */,
 				CE01404B2726C81400B71AB7 /* Inbox.swift in Sources */,
@@ -639,7 +648,6 @@
 				CE81C583275F5E7600F69B74 /* ReceiveNotification.swift in Sources */,
 				CEE9A2DE27620C3B006810BC /* Signal.swift in Sources */,
 				CE615529276E12E4007798C6 /* CallActionButton.swift in Sources */,
-				CE53ABE9271EA84A00BAD1F1 /* LoginViewModel.swift in Sources */,
 				CE53ABDF271DA1FE00BAD1F1 /* IntercomView.swift in Sources */,
 				CE212BAC27674AC3001131BF /* CallClient.swift in Sources */,
 				CE51D035272563D6000D09C1 /* PraxisrufApi+Notification.swift in Sources */,
