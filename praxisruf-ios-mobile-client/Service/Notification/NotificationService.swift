@@ -43,9 +43,9 @@ class NotificationService: ObservableObject {
         }
     }
     
-    func receiveNotification(notification: ReceiveNotification) {
+    func receive(_ notification: ReceiveNotification) {
         Inbox.shared.receive(notification)
-        if (notification.isTextToSpeech == "true" && settings.isSpeechSynthEnabled) {
+        if (notification.textToSpeech == "true" && settings.isSpeechSynthEnabled) {
             SpeechSynthesisService().synthesize(notification)
         }
     }
