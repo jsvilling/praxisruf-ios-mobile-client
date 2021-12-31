@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @EnvironmentObject var settings: Settings
+    @ObservedObject var settings: Settings
     
     var body: some View {
         VStack {
@@ -57,7 +57,7 @@ prefix func ! (value: Binding<Bool>) -> Binding<Bool> {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            SettingsView()
+            SettingsView(settings: Settings())
         }
         .navigationViewStyle(.stack)
         .navigationBarBackButtonHidden(true)

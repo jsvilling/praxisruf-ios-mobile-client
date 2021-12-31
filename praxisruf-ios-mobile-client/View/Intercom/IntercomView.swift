@@ -16,16 +16,15 @@ struct IntercomView: View {
     
     @Binding var configuration: Configuration
     
-    @EnvironmentObject var settings: Settings
+    @ObservedObject var settings: Settings
+    @ObservedObject var notificationService: NotificationService
+    @ObservedObject var callService: CallService
     
-    @StateObject var notificationService: NotificationService = NotificationService()
-    @StateObject var callService: CallService = CallService()
-    
-    init(configuration: Binding<Configuration>) {
+    init(configuration: Binding<Configuration>, settings: Settings) {
         self._configuration = configuration
-
-        self.notificationService.settings = settings
-        self.callService.settings = settings
+        self.settings = settings
+        self.notificationService = NotificationService(settings: settings)
+        self.callService = CallService(settings: settings)
     }
     
     var body: some View {
@@ -56,6 +55,7 @@ struct IntercomView: View {
         if (newPhase == .inactive || newPhase == .background) {
             self.callService.disconnect()
         } else if (newPhase == .active) {
+            self.callService.settings = settings
             self.callService.listen()
         }
     }
@@ -63,8 +63,6 @@ struct IntercomView: View {
 
 struct IntercomHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        IntercomView(configuration: .constant(Configuration.data))
+        IntercomView(configuration: .constant(Configuration.data), settings: Settings())
     }
 }
-
-

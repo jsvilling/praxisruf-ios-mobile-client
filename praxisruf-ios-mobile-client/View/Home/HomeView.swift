@@ -16,8 +16,7 @@ struct HomeView: View {
     
     var body: some View {
         TabView {
-            IntercomView(configuration: $homeVM.configuration)
-             .environmentObject(settings)
+            IntercomView(configuration: $homeVM.configuration, settings: settings)
              .tabItem {
                  Image(systemName: "phone.fill")
                  Text("Home")
@@ -28,8 +27,7 @@ struct HomeView: View {
                   Image(systemName: "tray.and.arrow.down")
                   Text("Inbox")
                }
-            SettingsView()
-                .environmentObject(settings)
+            SettingsView(settings: settings)
                 .tabItem() {
                     Image(systemName: "gearshape")
                     Text("Settings")

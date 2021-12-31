@@ -27,6 +27,7 @@ struct ClientSelectView: View {
         .navigationTitle("clientSelection")
         .navigationBarItems(trailing: Button("finish", action: clientSelectVM.confirm))
         .onAppear(perform: clientSelectVM.getAvailableClients)
+        .onError(clientSelectVM.error, retryHandler: {})
     }
 }
 

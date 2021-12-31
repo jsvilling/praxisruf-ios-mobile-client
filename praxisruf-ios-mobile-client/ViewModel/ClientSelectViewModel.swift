@@ -13,6 +13,7 @@ class ClientSelectViewModel: ObservableObject {
     @Published var availableClients: [Client]
     @Published var selectionConfirmed: Bool
     @Published var selection: UUID?
+    @Published var error: Error? = nil
     
     @ObservedObject var settings: Settings = Settings()
     
@@ -30,25 +31,31 @@ class ClientSelectViewModel: ObservableObject {
                         self.availableClients = clients
                     }
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        self.error = error
+                    }
             }
         }
     }
     
     func confirm() {
         guard let clientId = selection else {
+            DispatchQueue.main.async {
+                self.error = PraxisrufApiError.custom(errorMessage: "Selection incomplete")
+            }
             return
         }
         
         guard let client = availableClients.first(where: { $0.id == clientId }) else {
+            DispatchQueue.main.async {
+                self.error = PraxisrufApiError.custom(errorMessage: "Invalid data")
+            }
             return
         }
     
         settings.clientId = clientId.uuidString
         settings.clientName = client.name
-        
-        UserDefaults.standard.setValue(client.name, forKey: UserDefaultKeys.clientName)
-        
+                
         DispatchQueue.main.async {
             self.selectionConfirmed  = true
         }
