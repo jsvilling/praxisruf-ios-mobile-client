@@ -23,16 +23,12 @@ class CallClient : NSObject {
     private let config: RTCConfiguration = RTCConfiguration()
     private let constraints: RTCMediaConstraints = RTCMediaConstraints(mandatoryConstraints: [kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueTrue, kRTCMediaConstraintsOfferToReceiveVideo: kRTCMediaConstraintsValueFalse], optionalConstraints: ["DtlsSrtpKeyAgreement":kRTCMediaConstraintsValueTrue])
     
-    private let clientId: String
-    private let clientName: String
     private var peerConnections: [String: RTCPeerConnection] = [:]
     private var muted = false;
     
     var delegate: CallClientDelegate?
     
-    required init(clientId: String, clientName: String) {
-        self.clientId = clientId
-        self.clientName = clientName
+    override required init() {
         self.config.sdpSemantics = .unifiedPlan
         self.config.continualGatheringPolicy = .gatherContinually
         RTCInitializeSSL()
@@ -81,7 +77,7 @@ class CallClient : NSObject {
                 let sdpWrapper = SessionDescription(from: sdp)
                 let payloadData = try? JSONEncoder().encode(sdpWrapper)
                 let payloadString = String(data: payloadData!, encoding: .utf8)
-                let offer = Signal(sender: self.clientId, recipient: targetId, type: "OFFER", payload: payloadString!, description: self.clientName, notificationOnFailedDelivery: true)
+                let offer = Signal.offer(recipient: targetId, payload: payloadString!)
                 self.delegate?.send(offer)
             }
         }
@@ -90,7 +86,7 @@ class CallClient : NSObject {
     func endCall(signalOther: Bool = true) {
         self.peerConnections.forEach() { cv in
             if (signalOther) {
-                let endSignal = Signal(sender: clientId, recipient: cv.key, type: "END", payload: "")
+                let endSignal = Signal.end(recipient: cv.key)
                 self.delegate?.send(endSignal)
                 cv.value.close()
                 cv.value.delegate = nil
@@ -124,10 +120,9 @@ class CallClient : NSObject {
     
     func decline(signal: Signal) {
         if (signal.type == "OFFER") {
-            let declineSignal = Signal(sender: self.clientId, recipient: signal.sender, type: "DECLINE", payload: "", description: self.clientName)
+            let declineSignal = Signal.decline(recipient: signal.sender)
             self.delegate?.send(declineSignal)
             self.delegate?.onIncomingCallDeclined(signal: signal)
-            print("Declined signal")
         } else {
             self.accept(signal: signal)
         }
@@ -154,7 +149,7 @@ class CallClient : NSObject {
             let sdpWrapper = SessionDescription(from: sdp)
             let payloadData = try? JSONEncoder().encode(sdpWrapper)
             let payloadString = String(data: payloadData!, encoding: .utf8)
-            let answer = Signal(sender: self.clientId, recipient: targetId, type: "ANSWER", payload: payloadString!, description: self.clientName)
+            let answer = Signal.answer(recipient: targetId, payload: payloadString!)
             self.delegate?.send(answer)
         }
     }
@@ -233,7 +228,7 @@ extension CallClient : RTCPeerConnectionDelegate {
             return
         }
         
-        let signal = Signal(sender: self.clientId, recipient: targetId, type: "ICE_CANDIDATE", payload: payloadString!)
+        let signal = Signal.ice_candidate(recipient: targetId, payload: payloadString!)
         self.delegate?.send(signal)
     }
     

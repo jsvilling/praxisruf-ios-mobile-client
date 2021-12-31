@@ -19,6 +19,7 @@
 		CE068134277F35C200E8D4BE /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE068133277F35C200E8D4BE /* ErrorHandling.swift */; };
 		CE068137277F4E7F00E8D4BE /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE068136277F4E7F00E8D4BE /* Auth.swift */; };
 		CE068139277F5F3600E8D4BE /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE068138277F5F3600E8D4BE /* Utils.swift */; };
+		CE06813B277F81B500E8D4BE /* Signal+WebRTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE06813A277F81B500E8D4BE /* Signal+WebRTC.swift */; };
 		CE1D5C88271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5C87271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift */; };
 		CE1D5C8A271C4AAA007EA5AC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5C89271C4AAA007EA5AC /* LoginView.swift */; };
 		CE1D5C8C271C4AAB007EA5AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1D5C8B271C4AAB007EA5AC /* Assets.xcassets */; };
@@ -101,6 +102,7 @@
 		CE068133277F35C200E8D4BE /* ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		CE068136277F4E7F00E8D4BE /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		CE068138277F5F3600E8D4BE /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		CE06813A277F81B500E8D4BE /* Signal+WebRTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Signal+WebRTC.swift"; sourceTree = "<group>"; };
 		CE1D5C84271C4AAA007EA5AC /* praxisruf-ios-mobile-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "praxisruf-ios-mobile-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1D5C87271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = praxisruf_ios_mobile_clientApp.swift; sourceTree = "<group>"; };
 		CE1D5C89271C4AAA007EA5AC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 			children = (
 				CE212BB2276771AA001131BF /* SessionDescription.swift */,
 				CE212BB4276771D0001131BF /* IceCandidate.swift */,
+				CE06813A277F81B500E8D4BE /* Signal+WebRTC.swift */,
 			);
 			path = WebRTC;
 			sourceTree = "<group>";
@@ -644,6 +647,7 @@
 				CE51D02C2723DAA9000D09C1 /* IntercomItem.swift in Sources */,
 				CE01404B2726C81400B71AB7 /* Inbox.swift in Sources */,
 				CE51D0462726922B000D09C1 /* InboxItem.swift in Sources */,
+				CE06813B277F81B500E8D4BE /* Signal+WebRTC.swift in Sources */,
 				CE0140512726E2C300B71AB7 /* InboxItemView.swift in Sources */,
 				CE61552D276E6CA8007798C6 /* PraxisrufApi+Signaling.swift in Sources */,
 				CE94AC532753E08200C93410 /* Settings.swift in Sources */,

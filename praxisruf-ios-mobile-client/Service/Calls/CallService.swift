@@ -24,7 +24,7 @@ class CallService : ObservableObject {
     init(settings: Settings) {
         self.settings = settings
         praxisrufApi = PraxisrufApi()
-        callClient = CallClient(clientId: settings.clientId, clientName: settings.clientName)
+        callClient = CallClient()
         callClient.delegate = self
         PraxisrufApi.signalingDelegate = self
     }
