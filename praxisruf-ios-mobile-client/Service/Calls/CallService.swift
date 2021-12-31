@@ -16,11 +16,11 @@ class CallService : ObservableObject {
     @Published var states: [String:(String, String)] = [:]
     @Published var callPartnerName: String = ""
     
-    private let settings: Settings
+    var settings: Settings
     private let callClient: CallClient
     private let praxisrufApi: PraxisrufApi
     
-    init(settings: Settings) {
+    init(settings: Settings = Settings()) {
         self.settings = settings
         praxisrufApi = PraxisrufApi()
         callClient = CallClient(clientId: settings.clientId, clientName: settings.clientName)

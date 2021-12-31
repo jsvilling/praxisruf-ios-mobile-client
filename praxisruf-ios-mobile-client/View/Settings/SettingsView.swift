@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @ObservedObject var settingsVM: Settings
+    @EnvironmentObject var settings: Settings
     
     var body: some View {
         VStack {
@@ -18,30 +18,30 @@ struct SettingsView: View {
                     HStack {
                         Text("Benutzer")
                         Spacer()
-                        Text(settingsVM.userName)
+                        Text(settings.userName)
                     }
                     HStack {
                         Text("Zimmer")
                         Spacer()
-                        Text(settingsVM.clientName)
+                        Text(settings.clientName)
                     }
-                    Button(action: settingsVM.logout) {
+                    Button(action: settings.logout) {
                         Text("Abmelden")
                     }
                 }
                 Section(header: Text("Benachrichtigungen")) {
-                    Toggle(isOn: $settingsVM.isSpeechSynthEnabled) {
+                    Toggle(isOn: $settings.isSpeechSynthEnabled) {
                         Text("Benachrichtigungen vorlesen")
                     }
                 }
                 Section(header: Text("Gegensprechanalge")) {
-                    Toggle(isOn: !$settingsVM.isIncomingCallsDisabled) {
+                    Toggle(isOn: !$settings.isIncomingCallsDisabled) {
                         Text("Anrufe empfangen")
                     }
                 }
             }
             .listStyle(InsetGroupedListStyle())
-            NavigationLink(destination: LoginView(), isActive: $settingsVM.isLoggedOut) {EmptyView()}.hidden()
+            NavigationLink(destination: LoginView(), isActive: $settings.isLoggedOut) {EmptyView()}.hidden()
         }
         .navigationBarBackButtonHidden(true)
     }
@@ -57,7 +57,7 @@ prefix func ! (value: Binding<Bool>) -> Binding<Bool> {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            SettingsView(settingsVM: Settings())
+            SettingsView()
         }
         .navigationViewStyle(.stack)
         .navigationBarBackButtonHidden(true)

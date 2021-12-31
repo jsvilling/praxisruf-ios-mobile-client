@@ -16,15 +16,16 @@ struct IntercomView: View {
     
     @Binding var configuration: Configuration
     
-    @ObservedObject var notificationService: NotificationService
-    @ObservedObject var callService: CallService
-    @ObservedObject var settings: Settings
-        
-    init(configuration: Binding<Configuration>, settings: Settings) {
+    @EnvironmentObject var settings: Settings
+    
+    @StateObject var notificationService: NotificationService = NotificationService()
+    @StateObject var callService: CallService = CallService()
+    
+    init(configuration: Binding<Configuration>) {
         self._configuration = configuration
-        self.settings = settings
-        self.callService = CallService(settings: settings)
-        self.notificationService = NotificationService(settings: settings)
+
+        self.notificationService.settings = settings
+        self.callService.settings = settings
     }
     
     var body: some View {
@@ -62,7 +63,7 @@ struct IntercomView: View {
 
 struct IntercomHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        IntercomView(configuration: .constant(Configuration.data), settings: Settings())
+        IntercomView(configuration: .constant(Configuration.data))
     }
 }
 
