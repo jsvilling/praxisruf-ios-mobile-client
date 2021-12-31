@@ -12,7 +12,7 @@ struct LoginView: View {
     
     @State private var username: String = "admin"
     @State private var password: String = "admin"
-    @StateObject private var authService = AuthService()
+    @StateObject private var auth = AuthService()
     
     var body: some View {
 
@@ -43,13 +43,13 @@ struct LoginView: View {
                     SecureField(NSLocalizedString("password", comment: "password"), text: $password)
                             .padding()
                 }
-                NavigationLink(destination: ClientSelectView(), isActive: $authService.isAuthenticated) {EmptyView()}.hidden()
+                NavigationLink(destination: ClientSelectView().environmentObject(auth), isActive: $auth.isAuthenticated) {EmptyView()}.hidden()
             }
             .listStyle(PlainListStyle())
             .frame(width: 440, height: 135)
             .padding(.bottom, 40)
             
-            Button(action: {authService.login(username, password)} ) {
+            Button(action: {auth.login(username, password)} ) {
                 Text(NSLocalizedString("login", comment: "login button text, all caps"))
                     .font(.headline)
                     .foregroundColor(.white)
@@ -60,7 +60,7 @@ struct LoginView: View {
             }
             .padding()
             .navigationBarBackButtonHidden(true)
-            .onError(authService.error, retryHandler: {authService.login(username, password)})
+            .onError(auth.error, retryHandler: {auth.login(username, password)})
         }
 }
 

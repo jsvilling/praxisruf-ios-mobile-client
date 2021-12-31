@@ -52,4 +52,16 @@ class AuthService : ObservableObject {
         login(username, password)
     }
     
+    func logout() {
+        RegistrationService().unregister()
+        PraxisrufApi().disconnectSignalingService()
+        DispatchQueue.main.async {
+            Settings.reset()
+            self.isAuthenticated = false
+        }
+        KeychainWrapper.standard.removeObject(forKey: UserDefaultKeys.authToken)
+        KeychainWrapper.standard.removeObject(forKey: UserDefaultKeys.userName)
+        KeychainWrapper.standard.removeObject(forKey: UserDefaultKeys.password)
+    }
+        
 }

@@ -9,6 +9,7 @@ import Foundation
 
 class HomeViewModel : ObservableObject {
     
+    @Published var error: Error? = nil
     @Published var configuration: Configuration = Configuration(notificationTypes: [], callTypes: [])
     
     func loadConfiguration(clientId: String) {        
@@ -22,7 +23,9 @@ class HomeViewModel : ObservableObject {
                             self.configuration = configuration
                         }
                     case .failure(let error):
-                        print(error.localizedDescription)
+                        DispatchQueue.main.async {
+                            self.error = error
+                        }
                 }
         }
     }

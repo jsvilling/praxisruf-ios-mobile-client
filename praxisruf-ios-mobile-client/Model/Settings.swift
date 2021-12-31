@@ -10,8 +10,6 @@ import SwiftKeychainWrapper
 
 class Settings : ObservableObject {
     
-    @Published var isLoggedOut: Bool = false
-    
     @Published var userName: String = storedOrEmptyStringFor(UserDefaultKeys.userName) {
         didSet {
             UserDefaults.standard.set(userName, forKey: UserDefaultKeys.userName)
@@ -42,20 +40,23 @@ class Settings : ObservableObject {
         }
     }
     
-    static func storedOrEmptyStringFor(_ key: String) -> String {
+    private static func storedOrEmptyStringFor(_ key: String) -> String {
         return UserDefaults.standard.string(forKey: key) ?? ""
     }
     
-    static func storedOrFalseBoolFor(_ key: String) -> Bool {
+    private static func storedOrFalseBoolFor(_ key: String) -> Bool {
         return UserDefaults.standard.bool(forKey: key)
     }
-
-    func logout() {
-        RegistrationService().unregister()
-        PraxisrufApi().disconnectSignalingService()
-        DispatchQueue.main.async {
-            self.isLoggedOut = true
-        }
-    }
     
+    static func reset() {
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
+        
+        // The firebase token is not removed. As far as firebase is concerned
+        // it belongs to the hardware device. Leaving the stored token here,
+        // allows us to re-use it. When the user logs in after a logout, without
+        // terminating the app in between. This is fine because the association
+        // to the client has already been removed.
+    }    
 }

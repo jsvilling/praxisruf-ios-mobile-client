@@ -18,10 +18,10 @@ extension PraxisrufApi {
     
     static var signalingDelegate: PraxisrufApiSignalingDelegate?
     
-    private static var singalingWebSocket: URLSessionWebSocketTask? = nil;
+    private static var signalingWebSocket: URLSessionWebSocketTask? = nil;
     
     private var disconnected: Bool {
-        return PraxisrufApi.singalingWebSocket == nil || PraxisrufApi.singalingWebSocket?.closeCode.rawValue != 0
+        return PraxisrufApi.signalingWebSocket == nil || PraxisrufApi.signalingWebSocket?.closeCode.rawValue != 0
     }
 
     func connectSignalingServer(clientId: String) {
@@ -37,18 +37,19 @@ extension PraxisrufApi {
         request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         let task = URLSession(configuration: .default).webSocketTask(with: request)
         task.resume()
-        PraxisrufApi.singalingWebSocket = task
+        PraxisrufApi.signalingWebSocket = task
     }
     
     func disconnectSignalingService() {
-        PraxisrufApi.singalingWebSocket = nil
+        PraxisrufApi.signalingWebSocket?.cancel()
+        PraxisrufApi.signalingWebSocket = nil
     }
 
     func pingSignalingConnection() {
         if (disconnected) {
             PraxisrufApi.signalingDelegate?.onConnectionLost()
         }
-        PraxisrufApi.singalingWebSocket?.sendPing() { error in
+        PraxisrufApi.signalingWebSocket?.sendPing() { error in
             if (error != nil) {
                 PraxisrufApi.signalingDelegate?.onErrorReceived(error: error!)
             }
@@ -63,7 +64,7 @@ extension PraxisrufApi {
             PraxisrufApi.signalingDelegate?.onConnectionLost()
         }
         
-        PraxisrufApi.singalingWebSocket?.send(message) { error in
+        PraxisrufApi.signalingWebSocket?.send(message) { error in
             if (error != nil) {
                 PraxisrufApi.signalingDelegate?.onErrorReceived(error: error!)
             }
@@ -74,7 +75,7 @@ extension PraxisrufApi {
         if (disconnected) {
             PraxisrufApi.signalingDelegate?.onConnectionLost()
         }
-        PraxisrufApi.singalingWebSocket?.receive() { message in
+        PraxisrufApi.signalingWebSocket?.receive() { message in
             switch(message) {
                 case .success(let content):
                     switch(content) {

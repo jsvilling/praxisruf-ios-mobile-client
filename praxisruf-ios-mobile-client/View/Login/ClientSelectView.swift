@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ClientSelectView: View {
     
+    @EnvironmentObject var auth: AuthService
     @StateObject var clientSelectVM = ClientSelectViewModel()
     @State var isEditMode: EditMode = .active
     
@@ -17,7 +18,8 @@ struct ClientSelectView: View {
             if (clientSelectVM.availableClients.isEmpty) {
                 Text("noClients")
             } else {
-                NavigationLink(destination: HomeView(), isActive: $clientSelectVM.selectionConfirmed) {EmptyView()}.hidden()
+                NavigationLink(destination: HomeView().environmentObject(auth),
+                               isActive: $clientSelectVM.selectionConfirmed) {EmptyView()}.hidden()
                 List(clientSelectVM.availableClients, selection: $clientSelectVM.selection) { client in
                     Text("\(client.name)")
                 }

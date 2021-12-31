@@ -11,17 +11,17 @@ import SwiftUI
 
 class CallService : ObservableObject {
 
+    @Published var error: Error? = nil
     @Published var active: Bool = false
     @Published var callTypeId: String = ""
     @Published var states: [String:(String, String)] = [:]
     @Published var callPartnerName: String = ""
-    @Published var error: Error? = nil
-    
     var settings: Settings
+    
     private let callClient: CallClient
     private let praxisrufApi: PraxisrufApi
     
-    init(settings: Settings = Settings()) {
+    init(settings: Settings) {
         self.settings = settings
         praxisrufApi = PraxisrufApi()
         callClient = CallClient(clientId: settings.clientId, clientName: settings.clientName)

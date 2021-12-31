@@ -14,29 +14,38 @@ struct HomeView: View {
     
     @StateObject private var homeVM = HomeViewModel()
     @StateObject var settings = Settings()
+    @EnvironmentObject var auth: AuthService
     
     var body: some View {
-        TabView {
-            IntercomView(configuration: $homeVM.configuration, settings: settings)
-             .tabItem {
-                 Image(systemName: "phone.fill")
-                 Text("Home")
-             }
-             
-            InboxView()
-              .tabItem {
-                  Image(systemName: "tray.and.arrow.down")
-                  Text("Inbox")
-               }
-            SettingsView(settings: settings)
-                .tabItem() {
-                    Image(systemName: "gearshape")
-                    Text("Settings")
-                }
+        ZStack {
+            NavigationLink(destination: LoginView(), isActive: !$auth.isAuthenticated) {EmptyView()}.hidden()
+            TabView {
+                IntercomView(configuration: $homeVM.configuration, settings: settings)
+                 .tabItem {
+                     Image(systemName: "phone.fill")
+                     Text("Home")
+                 }
+                 
+                InboxView()
+                  .tabItem {
+                      Image(systemName: "tray.and.arrow.down")
+                      Text("Inbox")
+                   }
+                SettingsView()
+                    .environmentObject(auth)
+                    .environmentObject(settings)
+                    .tabItem() {
+                        Image(systemName: "gearshape")
+                        Text("Settings")
+                    }
+                
+            }
         }
         .navigationTitle(settings.clientName)
         .onReceive(inboxReminderTimer, perform: self.onInboxReminderTimerReceived)
         .onAppear(perform: self.onAppear)
+        .onError(auth.error)
+        .onError(homeVM.error)
     }
     
     func onInboxReminderTimerReceived(_ input: Any? = nil) {
@@ -44,7 +53,7 @@ struct HomeView: View {
     }
     
     func onTokenRefreshTimer(_ input: Any? = nil) {
-        AuthService().refresh()
+        auth.refresh()
     }
     
     func onAppear() {

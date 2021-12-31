@@ -19,10 +19,6 @@ class praxisruf_ios_mobile_clientTests: XCTestCase {
     }
 
     func testExample() throws {
-        let string = "{\"sender\":\"3a2ad734-b4f0-413c-8cf1-03346ba9bd00\",\"recipient\":\"5DF86410-ED89-4840-96D0-6353A235CCCA\",\"type\":\"UNAVAILABLE\",\"payload\":\"\"}"
-        let sig = try JSONDecoder().decode(Signal.self, from: string.data(using: .utf8)!)
-        print(sig)
-        
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }

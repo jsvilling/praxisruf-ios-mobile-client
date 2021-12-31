@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @ObservedObject var settings: Settings
+    @EnvironmentObject var settings: Settings
+    @EnvironmentObject var auth: AuthService
     
     var body: some View {
         VStack {
@@ -25,7 +26,7 @@ struct SettingsView: View {
                         Spacer()
                         Text(settings.clientName)
                     }
-                    Button(action: settings.logout) {
+                    Button(action: auth.logout) {
                         Text("Abmelden")
                     }
                 }
@@ -41,23 +42,17 @@ struct SettingsView: View {
                 }
             }
             .listStyle(InsetGroupedListStyle())
-            NavigationLink(destination: LoginView(), isActive: $settings.isLoggedOut) {EmptyView()}.hidden()
         }
         .navigationBarBackButtonHidden(true)
     }
 }
 
-prefix func ! (value: Binding<Bool>) -> Binding<Bool> {
-    Binding<Bool>(
-        get: { !value.wrappedValue },
-        set: { value.wrappedValue = !$0 }
-    )
-}
+
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            SettingsView(settings: Settings())
+            SettingsView()
         }
         .navigationViewStyle(.stack)
         .navigationBarBackButtonHidden(true)

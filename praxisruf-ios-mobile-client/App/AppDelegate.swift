@@ -10,9 +10,10 @@ import Firebase
 import UIKit
 import SwiftKeychainWrapper
 
-class AppDelegate: NSObject, UIApplicationDelegate {
+class AppDelegate: NSObject, UIApplicationDelegate, UISceneDelegate {
     
     private let gcmMessageIDKey = "gcm.message_id"
+    
     
     /// This function initializes the FirebaseApp Configuration.
     /// It then registers AppDelegate as the delegate for Firebase Messaging as well as the delegate for UNUserNotificationCenter.
@@ -20,9 +21,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     /// After this notifications can be received.
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
-            FirebaseApp.configure()
         
+            FirebaseApp.configure()
             Firebase.Messaging.messaging().delegate = self
         
             UNUserNotificationCenter.current().delegate = self
@@ -125,3 +125,17 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
   }
     
 }
+
+extension AppDelegate : RegistrationDelegate {
+
+    /// This function unregisters the application with Firebase Messaging
+    /// It is called from the business logic, when the user logs out.
+    func unregister() {
+        Messaging.messaging().deleteData(completion: { error in
+            if (error != nil) {
+                debugPrint(error!.localizedDescription)
+            }
+        });
+    }
+}
+

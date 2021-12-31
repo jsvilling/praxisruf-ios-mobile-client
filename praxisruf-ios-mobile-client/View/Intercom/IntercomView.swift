@@ -16,13 +16,13 @@ struct IntercomView: View {
     
     @Binding var configuration: Configuration
     
-    @ObservedObject var settings: Settings
+    @EnvironmentObject var settings: Settings
+    
     @ObservedObject var notificationService: NotificationService
     @ObservedObject var callService: CallService
     
     init(configuration: Binding<Configuration>, settings: Settings) {
         self._configuration = configuration
-        self.settings = settings
         self.notificationService = NotificationService(settings: settings)
         self.callService = CallService(settings: settings)
     }
@@ -42,14 +42,16 @@ struct IntercomView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onReceive(keepAliveSignalingConnection, perform: callService.ping)
-        .onAppear(perform: self.callService.listen)
+        .onAppear(perform: self.activate)
         .onChange(of: scenePhase, perform: self.onPhaseChange)
         .fullScreenCover(isPresented: $callService.active) {
             ActiveCallView(callService: callService)
         }
     }
     
-    private func onAppear() {
+    private func activate() {
+        self.notificationService.settings = settings
+        self.callService.settings = settings
         self.callService.listen()
     }
     
@@ -57,8 +59,7 @@ struct IntercomView: View {
         if (newPhase == .inactive || newPhase == .background) {
             self.callService.disconnect()
         } else if (newPhase == .active) {
-            self.callService.settings = settings
-            self.callService.listen()
+            self.activate()
         }
     }
 }
