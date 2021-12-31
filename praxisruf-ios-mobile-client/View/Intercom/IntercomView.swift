@@ -16,13 +16,13 @@ struct IntercomView: View {
     
     @Binding var configuration: Configuration
     
-    @EnvironmentObject var settings: Settings
-    
+    @ObservedObject var settings: Settings
     @ObservedObject var notificationService: NotificationService
     @ObservedObject var callService: CallService
     
     init(configuration: Binding<Configuration>, settings: Settings) {
         self._configuration = configuration
+        self.settings = settings
         self.notificationService = NotificationService(settings: settings)
         self.callService = CallService(settings: settings)
     }
