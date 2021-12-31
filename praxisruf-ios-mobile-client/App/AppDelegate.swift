@@ -18,7 +18,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     /// It then registers AppDelegate as the delegate for Firebase Messaging as well as the delegate for UNUserNotificationCenter.
     /// Finally authorization for notification is requested and the application registers for remote notifications.
     /// After this notifications can be received.
-    func application(_ application: UIApplication, _ launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
             FirebaseApp.configure()
         
@@ -43,7 +44,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     /// Otherwise the content of the "alert" dictionary is converted into the internal Model ReceiveNotification.
     /// Missing value sin the "alert" will be substituted with default Values.
     /// The ReceiveNotification is then passed to NotificationService for processing.
-    func application(_ application: UIApplication, _ userInfo: [AnyHashable: Any], _ completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    func application(_ application: UIApplication,
+                     didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
         guard let aps = userInfo["aps"] as? NSDictionary else {
             debugPrint("Invalid notification received. Notification does not contain aps info.")
@@ -101,7 +104,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
   /// It displays the notification banner and play the notification sound.
   /// It then extracts the userInfo from the notification and passes it to appDidReceiveMessage which will forward it to the Firebase Messaging delegate.
   /// It confirms Firbase Messaging the the Notification was received
-  func userNotificationCenter(_ center: UNUserNotificationCenter, _ notification: UNNotification, _ completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+  func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              willPresent notification: UNNotification,
+                              withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+      
         let userInfo = notification.request.content.userInfo
         Messaging.messaging().appDidReceiveMessage(userInfo)
         completionHandler([[.banner, .badge, .sound]])
@@ -110,7 +116,9 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
   /// This function is called when the notification banner of a background notification is tapped.
   /// It then extracts the userInfo from the notification and passes it to appDidReceiveMessage which will forward it to the Firebase Messaging delegate.
   /// It confirms Firbase Messaging the the Notification was received
-  func userNotificationCenter(_ center: UNUserNotificationCenter, _ response: UNNotificationResponse, _ completionHandler: @escaping () -> Void) {
+  func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              didReceive response: UNNotificationResponse,
+                              withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         Messaging.messaging().appDidReceiveMessage(userInfo)
         completionHandler()

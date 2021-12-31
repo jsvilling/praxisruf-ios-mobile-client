@@ -26,8 +26,8 @@ class RegistrationService: ObservableObject {
     }
     
     func register(messagingToken: String) {
-        KeychainWrapper.standard.set(fcmToken, forKey: UserDefaultKeys.fcmToken)
-        PraxisrufApi().register(fcmToken: fcmToken, clientId: settings.clientId) { result in
+        KeychainWrapper.standard.set(messagingToken, forKey: UserDefaultKeys.fcmToken)
+        PraxisrufApi().register(fcmToken: messagingToken, clientId: settings.clientId) { result in
             switch result {
                 case .success(_):
                     print("Registration successful")
