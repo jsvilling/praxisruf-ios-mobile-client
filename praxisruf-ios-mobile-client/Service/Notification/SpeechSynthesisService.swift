@@ -10,7 +10,7 @@ import AVFAudio
 
 class SpeechSynthesisService {
     
-    func synthesize(_ notification: ReceiveNotification) {
+    func synthesize(_ notification: ReceiveNotification, _ errorHandler: @escaping (Error) -> Void) {
         let notificationType = notification.notificationType
         let version = notification.version
         let fileManager = FileManager.default
@@ -28,10 +28,10 @@ class SpeechSynthesisService {
                             try FileManager.default.copyItem(at: audioUrl, to: destinationUrl)
                             AudioPlayer.playSounds(filePath: destinationUrl.path)
                         } catch let error {
-                            print(error)
+                            errorHandler(error)
                         }
                     case .failure(let error):
-                        print(error.localizedDescription)
+                        errorHandler(error)
                 }
             }
         }

@@ -31,11 +31,13 @@ struct IntercomView: View {
         VStack {
             Section(header: Text("intercom").font(.title2)) {
                 ButtonGridView(entries: $configuration.callTypes, action: callService.initCall)
+                    .onError(callService.error)
             }
             
             Section(header: Text("notifications").font(.title2)) {
                 ButtonGridView(entries: $configuration.notificationTypes, action: notificationService.sendNotification)
-                RetryAlert(isPresented: $notificationService.hasErrorResponse, id: $notificationService.notificationSendResult.notificationId, action: notificationService.retryNotification)
+                    .onError(notificationService.error)
+                RetryAlert(isPresented: $notificationService.hasDeliveryFailed, id: $notificationService.notificationSendResult.notificationId, action: notificationService.retryNotification)
             }
         }
         .navigationBarBackButtonHidden(true)

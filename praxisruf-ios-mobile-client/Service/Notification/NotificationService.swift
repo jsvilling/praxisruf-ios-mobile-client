@@ -10,7 +10,9 @@ import SwiftUI
 
 class NotificationService: ObservableObject {
     
-    @Published var hasErrorResponse: Bool = false
+    @Published var error: Error? = nil
+    
+    @Published var hasDeliveryFailed: Bool = false
     @Published var notificationSendResult: NotificationSendResult = NotificationSendResult(notificationId: NotificationType.data[0].id, allSuccess: true)
     
     var settings: Settings
@@ -26,10 +28,10 @@ class NotificationService: ObservableObject {
             case .success(let notificationSendResponse):
                 DispatchQueue.main.async {
                     self.notificationSendResult = notificationSendResponse
-                    self.hasErrorResponse = !notificationSendResponse.allSuccess
+                    self.hasDeliveryFailed = !notificationSendResponse.allSuccess
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                self.onError(error)
             }
         }
     }
@@ -40,10 +42,10 @@ class NotificationService: ObservableObject {
             case .success(let notificationSendResponse):
                 DispatchQueue.main.async {
                     self.notificationSendResult = notificationSendResponse
-                    self.hasErrorResponse = !notificationSendResponse.allSuccess
+                    self.hasDeliveryFailed = !notificationSendResponse.allSuccess
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                self.onError(error)
             }
         }
     }
@@ -51,7 +53,13 @@ class NotificationService: ObservableObject {
     func receive(_ notification: ReceiveNotification) {
         Inbox.shared.receive(notification)
         if (notification.textToSpeech == "true" && settings.isSpeechSynthEnabled) {
-            SpeechSynthesisService().synthesize(notification)
+            SpeechSynthesisService().synthesize(notification, onError)
+        }
+    }
+    
+    private func onError(_ error: Error) {
+        DispatchQueue.main.async {
+            self.error = error
         }
     }
 }

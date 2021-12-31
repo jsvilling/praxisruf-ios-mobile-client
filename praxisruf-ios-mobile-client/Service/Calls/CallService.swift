@@ -15,6 +15,7 @@ class CallService : ObservableObject {
     @Published var callTypeId: String = ""
     @Published var states: [String:(String, String)] = [:]
     @Published var callPartnerName: String = ""
+    @Published var error: Error? = nil
     
     var settings: Settings
     private let callClient: CallClient

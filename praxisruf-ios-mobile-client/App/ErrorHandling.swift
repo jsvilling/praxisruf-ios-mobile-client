@@ -64,7 +64,7 @@ struct ErrorEmittingViewModigier: ViewModifier {
 }
 
 extension View {
-    func onError(_ error: Error?, retryHandler: @escaping () -> Void) -> some View {
+    func onError(_ error: Error?, retryHandler: @escaping () -> Void = {}) -> some View {
         modifier(ErrorEmittingViewModigier(error: error, retryHandler: retryHandler))
     }
 }
