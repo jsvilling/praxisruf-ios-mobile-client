@@ -18,7 +18,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     /// It then registers AppDelegate as the delegate for Firebase Messaging as well as the delegate for UNUserNotificationCenter.
     /// Finally authorization for notification is requested and the application registers for remote notifications.
     /// After this notifications can be received.
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, _ launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
             FirebaseApp.configure()
         
@@ -43,10 +43,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     /// Otherwise the content of the "alert" dictionary is converted into the internal Model ReceiveNotification.
     /// Missing value sin the "alert" will be substituted with default Values.
     /// The ReceiveNotification is then passed to NotificationService for processing.
-    func application(_ application: UIApplication,
-                     didReceiveRemoteNotification userInfo: [AnyHashable: Any],
-                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult)
-                       -> Void) {
+    func application(_ application: UIApplication, _ userInfo: [AnyHashable: Any], _ completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
         guard let aps = userInfo["aps"] as? NSDictionary else {
             debugPrint("Invalid notification received. Notification does not contain aps info.")
