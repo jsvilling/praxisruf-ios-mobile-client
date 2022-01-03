@@ -10,7 +10,7 @@ import Foundation
 extension Signal {
     
     static func offer(recipient: String, payload: String) -> Signal {
-        return Signal(sender: Settings().clientId, recipient: recipient, type: "OFFER", payload: payload, description: Settings().clientName)
+        return Signal(sender: Settings().clientId, recipient: recipient, type: "OFFER", payload: payload, description: Settings().clientName, notificationOnFailedDelivery: true)
     }
     
     static func answer(recipient: String, payload: String) -> Signal {
