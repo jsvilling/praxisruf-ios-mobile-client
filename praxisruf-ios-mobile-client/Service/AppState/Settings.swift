@@ -52,11 +52,5 @@ class Settings : ObservableObject {
         let domain = Bundle.main.bundleIdentifier!
         UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
-        
-        // The firebase token is not removed. As far as firebase is concerned
-        // it belongs to the hardware device. Leaving the stored token here,
-        // allows us to re-use it. When the user logs in after a logout, without
-        // terminating the app in between. This is fine because the association
-        // to the client has already been removed.
     }    
 }
