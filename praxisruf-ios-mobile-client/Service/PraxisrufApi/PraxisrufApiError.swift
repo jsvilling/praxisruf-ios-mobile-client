@@ -14,4 +14,5 @@ public enum PraxisrufApiError: Error {
     case errorResponse
     case invalidCredential
     case invalidData
+    case noData
 }

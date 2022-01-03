@@ -71,6 +71,7 @@ class AuthService : ObservableObject {
             Settings.reset()
             self.isAuthenticated = false
         }
+        // TODO: Clear inbox
         KeychainWrapper.standard.removeObject(forKey: AuthKeys.authToken)
         KeychainWrapper.standard.removeObject(forKey: AuthKeys.userName)
         KeychainWrapper.standard.removeObject(forKey: AuthKeys.password)

@@ -59,7 +59,7 @@ class PraxisrufApi {
             }
         
             guard let responsData = data else {
-                 completion(.failure(.invalidData))
+                 completion(.failure(.noData))
                  return
              }
             
