@@ -16,7 +16,7 @@ class NotificationService: ObservableObject {
     @Published var notificationSendResult: NotificationSendResult = NotificationSendResult(notificationId: NotificationType.data[0].id, allSuccess: true)
     
     func sendNotification(notificationType: NotificationType) {
-        let notification = SendNotification(notificationTypeId: notificationType.id, sender: Settings().clientId)
+        let notification = SendNotification(notificationTypeId: notificationType.id, sender: Settings.standard.clientId)
         PraxisrufApi().sendNotification(sendNotification: notification) { result in
             switch result {
             case .success(let notificationSendResponse):
@@ -46,7 +46,7 @@ class NotificationService: ObservableObject {
     
     func receive(_ notification: ReceiveNotification) {
         Inbox.shared.receive(notification)
-        if (notification.textToSpeech == "true" && Settings().isSpeechSynthEnabled) {
+        if (notification.textToSpeech == "true" && Settings.standard.isSpeechSynthEnabled) {
             SpeechSynthesisService().synthesize(notification, onError)
         }
     }

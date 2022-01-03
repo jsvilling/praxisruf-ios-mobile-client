@@ -27,7 +27,7 @@ class RegistrationService: ObservableObject {
     
     func register(messagingToken: String) {
         AuthService().messagingToken = messagingToken
-        PraxisrufApi().register(fcmToken: messagingToken, clientId: Settings().clientId) { result in
+        PraxisrufApi().register(fcmToken: messagingToken, clientId: Settings.standard.clientId) { result in
             switch result {
                 case .success(_):
                     print("Registration successful")
@@ -44,7 +44,7 @@ class RegistrationService: ObservableObject {
             print("Incomplete registration. Cannot unregister with cloud service")
             return
         } else {
-            PraxisrufApi().unregister(clientId: Settings().clientId) { result in
+            PraxisrufApi().unregister(clientId: Settings.standard.clientId) { result in
                 switch result {
                     case .success (let response):
                         print(response)

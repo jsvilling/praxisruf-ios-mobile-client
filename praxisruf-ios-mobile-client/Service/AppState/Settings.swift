@@ -10,6 +10,8 @@ import SwiftKeychainWrapper
 
 class Settings : ObservableObject {
     
+    private init() {}
+    
     @Published var userName: String = storedOrEmptyStringFor(SettingsKeys.userName) {
         didSet {
             UserDefaults.standard.set(userName, forKey: SettingsKeys.userName)

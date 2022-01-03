@@ -10,7 +10,7 @@ import SwiftKeychainWrapper
 
 class AuthService : ObservableObject {
     
-    let settings: Settings = Settings()
+    let settings: Settings = Settings.standard
         
     @Published var isAuthenticated: Bool = false
     @Published var error: Error? = nil

@@ -13,7 +13,7 @@ class ClientSelectViewModel: ObservableObject {
     @Published var availableClients: [Client]
     @Published var error: Error? = nil
     
-    @ObservedObject var settings: Settings = Settings()
+    @ObservedObject var settings: Settings = Settings.standard
         
     init(availableClients: [Client] = []) {
         self.availableClients = availableClients
