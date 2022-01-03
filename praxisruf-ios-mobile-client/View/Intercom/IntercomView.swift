@@ -16,15 +16,13 @@ struct IntercomView: View {
     
     @Binding var configuration: Configuration
     
-    @ObservedObject var settings: Settings
     @ObservedObject var notificationService: NotificationService
     @ObservedObject var callService: CallService
     
-    init(configuration: Binding<Configuration>, settings: Settings) {
+    init(configuration: Binding<Configuration>) {
         self._configuration = configuration
-        self.settings = settings
-        self.notificationService = NotificationService(settings: settings)
-        self.callService = CallService(settings: settings)
+        self.notificationService = NotificationService()
+        self.callService = CallService()
     }
     
     var body: some View {
@@ -42,30 +40,24 @@ struct IntercomView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onReceive(keepAliveSignalingConnection, perform: callService.ping)
-        .onAppear(perform: self.activate)
+        .onAppear(perform: self.callService.listen)
         .onChange(of: scenePhase, perform: self.onPhaseChange)
         .fullScreenCover(isPresented: $callService.active) {
             ActiveCallView(callService: callService)
         }
     }
     
-    private func activate() {
-        self.notificationService.settings = settings
-        self.callService.settings = settings
-        self.callService.listen()
-    }
-    
     private func onPhaseChange(newPhase: ScenePhase) {
         if (newPhase == .inactive || newPhase == .background) {
             self.callService.disconnect()
         } else if (newPhase == .active) {
-            self.activate()
+            self.callService.listen()
         }
     }
 }
 
 struct IntercomHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        IntercomView(configuration: .constant(Configuration.data), settings: Settings())
+        IntercomView(configuration: .constant(Configuration.data))
     }
 }

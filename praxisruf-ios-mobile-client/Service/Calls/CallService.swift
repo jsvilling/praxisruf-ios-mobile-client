@@ -16,21 +16,17 @@ class CallService : ObservableObject {
     @Published var callTypeId: String = ""
     @Published var states: [String:(String, String)] = [:]
     @Published var callPartnerName: String = ""
-    var settings: Settings
     
-    private let callClient: CallClient
-    private let praxisrufApi: PraxisrufApi
+    private let callClient: CallClient = CallClient()
+    private let praxisrufApi: PraxisrufApi = PraxisrufApi()
     
-    init(settings: Settings) {
-        self.settings = settings
-        praxisrufApi = PraxisrufApi()
-        callClient = CallClient()
+    init() {
         callClient.delegate = self
         PraxisrufApi.signalingDelegate = self
     }
     
     func listen() {
-        praxisrufApi.connectSignalingServer(clientId: settings.clientId)
+        praxisrufApi.connectSignalingServer(clientId: Settings().clientId)
         praxisrufApi.listenForSignal()
     }
     
@@ -59,7 +55,7 @@ class CallService : ObservableObject {
             switch result {
                 case .success(let participants):
                     participants
-                        .filter({ p in p.id.uuidString != self.settings.clientId.uppercased() })
+                        .filter({ p in p.id.uuidString != Settings().clientId.uppercased() })
                         .forEach() { p in
                             self.initCallPartnerState(p: p)
                             self.callClient.offer(targetId: p.id.uuidString)
@@ -126,7 +122,7 @@ extension CallService : CallClientDelegate {
     }
     
     func send(_ signal: Signal) {
-        if (signal.recipient.uppercased() != self.settings.clientId.uppercased()) {
+        if (signal.recipient.uppercased() != Settings().clientId.uppercased()) {
             praxisrufApi.sendSignal(signal: signal)
         }
     }
@@ -141,7 +137,7 @@ extension CallService : PraxisrufApiSignalingDelegate {
     }
     
     func onSignalReceived(_ signal: Signal) {
-        if (settings.isIncomingCallsDisabled) {
+        if (Settings().isIncomingCallsDisabled) {
             self.callClient.decline(signal: signal)
         } else {
             self.callClient.accept(signal: signal)
@@ -149,7 +145,7 @@ extension CallService : PraxisrufApiSignalingDelegate {
     }
     
     func onErrorReceived(error: Error) {
-        //print(error.localizedDescription)
+        debugPrint(error.localizedDescription)
     }
     
 }

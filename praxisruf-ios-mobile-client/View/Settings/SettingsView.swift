@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @EnvironmentObject var settings: Settings
+    @ObservedObject var settings: Settings
     @EnvironmentObject var auth: AuthService
     
     var body: some View {

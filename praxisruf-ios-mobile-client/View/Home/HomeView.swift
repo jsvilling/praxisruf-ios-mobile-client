@@ -20,7 +20,7 @@ struct HomeView: View {
         ZStack {
             NavigationLink(destination: LoginView(), isActive: !$auth.isAuthenticated) {EmptyView()}.hidden()
             TabView {
-                IntercomView(configuration: $homeVM.configuration, settings: settings)
+                IntercomView(configuration: $homeVM.configuration)
                  .tabItem {
                      Image(systemName: "phone.fill")
                      Text("Home")
@@ -31,9 +31,8 @@ struct HomeView: View {
                       Image(systemName: "tray.and.arrow.down")
                       Text("Inbox")
                    }
-                SettingsView()
+                SettingsView(settings: settings)
                     .environmentObject(auth)
-                    .environmentObject(settings)
                     .tabItem() {
                         Image(systemName: "gearshape")
                         Text("Settings")
