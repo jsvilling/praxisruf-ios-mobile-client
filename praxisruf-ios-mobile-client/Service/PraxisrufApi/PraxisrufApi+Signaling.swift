@@ -28,8 +28,8 @@ extension PraxisrufApi {
         if (!disconnected) {
             return
         }
-        guard let authToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.authToken) else {
-            print("No authToken found")
+        guard let authToken = AuthService().authToken else {
+            PraxisrufApi.signalingDelegate?.onErrorReceived(error: PraxisrufApiError.invalidCredential)
             return
         }
         let url = URL(string: "\(PraxisrufApi.webSocketBaseUrlValue)/signaling?clientId=\(clientId)")!

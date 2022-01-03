@@ -10,33 +10,40 @@ import SwiftUI
 struct ClientSelectView: View {
     
     @EnvironmentObject var auth: AuthService
-    @StateObject var clientSelectVM = ClientSelectViewModel()
+    @StateObject var clientsService = ClientSelectViewModel()
     @State var isEditMode: EditMode = .active
+    @State var isSelectionConfirmed = false
+    @State var selection: UUID?
     
     var body: some View {
         VStack {
-            if (clientSelectVM.availableClients.isEmpty) {
+            if (clientsService.availableClients.isEmpty) {
                 Text("noClients")
             } else {
                 NavigationLink(destination: HomeView().environmentObject(auth),
-                               isActive: $clientSelectVM.selectionConfirmed) {EmptyView()}.hidden()
-                List(clientSelectVM.availableClients, selection: $clientSelectVM.selection) { client in
+                               isActive: $isSelectionConfirmed) {EmptyView()}.hidden()
+                List(clientsService.availableClients, selection: $selection) { client in
                     Text("\(client.name)")
                 }
             }
         }
         .environment(\.editMode, $isEditMode)
         .navigationTitle("clientSelection")
-        .navigationBarItems(trailing: Button("finish", action: clientSelectVM.confirm))
-        .onAppear(perform: clientSelectVM.getAvailableClients)
-        .onError(clientSelectVM.error, retryHandler: {})
+        .navigationBarItems(trailing: Button("finish", action: confirm))
+        .onAppear(perform: clientsService.getAvailableClients)
+        .onError(clientsService.error, retryHandler: {})
+    }
+    
+    private func confirm() {
+        clientsService.confirm(selection: selection)
+        isSelectionConfirmed = clientsService.error == nil
     }
 }
 
 struct ClientSelectView_Previews: PreviewProvider {
 static var previews: some View {
     NavigationView {
-        ClientSelectView(clientSelectVM: ClientSelectViewModel(availableClients: Client.data))
+        ClientSelectView(clientsService: ClientSelectViewModel(availableClients: Client.data))
             .previewDevice("iPad (9th generation)")
         }
         .navigationViewStyle(.stack)

@@ -14,21 +14,20 @@ protocol RegistrationDelegate {
 
 class RegistrationService: ObservableObject {
     
-    let settings = Settings()
     var delegate: RegistrationDelegate? = nil
     
     func register() {
-        guard let fcmToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.fcmToken) else {
-            print("No fmc token found")
+        guard let messagingToken = AuthService().messagingToken else {
+            print("No messagingToken found")
             return
         }
         
-        register(messagingToken: fcmToken)
+        register(messagingToken: messagingToken)
     }
     
     func register(messagingToken: String) {
-        KeychainWrapper.standard.set(messagingToken, forKey: UserDefaultKeys.fcmToken)
-        PraxisrufApi().register(fcmToken: messagingToken, clientId: settings.clientId) { result in
+        AuthService().messagingToken = messagingToken
+        PraxisrufApi().register(fcmToken: messagingToken, clientId: Settings().clientId) { result in
             switch result {
                 case .success(_):
                     print("Registration successful")
@@ -39,13 +38,13 @@ class RegistrationService: ObservableObject {
     }
     
     func unregister() {
-        let authToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.authToken)
+        let authToken = AuthService().authToken
         
         if (authToken == nil) {
             print("Incomplete registration. Cannot unregister with cloud service")
             return
         } else {
-            PraxisrufApi().unregister(clientId: settings.clientId) { result in
+            PraxisrufApi().unregister(clientId: Settings().clientId) { result in
                 switch result {
                     case .success (let response):
                         print(response)

@@ -14,6 +14,6 @@ extension PraxisrufApi {
     }
     
     func unregister(clientId: String, completion: @escaping (Result<Nothing, PraxisrufApiError>) -> Void) {
-        delete("/registrations/(clientId)", completion: completion)
+        delete("/registrations/\(clientId)", completion: completion)
     }
 }

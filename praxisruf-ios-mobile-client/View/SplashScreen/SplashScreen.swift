@@ -20,16 +20,16 @@ struct SplashScreen: View {
             NavigationLink(destination: ClientSelectView(), isActive: $redirectToClientSelect) {EmptyView()}.hidden()
             NavigationLink(destination: HomeView(), isActive: $redirectToHome) {EmptyView()}.hidden()
         }.onAppear() {
-            let username = KeychainWrapper.standard.string(forKey: UserDefaultKeys.userName)
-            let password = KeychainWrapper.standard.string(forKey: UserDefaultKeys.password)
-            let clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId)
-            redirectToHome = username != nil && password != nil && clientId != nil
-            if (!redirectToHome) {
-                redirectToClientSelect = username != nil && password != nil
-            }
-            if (!redirectToClientSelect && !redirectToHome) {
-                redirectToLogin = true
-            }
+//            let username = KeychainWrapper.standard.string(forKey: UserDefaultKeys.userName)
+//            let password = KeychainWrapper.standard.string(forKey: UserDefaultKeys.password)
+//            let clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId)
+//            redirectToHome = username != nil && password != nil && clientId != nil
+//            if (!redirectToHome) {
+//                redirectToClientSelect = username != nil && password != nil
+//            }
+//            if (!redirectToClientSelect && !redirectToHome) {
+//                redirectToLogin = true
+//            }
         }
     }
 }

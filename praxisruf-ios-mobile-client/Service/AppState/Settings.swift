@@ -61,8 +61,6 @@ class Settings : ObservableObject {
     }
     
     struct SettingsKeys {
-        static let authToken: String = "authToken"
-        
         static let clientName: String = "clientName"
         static let clientId: String = "clientId"
         

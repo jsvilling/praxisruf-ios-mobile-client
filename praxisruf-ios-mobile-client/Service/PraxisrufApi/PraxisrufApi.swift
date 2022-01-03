@@ -31,7 +31,7 @@ class PraxisrufApi {
     private func http<T>(_ subUrl: String, method: String = "GET", body: Data? = nil, completion: @escaping (Result<T, PraxisrufApiError>) -> Void) where T : Decodable {
         let url = URL(string: "\(PraxisrufApi.httpBaseUrlValue)\(subUrl)")!
                 
-        guard let authToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.authToken) else {
+        guard let authToken = KeychainWrapper.standard.string(forKey: "authToken") else {
             completion(.failure(.invalidCredential))
             return
         }
@@ -46,13 +46,20 @@ class PraxisrufApi {
         }
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let httpResponse = response as? HTTPURLResponse,(200...299).contains(httpResponse.statusCode) else {
+           
+            guard let httpResponse = response as? HTTPURLResponse else {
                 completion(.failure(.errorResponse))
                 return
             }
             
+            if (!(200...299).contains(httpResponse.statusCode)) {
+                debugPrint(httpResponse.statusCode)
+                completion(.failure(.errorResponse))
+                return
+            }
+        
             guard let responsData = data else {
-                completion(.failure(.invalidData))
+                 completion(.failure(.invalidData))
                  return
              }
             
@@ -71,7 +78,7 @@ class PraxisrufApi {
             return
         }
                 
-        guard let authToken = KeychainWrapper.standard.string(forKey: UserDefaultKeys.authToken) else {
+        guard let authToken = AuthService().authToken else {
             completion(.failure(.invalidCredential))
             return
         }
