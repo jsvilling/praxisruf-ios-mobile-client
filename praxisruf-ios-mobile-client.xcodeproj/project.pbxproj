@@ -336,6 +336,7 @@
 			children = (
 				CE53ABF4271EB30100BAD1F1 /* ClientsService.swift */,
 				CE94AC68275BCCB700C93410 /* ConfigurationService.swift */,
+				CE51D02F2725431B000D09C1 /* RegistrationService.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -355,7 +356,6 @@
 				CE01406127317EF600B71AB7 /* AudioPlayer.swift */,
 				CE94AC5827566B6900C93410 /* InboxReminderService.swift */,
 				CE53ABFE271EFAFC00BAD1F1 /* NotificationService.swift */,
-				CE51D02F2725431B000D09C1 /* RegistrationService.swift */,
 				CE01405F27317ACF00B71AB7 /* SpeechSynthesisService.swift */,
 			);
 			path = Notification;
