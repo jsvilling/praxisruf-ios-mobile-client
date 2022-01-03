@@ -13,7 +13,7 @@ struct HomeView: View {
     let tokenRefreshTimer = Timer.publish(every: 43200, on: .main, in: .common).autoconnect()   // Every 12h
     
     @StateObject private var homeVM = HomeViewModel()
-    @StateObject var settings = Settings()
+    @StateObject var settings = Settings.standard
     @EnvironmentObject var auth: AuthService
     
     var body: some View {

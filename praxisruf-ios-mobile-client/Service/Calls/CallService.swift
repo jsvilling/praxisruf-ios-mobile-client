@@ -26,7 +26,7 @@ class CallService : ObservableObject {
     }
     
     func listen() {
-        praxisrufApi.connectSignalingServer(clientId: Settings().clientId)
+        praxisrufApi.connectSignalingServer(clientId: Settings.standard.clientId)
         praxisrufApi.listenForSignal()
     }
     
@@ -55,7 +55,7 @@ class CallService : ObservableObject {
             switch result {
                 case .success(let participants):
                     participants
-                        .filter({ p in p.id.uuidString != Settings().clientId.uppercased() })
+                        .filter({ p in p.id.uuidString != Settings.standard.clientId.uppercased() })
                         .forEach() { p in
                             self.initCallPartnerState(p: p)
                             self.callClient.offer(targetId: p.id.uuidString)
@@ -122,7 +122,7 @@ extension CallService : CallClientDelegate {
     }
     
     func send(_ signal: Signal) {
-        if (signal.recipient.uppercased() != Settings().clientId.uppercased()) {
+        if (signal.recipient.uppercased() != Settings.standard.clientId.uppercased()) {
             praxisrufApi.sendSignal(signal: signal)
         }
     }
@@ -137,7 +137,7 @@ extension CallService : PraxisrufApiSignalingDelegate {
     }
     
     func onSignalReceived(_ signal: Signal) {
-        if (Settings().isIncomingCallsDisabled) {
+        if (Settings.standard.isIncomingCallsDisabled) {
             self.callClient.decline(signal: signal)
         } else {
             self.callClient.accept(signal: signal)

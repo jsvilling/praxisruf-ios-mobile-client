@@ -73,3 +73,7 @@ class Settings : ObservableObject {
         static let isCallsDisabled: String = "isCallsEnabled"
     }
 }
+
+extension Settings {
+    static let standard = Settings()
+}
