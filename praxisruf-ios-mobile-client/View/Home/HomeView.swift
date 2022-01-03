@@ -12,7 +12,7 @@ struct HomeView: View {
     let inboxReminderTimer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()     // Every 60s
     let tokenRefreshTimer = Timer.publish(every: 43200, on: .main, in: .common).autoconnect()   // Every 12h
     
-    @StateObject private var homeVM = HomeViewModel()
+    @StateObject private var homeVM = ConfigurationService()
     @StateObject var settings = Settings()
     @EnvironmentObject var auth: AuthService
     

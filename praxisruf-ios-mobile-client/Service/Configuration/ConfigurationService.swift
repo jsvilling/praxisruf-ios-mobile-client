@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HomeViewModel : ObservableObject {
+class ConfigurationService : ObservableObject {
     
     @Published var error: Error? = nil
     @Published var configuration: Configuration = Configuration(notificationTypes: [], callTypes: [])

@@ -14,7 +14,7 @@ class AuthService : ObservableObject {
         
     @Published var isAuthenticated: Bool = false
     @Published var error: Error? = nil
-    
+   
     func login(_ username: String, _ password: String) {
         PraxisrufApi().login(username: username, password: password) { result in
             switch result {

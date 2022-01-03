@@ -8,19 +8,15 @@
 import Foundation
 import SwiftUI
 
-class ClientSelectViewModel: ObservableObject {
+class ClientsService: ObservableObject {
     
     @Published var availableClients: [Client]
-    @Published var selectionConfirmed: Bool
-    @Published var selection: UUID?
     @Published var error: Error? = nil
     
     @ObservedObject var settings: Settings = Settings()
     
     init(availableClients: [Client] = []) {
         self.availableClients = availableClients
-        self.selectionConfirmed = false
-        self.selection = nil
     }
     
     func getAvailableClients() {
@@ -38,7 +34,7 @@ class ClientSelectViewModel: ObservableObject {
         }
     }
     
-    func confirm() {
+    func confirm(selection: UUID?) {
         guard let clientId = selection else {
             DispatchQueue.main.async {
                 self.error = PraxisrufApiError.custom(errorMessage: "Selection incomplete")
@@ -55,9 +51,5 @@ class ClientSelectViewModel: ObservableObject {
     
         settings.clientId = clientId.uuidString
         settings.clientName = client.name
-                
-        DispatchQueue.main.async {
-            self.selectionConfirmed  = true
-        }
     }
 }
