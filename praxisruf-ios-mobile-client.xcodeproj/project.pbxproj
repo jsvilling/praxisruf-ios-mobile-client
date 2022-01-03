@@ -206,12 +206,13 @@
 			path = Inbox;
 			sourceTree = "<group>";
 		};
-		CE068135277F4E7000E8D4BE /* Auth */ = {
+		CE068135277F4E7000E8D4BE /* AppState */ = {
 			isa = PBXGroup;
 			children = (
 				CE068136277F4E7F00E8D4BE /* Auth.swift */,
+				CE94AC522753E08200C93410 /* Settings.swift */,
 			);
-			path = Auth;
+			path = AppState;
 			sourceTree = "<group>";
 		};
 		CE1D5C7B271C4AAA007EA5AC = {
@@ -292,7 +293,6 @@
 		CE1D5CB2271C4C83007EA5AC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CE94AC522753E08200C93410 /* Settings.swift */,
 				CEE9A2DF27620C42006810BC /* Call */,
 				CE51D0442726921A000D09C1 /* Inbox */,
 				CE51D038272564DC000D09C1 /* Constants */,
@@ -438,7 +438,7 @@
 		CE53ABE6271EA76B00BAD1F1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				CE068135277F4E7000E8D4BE /* Auth */,
+				CE068135277F4E7000E8D4BE /* AppState */,
 				CE413BC9276115BD009F2B3F /* Calls */,
 				CE413BCA276115CC009F2B3F /* Notification */,
 				CE51D03127254369000D09C1 /* PraxisrufApi */,
