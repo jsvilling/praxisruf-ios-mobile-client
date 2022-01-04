@@ -59,6 +59,8 @@ class CallClient : NSObject {
         do {
             try self.rtcAudioSession.setCategory(AVAudioSession.Category.playAndRecord.rawValue)
             try self.rtcAudioSession.setMode(AVAudioSession.Mode.voiceChat.rawValue)
+            try self.rtcAudioSession.overrideOutputAudioPort(.none)
+            try self.rtcAudioSession.setInputGain(0)
         } catch let error {
             debugPrint("Error changeing AVAudioSession category: \(error)")
         }
