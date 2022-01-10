@@ -21,7 +21,7 @@ class CallService : ObservableObject {
     private let callClient: CallClient
     private let praxisrufApi: PraxisrufApi
     
-    init(settings: Settings) {
+    init(settings: Settings = Settings()) {
         self.settings = settings
         praxisrufApi = PraxisrufApi()
         callClient = CallClient()

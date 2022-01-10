@@ -13,19 +13,10 @@ struct IntercomView: View {
     let keepAliveSignalingConnection = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
     
     @Environment(\.scenePhase) var scenePhase
-    
     @Binding var configuration: Configuration
-    
-    @ObservedObject var settings: Settings
-    @ObservedObject var notificationService: NotificationService
-    @ObservedObject var callService: CallService
-    
-    init(configuration: Binding<Configuration>, settings: Settings) {
-        self._configuration = configuration
-        self.settings = settings
-        self.notificationService = NotificationService(settings: settings)
-        self.callService = CallService(settings: settings)
-    }
+    @EnvironmentObject var settings: Settings
+    @StateObject var notificationService: NotificationService = NotificationService()
+    @StateObject var callService: CallService = CallService()
     
     var body: some View {
         VStack {
@@ -66,6 +57,6 @@ struct IntercomView: View {
 
 struct IntercomHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        IntercomView(configuration: .constant(Configuration.data), settings: Settings())
+        IntercomView(configuration: .constant(Configuration.data))
     }
 }

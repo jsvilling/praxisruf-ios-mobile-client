@@ -10,8 +10,12 @@ import SwiftKeychainWrapper
 
 class AuthService : ObservableObject {
     
-    let settings: Settings = Settings()
-        
+    @Published var userName: String = KeychainWrapper.standard.string(forKey: UserDefaultKeys.userName) ?? "UNKNOWN" {
+        didSet {
+            KeychainWrapper.standard.set(userName, forKey: UserDefaultKeys.userName)
+        }
+    }
+    
     @Published var isAuthenticated: Bool = false
     @Published var error: Error? = nil
    
@@ -19,12 +23,11 @@ class AuthService : ObservableObject {
         PraxisrufApi().login(username: username, password: password) { result in
             switch result {
                 case .success (let token):
+                    self.userName = username
                     KeychainWrapper.standard.set(token, forKey: UserDefaultKeys.authToken)
-                    KeychainWrapper.standard.set(username, forKey: UserDefaultKeys.userName)
                     KeychainWrapper.standard.set(password, forKey: UserDefaultKeys.password)
                     DispatchQueue.main.async {
                         self.isAuthenticated = true
-                        self.settings.userName = username
                     }
                 case .failure(let error):
                     DispatchQueue.main.async {
