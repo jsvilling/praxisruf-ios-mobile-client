@@ -23,21 +23,21 @@ struct HomeView: View {
                 IntercomView(configuration: $homeVM.configuration)
                  .tabItem {
                      Image(systemName: "phone.fill")
-                     Text("Home")
+                     Text("navigation.home")
                  }
                  .environmentObject(settings)
                  
                 InboxView()
                   .tabItem {
                       Image(systemName: "tray.and.arrow.down")
-                      Text("Inbox")
+                      Text("navigation.inbox")
                    }
                 SettingsView()
                     .environmentObject(auth)
                     .environmentObject(settings)
                     .tabItem() {
                         Image(systemName: "gearshape")
-                        Text("Settings")
+                        Text("navigation.settings")
                     }
                 
             }

@@ -17,10 +17,10 @@ struct RetryAlert: View {
         VStack {}
         .alert(isPresented: $isPresented) {
             Alert(
-             title: Text("Fehler."),
-             message: Text("Die Benachrichtigung konnte nicht an alle Empfänger übermittelt werden"),
-             primaryButton: .default(Text("Retry"), action: confirm),
-             secondaryButton: .destructive(Text("Cancel"))
+             title: Text("error.generic.title"),
+             message: Text("error.send"),
+             primaryButton: .default(Text("retry"), action: confirm),
+             secondaryButton: .destructive(Text("cancel"))
             )
         }
     }

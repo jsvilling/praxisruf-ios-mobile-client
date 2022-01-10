@@ -15,29 +15,29 @@ struct SettingsView: View {
     var body: some View {
         VStack {
             List {
-                Section(header: Text("General")) {
+                Section(header: Text("settings.generel")) {
                     HStack {
-                        Text("Benutzer")
+                        Text("settings.user")
                         Spacer()
                         Text(auth.userName)
                     }
                     HStack {
-                        Text("Zimmer")
+                        Text("settings.clientName")
                         Spacer()
                         Text(settings.clientName)
                     }
                     Button(action: auth.logout) {
-                        Text("Abmelden")
+                        Text("logout")
                     }
                 }
-                Section(header: Text("Benachrichtigungen")) {
+                Section(header: Text("notifications")) {
                     Toggle(isOn: $settings.isSpeechSynthEnabled) {
-                        Text("Benachrichtigungen vorlesen")
+                        Text("settings.speechSynthEnabled")
                     }
                 }
-                Section(header: Text("Gegensprechanalge")) {
+                Section(header: Text("intercom")) {
                     Toggle(isOn: !$settings.isIncomingCallsDisabled) {
-                        Text("Anrufe empfangen")
+                        Text("settings.incommingCallsEnabled")
                     }
                 }
             }
