@@ -11,7 +11,7 @@ import WebRTC
 protocol CallClientDelegate {
     func send(_ signal: Signal)
     func updateState(clientId: String, state: String)
-    func onIncomingCallStarted(signal: Signal)
+    func onIncommingCallPending(signal: Signal)
     func onIncomingCallDeclined(signal: Signal)
     func onCallEnded()
 }
@@ -25,6 +25,7 @@ class CallClient : NSObject {
     
     private var peerConnections: [String: RTCPeerConnection] = [:]
     private var muted = false;
+    private var audioEnabled = true;
     
     var delegate: CallClientDelegate?
     
@@ -103,12 +104,9 @@ class CallClient : NSObject {
         self.delegate?.onCallEnded()
     }
     
-    func accept(signal: Signal) {
+    func receive(signal: Signal) {
         if (signal.type == "OFFER") {
-            let peerConnection = initNextPeerConnection(targetId: signal.sender)
-            setRemoteSdp(signal: signal, peerConnection: peerConnection)
-            answer(targetId: signal.sender, peerConnection: peerConnection)
-            self.delegate?.onIncomingCallStarted(signal: signal)
+            delegate?.onIncommingCallPending(signal: signal)
         } else if (signal.type == "ANSWER") {
             setRemoteSdp(signal: signal)
         } else if (signal.type == "ICE_CANDIDATE") {
@@ -125,13 +123,19 @@ class CallClient : NSObject {
         }
     }
     
+    func accept(signal: Signal) {
+        let peerConnection = initNextPeerConnection(targetId: signal.sender)
+        setRemoteSdp(signal: signal, peerConnection: peerConnection)
+        answer(targetId: signal.sender, peerConnection: peerConnection)
+    }
+    
     func decline(signal: Signal) {
         if (signal.type == "OFFER") {
             let declineSignal = Signal.decline(recipient: signal.sender)
             self.delegate?.send(declineSignal)
             self.delegate?.onIncomingCallDeclined(signal: signal)
         } else {
-            self.accept(signal: signal)
+            self.receive(signal: signal)
         }
     }
     
@@ -178,9 +182,11 @@ class CallClient : NSObject {
         peerConnections.values.forEach() { c in
                 c.transceivers
                     .compactMap { return $0.sender.track as? RTCAudioTrack }
-                    .forEach { $0.isEnabled = !self.muted }
+                    .forEach { $0.isEnabled = self.muted }
         }
     }
+    
+   
 }
 
 extension CallClient : RTCPeerConnectionDelegate {

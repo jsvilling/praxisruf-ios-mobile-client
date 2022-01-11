@@ -18,6 +18,7 @@ class CallService : ObservableObject {
     @Published var callPartnerName: String = ""
     var settings: Settings
     
+    private var pending: Signal? = nil
     private let callClient: CallClient
     private let praxisrufApi: PraxisrufApi
     
@@ -76,6 +77,10 @@ class CallService : ObservableObject {
         }
     }
     
+    func acceptPending() {
+        callClient.accept(signal: pending!)
+    }
+    
     func endCall() {
         callClient.endCall()
     }
@@ -84,8 +89,9 @@ class CallService : ObservableObject {
 
 extension CallService : CallClientDelegate {
     
-    func onIncomingCallStarted(signal: Signal) {
+    func onIncommingCallPending(signal: Signal) {
         DispatchQueue.main.async {
+            self.pending = signal
             self.active = true
             self.callPartnerName = signal.description
             Inbox.shared.receiveCall(signal)
@@ -144,7 +150,7 @@ extension CallService : PraxisrufApiSignalingDelegate {
         if (settings.isIncomingCallsDisabled) {
             self.callClient.decline(signal: signal)
         } else {
-            self.callClient.accept(signal: signal)
+            self.callClient.receive(signal: signal)
         }
     }
     

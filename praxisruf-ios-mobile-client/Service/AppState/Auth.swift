@@ -23,10 +23,10 @@ class AuthService : ObservableObject {
         PraxisrufApi().login(username: username, password: password) { result in
             switch result {
                 case .success (let token):
-                    self.userName = username
                     KeychainWrapper.standard.set(token, forKey: UserDefaultKeys.authToken)
                     KeychainWrapper.standard.set(password, forKey: UserDefaultKeys.password)
                     DispatchQueue.main.async {
+                        self.userName = username
                         self.isAuthenticated = true
                     }
                 case .failure(let error):

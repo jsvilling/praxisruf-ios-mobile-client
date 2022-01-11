@@ -34,7 +34,10 @@ struct ActiveCallView: View {
         }
         .onAppear() {
             if (self.callService.callTypeId == "") {
-                print("Incomming call")
+                AudioPlayer.playSystemSound(soundID: 1025)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.callService.acceptPending()
+                }
             } else {
                 self.callService.startCall()
             }

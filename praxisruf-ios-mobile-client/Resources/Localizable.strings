@@ -1,7 +1,7 @@
 "cancel" = "Abbrechen";
 "clientSelection" = "Zimmer";
 "error.generic.title" = "Fehler";
-"error.send" = "Die Benachrichtigung konnte nicht an alle Empfänger übermittelt werden"
+"error.send" = "Die Benachrichtigung konnte nicht an alle Empfänger übermittelt werden";
 "finish" = "Fertig";
 "inbox" = "Inbox";
 "intercom" = "Gegensprechanlage";
