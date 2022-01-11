@@ -27,8 +27,8 @@ struct ActiveCallView: View {
             HStack {
                 Spacer()
                 CallActionButton(image: "mic.slash", width: 35, height: 40, action: callService.toggleMute)
-                CallActionButton(image: "speaker.slash", width: 35, height: 40, action: {})
-                CallActionButton(image: "phone.down", tapped: Color.red, untapped: Color.red, action: callService.endCall)
+                CallActionButton(image: "speaker.slash", width: 35, height: 40, action: callService.toggleSpeaker)
+                CallActionButton(image: "phone.down", tapped: Color.red, untapped: Color.red, action: endCall)
                 Spacer()
             }
         }
@@ -42,6 +42,10 @@ struct ActiveCallView: View {
                 self.callService.startCall()
             }
         }
+    }
+        
+    private func endCall(_ b: Bool) {
+        callService.endCall()
     }
 }
 

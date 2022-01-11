@@ -43,8 +43,12 @@ class CallService : ObservableObject {
         praxisrufApi.pingSignalingConnection() 
     }
     
-    func toggleMute() {
-        self.callClient.toggleMute()
+    func toggleMute(_ state: Bool) {
+        self.callClient.toggleMute(state: state)
+    }
+    
+    func toggleSpeaker(_ state: Bool) {
+        print("Toggeling speaker")
     }
     
     func initCall(calltype: DisplayCallType) {

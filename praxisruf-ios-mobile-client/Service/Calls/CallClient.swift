@@ -24,7 +24,6 @@ class CallClient : NSObject {
     private let constraints: RTCMediaConstraints = RTCMediaConstraints(mandatoryConstraints: [kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueTrue, kRTCMediaConstraintsOfferToReceiveVideo: kRTCMediaConstraintsValueFalse], optionalConstraints: ["DtlsSrtpKeyAgreement":kRTCMediaConstraintsValueTrue])
     
     private var peerConnections: [String: RTCPeerConnection] = [:]
-    private var muted = false;
     private var audioEnabled = true;
     
     var delegate: CallClientDelegate?
@@ -177,12 +176,11 @@ class CallClient : NSObject {
         }
     }
     
-    func toggleMute() {
-        self.muted = !self.muted
+    func toggleMute(state: Bool) {
         peerConnections.values.forEach() { c in
                 c.transceivers
                     .compactMap { return $0.sender.track as? RTCAudioTrack }
-                    .forEach { $0.isEnabled = self.muted }
+                    .forEach { $0?.isEnabled = !state }
         }
     }
     

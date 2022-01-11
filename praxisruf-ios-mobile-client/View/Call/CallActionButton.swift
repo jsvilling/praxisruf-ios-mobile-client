@@ -13,11 +13,11 @@ struct CallActionButton: View {
     private var height: CGFloat?
     private let activeColor: Color
     private let inactiveColor: Color
-    private let action: () -> Void
+    private let action: (Bool) -> Void
     
     @State var pressed: Bool = false
     
-    init (image: String, width: CGFloat? = 50, height: CGFloat? = 25, tapped: Color = Color.black, untapped: Color = Color.gray, action: @escaping () -> Void) {
+    init (image: String, width: CGFloat? = 50, height: CGFloat? = 25, tapped: Color = Color.black, untapped: Color = Color.gray, action: @escaping (Bool) -> Void) {
         self.image = image
         self.width = width
         self.height = height
@@ -29,7 +29,7 @@ struct CallActionButton: View {
     var body: some View {
         Button(action: {
             self.pressed.toggle()
-            self.action()
+            self.action(self.pressed)
         }) {
             ZStack {
                 Image(systemName: self.image)
@@ -47,6 +47,6 @@ struct CallActionButton: View {
 
 struct CallActionButton_Previews: PreviewProvider {
     static var previews: some View {
-        CallActionButton(image: "phone.down", action: {})
+        CallActionButton(image: "phone.down") { r in }
     }
 }
