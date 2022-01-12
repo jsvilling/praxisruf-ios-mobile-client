@@ -52,6 +52,13 @@ struct InboxItemView: View {
         .onTapGesture {
             action(inboxItem)
         }
+        .swipeActions(edge: .trailing) {
+                        Button(role: .destructive) {
+                            action(inboxItem)
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+                    }
     }
 }
 

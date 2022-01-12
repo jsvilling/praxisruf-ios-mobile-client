@@ -10,6 +10,7 @@
 "navigation.inbox" = "Inbox";
 "navigation.settings" = "Settings";
 "noClients" = "Es sind keine Zimmer verfügbar";
+"noInboxItems" = "Keine Meldungen";
 "notifications" = "Benachrichtigungen";
 "password" = "Passwort";
 "praxisruf" = "Praxisruf";

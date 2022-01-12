@@ -14,21 +14,35 @@ struct InboxView: View {
     
     var body: some View {
         VStack {
-            List {
-                ForEach($inbox.content) { item in
-                    InboxItemView(inboxItem: item, action: acknowledge)
+            if (inbox.content.isEmpty) {
+                VStack {
+                    Image(systemName: "envelope.open")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 75, height: 50)
+                        .padding(.bottom, 25)
+                       
+                    Text("noInboxItems")
+                }.opacity(0.33)
+            } else {
+                List {
+                    ForEach($inbox.content) { item in
+                        InboxItemView(inboxItem: item, action: remove)
+                    }
                 }
+                .listRowInsets(EdgeInsets())
             }
-            .listRowInsets(EdgeInsets())
-            .navigationBarBackButtonHidden(true)
-        }
+    
+           
+        }.navigationBarBackButtonHidden(true)
     }
     
-    private func acknowledge(item: InboxItem) {
+    private func remove(item: InboxItem) {
         guard let i = inbox.content.firstIndex(where: {$0.id == item.id}) else {
             return
         }
         inbox.content[i].ack = true
+        inbox.content.remove(at: i)
     }
     
 }

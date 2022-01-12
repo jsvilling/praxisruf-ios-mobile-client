@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import praxisruf_ios_mobile_client
+@testable import Praxisruf
 
 class praxisruf_ios_mobile_clientTests: XCTestCase {
 
