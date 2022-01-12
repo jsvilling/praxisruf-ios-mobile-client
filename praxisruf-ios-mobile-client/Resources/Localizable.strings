@@ -5,7 +5,8 @@
 "finish" = "Fertig";
 "inbox" = "Inbox";
 "intercom" = "Gegensprechanlage";
-"login" = "LOGIN";
+"login" = "Anmelden";
+"logout" = "Abmelden";
 "navigation.home" = "Home";
 "navigation.inbox" = "Inbox";
 "navigation.settings" = "Settings";

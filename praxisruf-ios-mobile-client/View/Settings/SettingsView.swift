@@ -17,7 +17,7 @@ struct SettingsView: View {
             List {
                 Section(header: Text("settings.generel")) {
                     HStack {
-                        Text("settings.user")
+                        Text("settings.userName")
                         Spacer()
                         Text(auth.userName)
                     }
