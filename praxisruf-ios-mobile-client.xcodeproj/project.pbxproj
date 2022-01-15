@@ -309,7 +309,6 @@
 			children = (
 				CE1D5C87271C4AAA007EA5AC /* praxisruf_ios_mobile_clientApp.swift */,
 				CE97F1B22723589A00B1CA0D /* AppDelegate.swift */,
-				CE068133277F35C200E8D4BE /* ErrorHandling.swift */,
 				CE068138277F5F3600E8D4BE /* Utils.swift */,
 			);
 			path = App;
@@ -347,6 +346,7 @@
 		CE30F7BC2793066C00B0F12C /* Structural */ = {
 			isa = PBXGroup;
 			children = (
+				CE068133277F35C200E8D4BE /* ErrorHandling.swift */,
 				CE30F7BD279306BB00B0F12C /* OnEmptyViewModifier.swift */,
 			);
 			path = Structural;

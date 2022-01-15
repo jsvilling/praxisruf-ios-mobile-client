@@ -52,7 +52,7 @@ extension EnvironmentValues {
     }
 }
 
-struct ErrorEmittingViewModigier: ViewModifier {
+struct ErrorEmittingViewModifier: ViewModifier {
     @Environment(\.errorHandler) var handler
     
     var error: Error?
@@ -65,6 +65,6 @@ struct ErrorEmittingViewModigier: ViewModifier {
 
 extension View {
     func onError(_ error: Error?, retryHandler: @escaping () -> Void = {}) -> some View {
-        modifier(ErrorEmittingViewModigier(error: error, retryHandler: retryHandler))
+        modifier(ErrorEmittingViewModifier(error: error, retryHandler: retryHandler))
     }
 }
