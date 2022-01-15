@@ -14,27 +14,26 @@ struct InboxView: View {
     
     var body: some View {
         VStack {
-            if (inbox.content.isEmpty) {
-                VStack {
-                    Image(systemName: "envelope.open")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 75, height: 50)
-                        .padding(.bottom, 25)
-                       
-                    Text("noInboxItems")
-                }.opacity(0.33)
-            } else {
-                List {
-                    ForEach($inbox.content) { item in
-                        InboxItemView(inboxItem: item, action: remove)
-                    }
+            List {
+                ForEach($inbox.content) { item in
+                    InboxItemView(inboxItem: item, action: remove)
                 }
-                .listRowInsets(EdgeInsets())
             }
-    
-           
-        }.navigationBarBackButtonHidden(true)
+            .listRowInsets(EdgeInsets())
+            .onEmpty(inbox.content.isEmpty) {
+                    VStack {
+                        Image(systemName: "envelope.open")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 75, height: 50)
+                            .padding(.bottom, 25)
+                           
+                        Text("noInboxItems")
+                    }.opacity(0.33)
+                }
+        }
+        .navigationBarBackButtonHidden(true)
+       
     }
     
     private func remove(item: InboxItem) {
@@ -44,8 +43,9 @@ struct InboxView: View {
         inbox.content[i].ack = true
         inbox.content.remove(at: i)
     }
-    
 }
+
+
 
 struct InboxView_Previews: PreviewProvider {
     static var previews: some View {
