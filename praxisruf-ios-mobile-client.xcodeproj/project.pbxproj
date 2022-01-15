@@ -66,7 +66,7 @@
 		CE94AC572756552900C93410 /* RetryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC562756552900C93410 /* RetryAlert.swift */; };
 		CE94AC5927566B6900C93410 /* InboxReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC5827566B6900C93410 /* InboxReminderService.swift */; };
 		CE94AC5C27567BDB00C93410 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CE94AC5B27567BDB00C93410 /* SwiftKeychainWrapper */; };
-		CE94AC5F275688AF00C93410 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC5E275688AF00C93410 /* SplashScreen.swift */; };
+		CE94AC5F275688AF00C93410 /* InitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC5E275688AF00C93410 /* InitialView.swift */; };
 		CE94AC65275BC1C100C93410 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC64275BC1C100C93410 /* Configuration.swift */; };
 		CE94AC67275BC1D800C93410 /* DisplayCallType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC66275BC1D800C93410 /* DisplayCallType.swift */; };
 		CE94AC69275BCCB800C93410 /* ConfigurationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC68275BCCB700C93410 /* ConfigurationService.swift */; };
@@ -152,7 +152,7 @@
 		CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSendResult.swift; sourceTree = "<group>"; };
 		CE94AC562756552900C93410 /* RetryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryAlert.swift; sourceTree = "<group>"; };
 		CE94AC5827566B6900C93410 /* InboxReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxReminderService.swift; sourceTree = "<group>"; };
-		CE94AC5E275688AF00C93410 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		CE94AC5E275688AF00C93410 /* InitialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialView.swift; sourceTree = "<group>"; };
 		CE94AC64275BC1C100C93410 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		CE94AC66275BC1D800C93410 /* DisplayCallType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayCallType.swift; sourceTree = "<group>"; };
 		CE94AC68275BCCB700C93410 /* ConfigurationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationService.swift; sourceTree = "<group>"; };
@@ -282,7 +282,7 @@
 			children = (
 				CE30F7BC2793066C00B0F12C /* Structural */,
 				CE615525276E1298007798C6 /* Call */,
-				CE94AC5D2756889A00C93410 /* SplashScreen */,
+				CE94AC5D2756889A00C93410 /* InitialView */,
 				CE01404F2726E29B00B71AB7 /* Inbox */,
 				CE01404E2726E29400B71AB7 /* Intercom */,
 				CE51D03D272591A0000D09C1 /* Login */,
@@ -475,12 +475,12 @@
 			path = Call;
 			sourceTree = "<group>";
 		};
-		CE94AC5D2756889A00C93410 /* SplashScreen */ = {
+		CE94AC5D2756889A00C93410 /* InitialView */ = {
 			isa = PBXGroup;
 			children = (
-				CE94AC5E275688AF00C93410 /* SplashScreen.swift */,
+				CE94AC5E275688AF00C93410 /* InitialView.swift */,
 			);
-			path = SplashScreen;
+			path = InitialView;
 			sourceTree = "<group>";
 		};
 		CEE9A2DF27620C42006810BC /* Call */ = {
@@ -634,7 +634,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE94AC5F275688AF00C93410 /* SplashScreen.swift in Sources */,
+				CE94AC5F275688AF00C93410 /* InitialView.swift in Sources */,
 				CE53ABEF271EB11900BAD1F1 /* PraxisrufApi+Conf.swift in Sources */,
 				CE51D0302725431B000D09C1 /* RegistrationService.swift in Sources */,
 				CE01404D2726DC8400B71AB7 /* Date+ToString.swift in Sources */,

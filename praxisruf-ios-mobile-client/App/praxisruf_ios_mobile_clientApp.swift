@@ -17,7 +17,8 @@ struct praxisruf_ios_mobile_clientApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                LoginView()
+                InitialView()
+                    .environmentObject(AuthService())
             }
             .navigationViewStyle(.stack)
         }
