@@ -19,6 +19,7 @@ struct praxisruf_ios_mobile_clientApp: App {
             NavigationView {
                 InitialView()
                     .environmentObject(AuthService())
+                    .environmentObject(Settings())
             }
             .navigationViewStyle(.stack)
         }

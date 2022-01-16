@@ -18,8 +18,9 @@ struct HomeView: View {
     
     var body: some View {
         ZStack {
-            NavigationLink(destination: LoginView(), isActive: !$auth.isAuthenticated) {EmptyView()}.hidden()
+            //NavigationLink(destination: LoginView().environmentObject(auth), isActive: !$auth.isAuthenticated) {EmptyView()}.hidden()
             TabView {
+                
                 IntercomView(configuration: $homeVM.configuration)
                  .tabItem {
                      Image(systemName: "phone.fill")

@@ -12,11 +12,17 @@ struct LoginView: View {
     
     @State private var username: String = "admin"
     @State private var password: String = "admin"
+    @State private var showClientSelection = false
     @StateObject private var auth = AuthService()
     
     var body: some View {
+        
+        
 
         VStack {
+            
+            NavigationLink(destination: ClientSelectView().environmentObject(auth), isActive: $auth.isAuthenticated) {EmptyView()}.hidden()
+            
             // Welcome Text
             Text(NSLocalizedString("welcome", comment: "welcome message"))
                 .font(.largeTitle)
@@ -43,7 +49,7 @@ struct LoginView: View {
                     SecureField(NSLocalizedString("password", comment: "password"), text: $password)
                             .padding()
                 }
-                NavigationLink(destination: ClientSelectView().environmentObject(auth), isActive: $auth.isAuthenticated) {EmptyView()}.hidden()
+
             }
             .listStyle(PlainListStyle())
             .frame(width: 440, height: 135)

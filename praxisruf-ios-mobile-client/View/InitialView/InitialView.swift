@@ -10,11 +10,28 @@ import SwiftKeychainWrapper
 
 struct InitialView: View {
 
+    @EnvironmentObject var settings: Settings
     @EnvironmentObject var auth: AuthService
-    @State var isLoginDataAbsent = false
-    @State var isLoggedIn = false
+
+    @State var showLogin = false
+    @State var showHome = false
 
     var body: some View {
+        
+        let loginBinding = Binding(
+            get: { self.showLogin },
+            set: {
+                self.showLogin = $0 && !auth.isAuthenticated
+            }
+        )
+        
+        let homeBinding = Binding(
+                    get: { self.showHome },
+                    set: {
+                        self.showHome = $0 && auth.isAuthenticated
+                    }
+                )
+        
         VStack {
             // Welcome Text
             Text(NSLocalizedString("welcome", comment: "welcome message"))
@@ -30,18 +47,18 @@ struct InitialView: View {
                 .clipped()
                 .cornerRadius(150)
             
-            NavigationLink(destination: LoginView().environmentObject(auth), isActive: $isLoginDataAbsent) {EmptyView()}.hidden()
-            NavigationLink(destination: HomeView().environmentObject(auth), isActive: $isLoggedIn) {EmptyView()}.hidden()
+            NavigationLink(destination: HomeView().environmentObject(auth), isActive: homeBinding) {EmptyView()}.hidden()
+            NavigationLink(destination: LoginView().environmentObject(auth), isActive: loginBinding) {EmptyView()}.hidden()
+          
         }.onAppear() {
             let username = KeychainWrapper.standard.string(forKey: UserDefaultKeys.userName)
             let password = KeychainWrapper.standard.string(forKey: UserDefaultKeys.password)
-            let clientId = UserDefaults.standard.string(forKey: UserDefaultKeys.clientId)
             
-            if (username == nil || password == nil || clientId == nil) {
-                self.isLoginDataAbsent = true
+            if (username == nil || password == nil) {
+                self.showLogin = true
             } else {
                 auth.login(username!, password!)
-                self.isLoggedIn = true
+                self.showHome = true
             }
         }
     }
