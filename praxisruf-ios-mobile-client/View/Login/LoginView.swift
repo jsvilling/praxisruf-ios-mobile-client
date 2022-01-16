@@ -17,7 +17,7 @@ struct LoginView: View {
     @State private var showClientSelection = false
     @StateObject private var auth = AuthService()
     
-    func login() {
+    private func login() {
         auth.login(username, password)
         loginPressed = true
     }
@@ -72,10 +72,9 @@ struct LoginView: View {
             .padding()
             .navigationBarBackButtonHidden(true)
             .onChange(of: auth.isAuthenticated) { v in self.showClientSelection = self.loginPressed && v }
-            .onError(auth.error, retryHandler: {auth.login(username, password)})
+            .onError(auth.error, retryHandler: login)
         }
 }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
