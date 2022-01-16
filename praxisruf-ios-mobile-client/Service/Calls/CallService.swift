@@ -39,7 +39,7 @@ class CallService : ObservableObject {
         praxisrufApi.disconnectSignalingService()
     }
     
-    func ping(_ input: Any? = nil) {
+    func ping() {
         praxisrufApi.pingSignalingConnection() 
     }
     

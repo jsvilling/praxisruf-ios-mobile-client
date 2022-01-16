@@ -14,6 +14,7 @@ struct IntercomView: View {
     
     @Environment(\.scenePhase) var scenePhase
     @Binding var configuration: Configuration
+    @EnvironmentObject var auth: AuthService
     @EnvironmentObject var settings: Settings
     @StateObject var notificationService: NotificationService = NotificationService()
     @StateObject var callService: CallService = CallService()
@@ -32,7 +33,7 @@ struct IntercomView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .onReceive(keepAliveSignalingConnection, perform: callService.ping)
+        .onReceive(keepAliveSignalingConnection, perform: pingSingalingConnection)
         .onAppear(perform: self.activate)
         .onChange(of: scenePhase, perform: self.onPhaseChange)
         .fullScreenCover(isPresented: $callService.active) {
@@ -51,6 +52,12 @@ struct IntercomView: View {
             self.callService.disconnect()
         } else if (newPhase == .active) {
             self.activate()
+        }
+    }
+    
+    private func pingSingalingConnection(_ input: Any? = nil) {
+        if (auth.isAuthenticated) {
+            callService.ping()
         }
     }
 }

@@ -17,8 +17,6 @@ struct LoginView: View {
     
     var body: some View {
         
-        
-
         VStack {
             
             NavigationLink(destination: ClientSelectView().environmentObject(auth), isActive: $auth.isAuthenticated) {EmptyView()}.hidden()
