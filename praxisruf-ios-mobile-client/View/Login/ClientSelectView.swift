@@ -20,8 +20,7 @@ struct ClientSelectView: View {
             if (clientsService.availableClients.isEmpty) {
                 Text("noClients")
             } else {
-                NavigationLink(destination: HomeView().environmentObject(auth),
-                               isActive: $selectionComplete) {EmptyView()}.hidden()
+                NavigationLink(destination: HomeView().environmentObject(auth), isActive: $selectionComplete) {EmptyView()}.hidden()
                 List(clientsService.availableClients, selection: $selection) { client in
                     Text("\(client.name)")
                 }

@@ -12,14 +12,21 @@ struct LoginView: View {
     
     @State private var username: String = "admin"
     @State private var password: String = "admin"
+    
+    @State private var loginPressed = false
     @State private var showClientSelection = false
     @StateObject private var auth = AuthService()
+    
+    func login() {
+        auth.login(username, password)
+        loginPressed = true
+    }
     
     var body: some View {
         
         VStack {
             
-            NavigationLink(destination: ClientSelectView().environmentObject(auth), isActive: $auth.isAuthenticated) {EmptyView()}.hidden()
+            NavigationLink(destination: ClientSelectView().environmentObject(auth), isActive: $showClientSelection) {EmptyView()}.hidden()
             
             // Welcome Text
             Text(NSLocalizedString("welcome", comment: "welcome message"))
@@ -53,7 +60,7 @@ struct LoginView: View {
             .frame(width: 440, height: 135)
             .padding(.bottom, 40)
             
-            Button(action: {auth.login(username, password)} ) {
+            Button(action: login ) {
                 Text(NSLocalizedString("login", comment: "login button text, all caps"))
                     .font(.headline)
                     .foregroundColor(.white)
@@ -64,6 +71,7 @@ struct LoginView: View {
             }
             .padding()
             .navigationBarBackButtonHidden(true)
+            .onChange(of: auth.isAuthenticated) { v in self.showClientSelection = self.loginPressed && v }
             .onError(auth.error, retryHandler: {auth.login(username, password)})
         }
 }

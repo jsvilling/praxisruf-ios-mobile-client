@@ -44,7 +44,7 @@ struct InitialView: View {
             }
         }
         .onConditionReplaceWith(showLogin) {LoginView().environmentObject(auth)}
-        .onConditionReplaceWith(showHome && auth.isAuthenticated) {HomeView().environmentObject(auth)}
+        .onConditionReplaceWith(showHome) {HomeView().environmentObject(auth)}
     }
 }
 
