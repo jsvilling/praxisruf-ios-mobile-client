@@ -30,7 +30,7 @@ struct SettingsView: View {
                     }
                     Button(action: {
                         auth.logout()
-                        loggedOut = true
+                        //loggedOut = true
                     }) {
                         Text("logout")
                     }

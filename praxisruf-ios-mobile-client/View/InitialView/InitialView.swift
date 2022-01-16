@@ -18,6 +18,7 @@ struct InitialView: View {
 
     var body: some View {
         VStack {
+
             // Welcome Text
             Text(NSLocalizedString("welcome", comment: "welcome message"))
                 .font(.largeTitle)
@@ -42,7 +43,7 @@ struct InitialView: View {
                 self.showHome = true
             }
         }
-        .onConditionReplaceWith(showLogin || auth.isLoggedOut) {LoginView().environmentObject(auth)}
+        .onConditionReplaceWith(showLogin) {LoginView().environmentObject(auth)}
         .onConditionReplaceWith(showHome && auth.isAuthenticated) {HomeView().environmentObject(auth)}
     }
 }

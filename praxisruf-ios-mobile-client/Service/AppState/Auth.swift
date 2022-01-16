@@ -15,8 +15,7 @@ class AuthService : ObservableObject {
             KeychainWrapper.standard.set(userName, forKey: UserDefaultKeys.userName)
         }
     }
-    
-    @Published var isLoggedOut: Bool = false
+
     @Published var isAuthenticated: Bool = false
     @Published var error: Error? = nil
    
@@ -29,7 +28,6 @@ class AuthService : ObservableObject {
                     DispatchQueue.main.async {
                         self.userName = username
                         self.isAuthenticated = true
-                        self.isLoggedOut = false
                     }
                 case .failure(let error):
                     DispatchQueue.main.async {
@@ -63,7 +61,6 @@ class AuthService : ObservableObject {
         DispatchQueue.main.async {
             Settings.reset()
             self.isAuthenticated = false
-            self.isLoggedOut = true
         }
         KeychainWrapper.standard.removeObject(forKey: UserDefaultKeys.authToken)
         KeychainWrapper.standard.removeObject(forKey: UserDefaultKeys.userName)
