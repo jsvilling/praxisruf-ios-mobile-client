@@ -12,8 +12,19 @@ struct SettingsView: View {
     @EnvironmentObject var settings: Settings
     @EnvironmentObject var auth: AuthService
     
+    @State var loggedOut = false
+    
     var body: some View {
+        
+        let loginBinding = Binding(
+            get: { self.loggedOut },
+            set: {
+                self.loggedOut = $0 && !auth.isAuthenticated
+            }
+        )
+        
         VStack {
+            NavigationLink(destination: LoginView().environmentObject(auth), isActive: loginBinding) {EmptyView()}.hidden()
             List {
                 Section(header: Text("settings.generel")) {
                     HStack {
@@ -26,7 +37,10 @@ struct SettingsView: View {
                         Spacer()
                         Text(settings.clientName)
                     }
-                    Button(action: auth.logout) {
+                    Button(action: {
+                        auth.logout()
+                        loggedOut = true
+                    }) {
                         Text("logout")
                     }
                 }
