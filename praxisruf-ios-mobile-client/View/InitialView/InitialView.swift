@@ -17,21 +17,6 @@ struct InitialView: View {
     @State var showHome = false
 
     var body: some View {
-        
-        let loginBinding = Binding(
-            get: { self.showLogin },
-            set: {
-                self.showLogin = $0 && !auth.isAuthenticated
-            }
-        )
-        
-        let homeBinding = Binding(
-                    get: { self.showHome },
-                    set: {
-                        self.showHome = $0 && auth.isAuthenticated
-                    }
-                )
-        
         VStack {
             // Welcome Text
             Text(NSLocalizedString("welcome", comment: "welcome message"))
@@ -46,10 +31,6 @@ struct InitialView: View {
                 .frame(width: 150, height: 150)
                 .clipped()
                 .cornerRadius(150)
-            
-            NavigationLink(destination: HomeView().environmentObject(auth), isActive: homeBinding) {EmptyView()}.hidden()
-            NavigationLink(destination: LoginView().environmentObject(auth), isActive: loginBinding) {EmptyView()}.hidden()
-          
         }.onAppear() {
             let username = KeychainWrapper.standard.string(forKey: UserDefaultKeys.userName)
             let password = KeychainWrapper.standard.string(forKey: UserDefaultKeys.password)
@@ -61,6 +42,8 @@ struct InitialView: View {
                 self.showHome = true
             }
         }
+        .onConditionReplaceWith(showLogin || auth.isLoggedOut) {LoginView().environmentObject(auth)}
+        .onConditionReplaceWith(showHome && auth.isAuthenticated) {HomeView().environmentObject(auth)}
     }
 }
 

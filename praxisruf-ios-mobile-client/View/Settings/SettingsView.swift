@@ -15,16 +15,7 @@ struct SettingsView: View {
     @State var loggedOut = false
     
     var body: some View {
-        
-        let loginBinding = Binding(
-            get: { self.loggedOut },
-            set: {
-                self.loggedOut = $0 && !auth.isAuthenticated
-            }
-        )
-        
         VStack {
-            NavigationLink(destination: LoginView().environmentObject(auth), isActive: loginBinding) {EmptyView()}.hidden()
             List {
                 Section(header: Text("settings.generel")) {
                     HStack {

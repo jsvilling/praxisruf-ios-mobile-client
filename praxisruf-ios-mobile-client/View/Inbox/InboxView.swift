@@ -20,7 +20,7 @@ struct InboxView: View {
                 }
             }
             .listRowInsets(EdgeInsets())
-            .onEmpty(inbox.content.isEmpty) {
+            .onConditionReplaceWith(inbox.content.isEmpty) {
                     VStack {
                         Image(systemName: "envelope.open")
                             .resizable()
