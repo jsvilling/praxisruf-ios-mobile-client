@@ -16,7 +16,7 @@ struct SettingsView: View {
     
     var body: some View {
         VStack {
-            NavigationLink(destination: InitialView().environmentObject(auth), isActive: $loggedOut) {EmptyView()}.hidden()
+            NavigationLink(destination: LoginView().environmentObject(auth), isActive: $loggedOut) {EmptyView()}.hidden()
             List {
                 Section(header: Text("settings.generel")) {
                     HStack {

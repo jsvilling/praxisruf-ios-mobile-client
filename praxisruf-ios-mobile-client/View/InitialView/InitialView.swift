@@ -15,8 +15,12 @@ struct InitialView: View {
 
     @State var showLogin = false
     @State var showHome = false
+    @State var loading = false
 
     var body: some View {
+        
+        let _ = Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false) { _ in loading = true }
+        
         VStack {
 
             // Welcome Text
@@ -32,6 +36,7 @@ struct InitialView: View {
                 .frame(width: 150, height: 150)
                 .clipped()
                 .cornerRadius(150)
+            
         }.onAppear() {
             let username = KeychainWrapper.standard.string(forKey: UserDefaultKeys.userName)
             let password = KeychainWrapper.standard.string(forKey: UserDefaultKeys.password)
@@ -44,7 +49,7 @@ struct InitialView: View {
             }
         }
         .onConditionReplaceWith(showLogin) {LoginView().environmentObject(auth)}
-        .onConditionReplaceWith(showHome) {HomeView().environmentObject(auth)}
+        .onConditionReplaceWith(showHome && loading) {HomeView().environmentObject(auth)}
     }
 }
 

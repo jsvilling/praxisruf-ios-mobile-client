@@ -71,7 +71,9 @@ struct LoginView: View {
             }
             .padding()
             .navigationBarBackButtonHidden(true)
-            .onChange(of: auth.isAuthenticated) { v in self.showClientSelection = self.loginPressed && v }
+            .onChange(of: auth.isAuthenticated) { v in
+                self.showClientSelection = self.loginPressed && v
+            }
             .onError(auth.error, retryHandler: login)
         }
 }
