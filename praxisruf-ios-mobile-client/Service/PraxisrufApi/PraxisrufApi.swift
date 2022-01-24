@@ -12,8 +12,8 @@ class PraxisrufApi {
     
     struct Nothing : Decodable {}
             
-    static let httpBaseUrlValue = "https://www.praxisruf.ch/api"
-    static let webSocketBaseUrlValue = "wss://www.praxisruf.ch"
+    static let httpBaseUrlValue = Bundle.main.object(forInfoDictionaryKey: "BaseUrlHttps") as! String
+    static let webSocketBaseUrlValue = Bundle.main.object(forInfoDictionaryKey: "BaseUrlWss") as! String
     
     func get<T>(_ subUrl: String, completion: @escaping (Result<T, PraxisrufApiError>) -> Void) where T : Decodable {
         http(subUrl, completion: completion)
