@@ -19,6 +19,7 @@ struct ActiveCallView: View {
                 .padding(.bottom, 50)
             
             ConnectionStatesView(states: $callService.states)
+                .padding(.horizontal, 300)
 
             HStack {
                 Spacer()
