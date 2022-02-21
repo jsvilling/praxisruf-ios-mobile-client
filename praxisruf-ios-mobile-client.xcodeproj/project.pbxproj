@@ -34,6 +34,7 @@
 		CE212BBD276DCB6D001131BF /* CallType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE212BBC276DCB6D001131BF /* CallType.swift */; };
 		CE30F7BE279306BB00B0F12C /* ConditionalViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE30F7BD279306BB00B0F12C /* ConditionalViewModifier.swift */; };
 		CE413BC82761156F009F2B3F /* CallService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE413BC72761156F009F2B3F /* CallService.swift */; };
+		CE4F78DD27C3AA1800F0908B /* ConnectionStatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F78DC27C3AA1800F0908B /* ConnectionStatesView.swift */; };
 		CE51D02C2723DAA9000D09C1 /* IntercomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D02B2723DAA9000D09C1 /* IntercomItem.swift */; };
 		CE51D02E272540ED000D09C1 /* PraxisrufApi+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D02D272540ED000D09C1 /* PraxisrufApi+Registration.swift */; };
 		CE51D0302725431B000D09C1 /* RegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D02F2725431B000D09C1 /* RegistrationService.swift */; };
@@ -121,6 +122,7 @@
 		CE212BBC276DCB6D001131BF /* CallType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallType.swift; sourceTree = "<group>"; };
 		CE30F7BD279306BB00B0F12C /* ConditionalViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalViewModifier.swift; sourceTree = "<group>"; };
 		CE413BC72761156F009F2B3F /* CallService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallService.swift; sourceTree = "<group>"; };
+		CE4F78DC27C3AA1800F0908B /* ConnectionStatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionStatesView.swift; sourceTree = "<group>"; };
 		CE51D02B2723DAA9000D09C1 /* IntercomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomItem.swift; sourceTree = "<group>"; };
 		CE51D02D272540ED000D09C1 /* PraxisrufApi+Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PraxisrufApi+Registration.swift"; sourceTree = "<group>"; };
 		CE51D02F2725431B000D09C1 /* RegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationService.swift; sourceTree = "<group>"; };
@@ -469,6 +471,7 @@
 		CE615525276E1298007798C6 /* Call */ = {
 			isa = PBXGroup;
 			children = (
+				CE4F78DC27C3AA1800F0908B /* ConnectionStatesView.swift */,
 				CE615528276E12E4007798C6 /* CallActionButton.swift */,
 				CE61552A276E170E007798C6 /* ActiveCallView.swift */,
 			);
@@ -646,6 +649,7 @@
 				CE01406027317ACF00B71AB7 /* SpeechSynthesisService.swift in Sources */,
 				CE61552F27732B81007798C6 /* PraxisrufApiError.swift in Sources */,
 				CE94AC67275BC1D800C93410 /* DisplayCallType.swift in Sources */,
+				CE4F78DD27C3AA1800F0908B /* ConnectionStatesView.swift in Sources */,
 				CE53ABF5271EB30100BAD1F1 /* ClientsService.swift in Sources */,
 				CE212BB5276771D0001131BF /* IceCandidate.swift in Sources */,
 				CE97F1B32723589A00B1CA0D /* AppDelegate.swift in Sources */,

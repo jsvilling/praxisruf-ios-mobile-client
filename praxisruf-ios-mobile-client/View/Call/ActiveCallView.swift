@@ -18,11 +18,7 @@ struct ActiveCallView: View {
                 .fontWeight(.semibold)
                 .padding(.bottom, 50)
             
-            
-            ForEach(callService.states.sorted { $0.key > $1.key }, id: \.key) { _, v in
-                Text("\(v.0): \(v.1)")
-                    .padding(.bottom, 50)
-            }
+            ConnectionStatesView(states: $callService.states)
 
             HStack {
                 Spacer()
