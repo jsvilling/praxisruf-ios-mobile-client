@@ -90,17 +90,22 @@ class CallClient : NSObject {
         }
     }
         
-    func endCall(signalOther: Bool = true) {
+    func endCall() {
         self.peerConnections.forEach() { cv in
-            if (signalOther) {
-                let endSignal = Signal.end(recipient: cv.key)
-                self.delegate?.send(endSignal)
-                cv.value.close()
-                cv.value.delegate = nil
-            }
+            let endSignal = Signal.end(recipient: cv.key)
+            self.delegate?.send(endSignal)
+            cv.value.close()
+            cv.value.delegate = nil
         }
         self.peerConnections.removeAll()
         self.delegate?.onCallEnded()
+    }
+    
+    func endConnection(signal: Signal) {
+        self.peerConnections.removeValue(forKey: signal.sender)
+        if (self.peerConnections.isEmpty) {
+            self.delegate?.onCallEnded()
+        }
     }
     
     func receive(signal: Signal) {
@@ -111,7 +116,7 @@ class CallClient : NSObject {
         } else if (signal.type == "ICE_CANDIDATE") {
             addIceCandidate(signal: signal)
         } else if (signal.type == "END") {
-            endCall(signalOther: false)
+            endConnection(signal: signal)
         } else if (signal.type == "UNAVAILABLE") {
             delegate?.updateState(clientId: signal.sender.uppercased(), state: "UNAVAILABLE")
         } else if (signal.type == "DECLINE") {

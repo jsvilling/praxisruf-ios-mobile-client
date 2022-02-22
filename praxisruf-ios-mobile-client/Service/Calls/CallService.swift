@@ -159,7 +159,7 @@ extension CallService : PraxisrufApiSignalingDelegate {
     }
     
     func onErrorReceived(error: Error) {
-        //print(error.localizedDescription)
+        print(error.localizedDescription)
     }
     
 }
