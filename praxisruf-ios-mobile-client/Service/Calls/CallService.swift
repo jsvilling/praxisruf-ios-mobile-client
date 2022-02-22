@@ -48,7 +48,7 @@ class CallService : ObservableObject {
     }
     
     func toggleSpeaker(_ state: Bool) {
-        print("Toggeling speaker")
+        self.callClient.toggleSpeaker(state: state)
     }
     
     func initCall(calltype: DisplayCallType) {

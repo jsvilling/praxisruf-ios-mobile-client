@@ -91,7 +91,7 @@ extension PraxisrufApi {
                     if (self.disconnected || error.localizedDescription.contains("error 53")) {
                         PraxisrufApi.signalingDelegate?.onConnectionLost()
                     }
-                    PraxisrufApi.signalingDelegat	e?.onErrorReceived(error: error)
+                    PraxisrufApi.signalingDelegate?.onErrorReceived(error: error)
                     self.listenForSignal()
             }
         }

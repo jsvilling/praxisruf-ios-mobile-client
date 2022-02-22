@@ -184,14 +184,24 @@ class CallClient : NSObject {
     }
     
     func toggleMute(state: Bool) {
-        peerConnections.values.forEach() { c in
-                c.transceivers
-                    .compactMap { return $0.sender.track as? RTCAudioTrack }
-                    .forEach { $0?.isEnabled = !state }
+        toggleAudioTrack(state: state) { r in
+            r.sender.track as? RTCAudioTrack
         }
     }
     
-   
+    func toggleSpeaker(state: Bool) {
+        toggleAudioTrack(state: state) { r in
+            r.receiver.track as? RTCAudioTrack
+        }
+    }
+    
+    private func toggleAudioTrack(state: Bool, supplier: (RTCRtpTransceiver) -> RTCAudioTrack? ) {
+        peerConnections.values.forEach() { c in
+                c.transceivers
+                    .compactMap { supplier($0) }
+                    .forEach { $0?.isEnabled = !state }
+        }
+    }
 }
 
 extension CallClient : RTCPeerConnectionDelegate {
