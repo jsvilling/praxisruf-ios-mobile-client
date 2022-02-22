@@ -10,7 +10,7 @@ import WebRTC
 
 protocol CallClientDelegate {
     func send(_ signal: Signal)
-    func updateState(clientId: String, state: String)
+    func updateState(clientId: String, state: ConnectionStatus)
     func onIncommingCallPending(signal: Signal)
     func onIncomingCallDeclined(signal: Signal)
     func onCallEnded()
@@ -42,7 +42,7 @@ class CallClient : NSObject {
     private func initNextPeerConnection(targetId: String) -> RTCPeerConnection {
         guard let peerConnection = factory.peerConnection(with: config, constraints: constraints, delegate: nil)
         else {
-            delegate?.updateState(clientId: targetId, state: "FAILED")
+            delegate?.updateState(clientId: targetId, state: .DISCONNECTED)
             // TODO: Handle this properly
             fatalError("Could not create new RTCPeerConnection")
         }
@@ -118,10 +118,10 @@ class CallClient : NSObject {
         } else if (signal.type == "END") {
             endConnection(signal: signal)
         } else if (signal.type == "UNAVAILABLE") {
-            delegate?.updateState(clientId: signal.sender.uppercased(), state: "UNAVAILABLE")
+            delegate?.updateState(clientId: signal.sender.uppercased(), state: .DISCONNECTED)
         } else if (signal.type == "DECLINE") {
             self.peerConnections[signal.sender]?.close()
-            self.delegate?.updateState(clientId: signal.sender, state: "DECLINED")
+            self.delegate?.updateState(clientId: signal.sender, state: .DISCONNECTED)
         } else {
             print("Unknown Signal Type \(signal.type)")
         }
@@ -203,31 +203,21 @@ extension CallClient : RTCPeerConnectionDelegate {
     func peerConnectionShouldNegotiate(_ peerConnection: RTCPeerConnection) {}
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceConnectionState) {
-        var state = ""
+        var connectionState: ConnectionStatus
         switch(newState) {
-            case .new:
-                state = "NEW"
-            case .checking:
-                state = "CHECKING"
+            case .new, .checking, .count:
+                connectionState = .PROCESSING
             case .connected:
-                state = "CONNECTED"
-            case .completed:
-                state = "COMPLETED"
-            case .failed:
-                state = "FAILED"
-            case .disconnected:
-                state = "DISCONNECTED"
-            case .closed:
-                state = "CLOSED"
-            case .count:
-                state = "COUNT"
+                connectionState = .CONNECTED
+            case .completed, .failed, .disconnected, .closed:
+                connectionState = .DISCONNECTED
             default:
-                state = "UNKNOWN"
+                connectionState = .UNKNOWN
             }
         
         let id = peerConnections.first { $0.value == peerConnection }?.key
         if (id != nil) {
-            delegate?.updateState(clientId: id!, state: state)
+            delegate?.updateState(clientId: id!, state: connectionState)
         }
     }
     

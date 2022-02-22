@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ConnectionStatesView: View {
     
-    @Binding var states: [String:(String, String)]
+    @Binding var states: [String:(String, ConnectionStatus)]
     
     var body: some View {
         
@@ -30,21 +30,17 @@ struct ConnectionStatesView: View {
 
 struct StatusIndicator: View {
     
-    let status: String
+    let status: ConnectionStatus
     
     var body: some View {
         switch(status) {
-            case "CONNECTED":
+            case .CONNECTED:
                 StatusIcon(icon: "checkmark.circle.fill", color: .green)
-            case "REQUESTED":
+            case .PROCESSING:
                 StatusIcon(icon:"hourglass.circle", color: .gray)
-            case "DECLINED":
+            case .DISCONNECTED:
                 StatusIcon(icon:"x.circle.fill", color: .red)
-            case "DISCONNECTED":
-                StatusIcon(icon:"x.circle.fill", color: .red)
-            case "UNAVAILABLE":
-                StatusIcon(icon:"x.circle.fill", color: .red)
-            default:
+            case .UNKNOWN:
                 Image(systemName:"questionmark.circle.fill")
         }
     }

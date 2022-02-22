@@ -14,7 +14,7 @@ class CallService : ObservableObject {
     @Published var error: Error? = nil
     @Published var active: Bool = false
     @Published var callTypeId: String = ""
-    @Published var states: [String:(String, String)] = [:]
+    @Published var states: [String:(String, ConnectionStatus)] = [:]
     @Published var callPartnerName: String = ""
     var settings: Settings
     
@@ -77,7 +77,7 @@ class CallService : ObservableObject {
     
     private func initCallPartnerState(p: Client) {
         DispatchQueue.main.async {
-            self.states[p.id.uuidString] = (p.name, "REQUESTED")
+            self.states[p.id.uuidString] = (p.name, .PROCESSING)
         }
     }
     
@@ -129,7 +129,7 @@ extension CallService : CallClientDelegate {
         }
     }
     
-    func updateState(clientId: String, state: String) {
+    func updateState(clientId: String, state: ConnectionStatus) {
         DispatchQueue.main.async {
             self.states[clientId]?.1 = state
         }
