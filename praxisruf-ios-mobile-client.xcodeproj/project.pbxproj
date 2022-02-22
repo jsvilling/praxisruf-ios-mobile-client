@@ -36,6 +36,7 @@
 		CE413BC82761156F009F2B3F /* CallService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE413BC72761156F009F2B3F /* CallService.swift */; };
 		CE4F78DD27C3AA1800F0908B /* ConnectionStatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F78DC27C3AA1800F0908B /* ConnectionStatesView.swift */; };
 		CE4F78DF27C4D6F300F0908B /* ConnectionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F78DE27C4D6F300F0908B /* ConnectionStatus.swift */; };
+		CE4F78E127C4DAE500F0908B /* WebRTCSignalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F78E027C4DAE500F0908B /* WebRTCSignalType.swift */; };
 		CE51D02C2723DAA9000D09C1 /* IntercomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D02B2723DAA9000D09C1 /* IntercomItem.swift */; };
 		CE51D02E272540ED000D09C1 /* PraxisrufApi+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D02D272540ED000D09C1 /* PraxisrufApi+Registration.swift */; };
 		CE51D0302725431B000D09C1 /* RegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51D02F2725431B000D09C1 /* RegistrationService.swift */; };
@@ -125,6 +126,7 @@
 		CE413BC72761156F009F2B3F /* CallService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallService.swift; sourceTree = "<group>"; };
 		CE4F78DC27C3AA1800F0908B /* ConnectionStatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionStatesView.swift; sourceTree = "<group>"; };
 		CE4F78DE27C4D6F300F0908B /* ConnectionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionStatus.swift; sourceTree = "<group>"; };
+		CE4F78E027C4DAE500F0908B /* WebRTCSignalType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCSignalType.swift; sourceTree = "<group>"; };
 		CE51D02B2723DAA9000D09C1 /* IntercomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomItem.swift; sourceTree = "<group>"; };
 		CE51D02D272540ED000D09C1 /* PraxisrufApi+Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PraxisrufApi+Registration.swift"; sourceTree = "<group>"; };
 		CE51D02F2725431B000D09C1 /* RegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationService.swift; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 				CE212BB2276771AA001131BF /* SessionDescription.swift */,
 				CE212BB4276771D0001131BF /* IceCandidate.swift */,
 				CE06813A277F81B500E8D4BE /* Signal+WebRTC.swift */,
+				CE4F78E027C4DAE500F0908B /* WebRTCSignalType.swift */,
 			);
 			path = WebRTC;
 			sourceTree = "<group>";
@@ -678,6 +681,7 @@
 				CE53ABDF271DA1FE00BAD1F1 /* IntercomView.swift in Sources */,
 				CE212BAC27674AC3001131BF /* CallClient.swift in Sources */,
 				CE51D035272563D6000D09C1 /* PraxisrufApi+Notification.swift in Sources */,
+				CE4F78E127C4DAE500F0908B /* WebRTCSignalType.swift in Sources */,
 				CE53ABE3271DA56300BAD1F1 /* PraxisrufApi.swift in Sources */,
 				CE0140532726E39500B71AB7 /* IntercomButton.swift in Sources */,
 				CE212BBD276DCB6D001131BF /* CallType.swift in Sources */,

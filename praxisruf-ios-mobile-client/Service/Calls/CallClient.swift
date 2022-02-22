@@ -109,21 +109,23 @@ class CallClient : NSObject {
     }
     
     func receive(signal: Signal) {
-        if (signal.type == "OFFER") {
-            delegate?.onIncommingCallPending(signal: signal)
-        } else if (signal.type == "ANSWER") {
-            setRemoteSdp(signal: signal)
-        } else if (signal.type == "ICE_CANDIDATE") {
-            addIceCandidate(signal: signal)
-        } else if (signal.type == "END") {
-            endConnection(signal: signal)
-        } else if (signal.type == "UNAVAILABLE") {
-            delegate?.updateState(clientId: signal.sender.uppercased(), state: .DISCONNECTED)
-        } else if (signal.type == "DECLINE") {
-            self.peerConnections[signal.sender]?.close()
-            self.delegate?.updateState(clientId: signal.sender, state: .DISCONNECTED)
-        } else {
-            print("Unknown Signal Type \(signal.type)")
+        let type = WebRTCSignalType.init(rawValue: signal.type)
+        switch(type) {
+            case .some(.OFFER):
+                delegate?.onIncommingCallPending(signal: signal)
+            case .some(.ANSWER):
+                setRemoteSdp(signal: signal)
+            case .some(.ICE_CANDIDATE):
+                addIceCandidate(signal: signal)
+            case .some(.END):
+                endConnection(signal: signal)
+            case .some(.UNAVAILABLE):
+                delegate?.updateState(clientId: signal.sender.uppercased(), state: .DISCONNECTED)
+            case .some(.DECLINE):
+                self.peerConnections[signal.sender]?.close()
+                self.delegate?.updateState(clientId: signal.sender, state: .DISCONNECTED)
+            case .none:
+                print("Unknown Signal Type \(signal.type)")
         }
     }
     
@@ -134,7 +136,7 @@ class CallClient : NSObject {
     }
     
     func decline(signal: Signal) {
-        if (signal.type == "OFFER") {
+        if (WebRTCSignalType.OFFER.equals(value: signal.type)) {
             let declineSignal = Signal.decline(recipient: signal.sender)
             self.delegate?.send(declineSignal)
             self.delegate?.onIncomingCallDeclined(signal: signal)
