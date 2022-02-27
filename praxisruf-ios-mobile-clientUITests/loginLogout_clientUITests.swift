@@ -7,7 +7,7 @@
 
 import XCTest
 
-class praxisruf_ios_mobile_clientUITests: XCTestCase {
+class loginLogout_clientUITests: XCTestCase {
 
     func testLaunchPerformance() throws {
         if #available(iOS 15.0, *) {
@@ -16,6 +16,8 @@ class praxisruf_ios_mobile_clientUITests: XCTestCase {
             }
         }
     }
+    
+    let app = XCUIApplication()
     
     func testFullLoginLogoutCycle() {
         let app = XCUIApplication()

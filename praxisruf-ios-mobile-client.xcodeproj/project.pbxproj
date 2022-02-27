@@ -25,7 +25,7 @@
 		CE1D5C8C271C4AAB007EA5AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1D5C8B271C4AAB007EA5AC /* Assets.xcassets */; };
 		CE1D5C8F271C4AAB007EA5AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1D5C8E271C4AAB007EA5AC /* Preview Assets.xcassets */; };
 		CE1D5C99271C4AAB007EA5AC /* praxisruf_ios_mobile_clientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5C98271C4AAB007EA5AC /* praxisruf_ios_mobile_clientTests.swift */; };
-		CE1D5CA3271C4AAB007EA5AC /* praxisruf-ios-mobile_clientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5CA2271C4AAB007EA5AC /* praxisruf-ios-mobile_clientUITests.swift */; };
+		CE1D5CA3271C4AAB007EA5AC /* loginLogout_clientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5CA2271C4AAB007EA5AC /* loginLogout_clientUITests.swift */; };
 		CE1D5CB5271C4E88007EA5AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1D5CB4271C4E88007EA5AC /* Localizable.strings */; };
 		CE212BAC27674AC3001131BF /* CallClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE212BAB27674AC3001131BF /* CallClient.swift */; };
 		CE212BB3276771AA001131BF /* SessionDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE212BB2276771AA001131BF /* SessionDescription.swift */; };
@@ -63,6 +63,7 @@
 		CE61552F27732B81007798C6 /* PraxisrufApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61552E27732B81007798C6 /* PraxisrufApiError.swift */; };
 		CE81C583275F5E7600F69B74 /* ReceiveNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81C582275F5E7600F69B74 /* ReceiveNotification.swift */; };
 		CE81C5852761107100F69B74 /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81C5842761107100F69B74 /* Registration.swift */; };
+		CE84165527CB9098009463C7 /* main_clientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84165427CB9098009463C7 /* main_clientUITests.swift */; };
 		CE94AC532753E08200C93410 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC522753E08200C93410 /* Settings.swift */; };
 		CE94AC552753F1FE00C93410 /* NotificationSendResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */; };
 		CE94AC572756552900C93410 /* RetryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC562756552900C93410 /* RetryAlert.swift */; };
@@ -114,7 +115,7 @@
 		CE1D5C94271C4AAB007EA5AC /* praxisruf-ios-mobile-clientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "praxisruf-ios-mobile-clientTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1D5C98271C4AAB007EA5AC /* praxisruf_ios_mobile_clientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = praxisruf_ios_mobile_clientTests.swift; sourceTree = "<group>"; };
 		CE1D5C9E271C4AAB007EA5AC /* praxisruf-ios-mobile-clientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "praxisruf-ios-mobile-clientUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE1D5CA2271C4AAB007EA5AC /* praxisruf-ios-mobile_clientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "praxisruf-ios-mobile_clientUITests.swift"; sourceTree = "<group>"; };
+		CE1D5CA2271C4AAB007EA5AC /* loginLogout_clientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginLogout_clientUITests.swift; sourceTree = "<group>"; };
 		CE1D5CB4271C4E88007EA5AC /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		CE212BAB27674AC3001131BF /* CallClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallClient.swift; sourceTree = "<group>"; };
 		CE212BB2276771AA001131BF /* SessionDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDescription.swift; sourceTree = "<group>"; };
@@ -152,6 +153,7 @@
 		CE61552E27732B81007798C6 /* PraxisrufApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PraxisrufApiError.swift; sourceTree = "<group>"; };
 		CE81C582275F5E7600F69B74 /* ReceiveNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveNotification.swift; sourceTree = "<group>"; };
 		CE81C5842761107100F69B74 /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
+		CE84165427CB9098009463C7 /* main_clientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main_clientUITests.swift; sourceTree = "<group>"; };
 		CE94AC522753E08200C93410 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSendResult.swift; sourceTree = "<group>"; };
 		CE94AC562756552900C93410 /* RetryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryAlert.swift; sourceTree = "<group>"; };
@@ -275,7 +277,8 @@
 		CE1D5CA1271C4AAB007EA5AC /* praxisruf-ios-mobile-clientUITests */ = {
 			isa = PBXGroup;
 			children = (
-				CE1D5CA2271C4AAB007EA5AC /* praxisruf-ios-mobile_clientUITests.swift */,
+				CE1D5CA2271C4AAB007EA5AC /* loginLogout_clientUITests.swift */,
+				CE84165427CB9098009463C7 /* main_clientUITests.swift */,
 			);
 			path = "praxisruf-ios-mobile-clientUITests";
 			sourceTree = "<group>";
@@ -713,7 +716,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE1D5CA3271C4AAB007EA5AC /* praxisruf-ios-mobile_clientUITests.swift in Sources */,
+				CE1D5CA3271C4AAB007EA5AC /* loginLogout_clientUITests.swift in Sources */,
+				CE84165527CB9098009463C7 /* main_clientUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
