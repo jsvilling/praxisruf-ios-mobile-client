@@ -10,8 +10,8 @@ import SwiftKeychainWrapper
 
 struct LoginView: View {
     
-    @State private var username: String = ""
-    @State private var password: String = ""
+    @State private var username: String = "admin"
+    @State private var password: String = "admin"
     
     @State private var loginPressed = false
     @State private var showClientSelection = false

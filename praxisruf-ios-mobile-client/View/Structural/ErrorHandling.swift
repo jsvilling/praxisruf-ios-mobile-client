@@ -1,7 +1,8 @@
 //
 //  ErrorHandling.swift
 //  praxisruf-ios-mobile-client
-//  source: https://www.swiftbysundell.com/articles/propagating-user-facing-errors-in-swift/
+//
+//  Implementation is partially based on: https://www.swiftbysundell.com/articles/propagating-user-facing-errors-in-swift/
 //
 //  Created J. Villing user on 31.12.21.
 //
@@ -32,10 +33,12 @@ struct ErrorHandler {
     
     private func makeAlert(for presentation: Presentation) -> Alert {
         let error = presentation.error
+        let praxisrufApiError = error as? PraxisrufApiError
+        let message = praxisrufApiError?.localizedDescription ?? error.localizedDescription
         
         return Alert(
-            title: Text("An error occured"),
-            message: Text(error.localizedDescription),
+            title: Text("Oops!"),
+            message: Text(message),
             dismissButton: .default(Text("Ok"), action: presentation.retryHandler)
         )
     }
