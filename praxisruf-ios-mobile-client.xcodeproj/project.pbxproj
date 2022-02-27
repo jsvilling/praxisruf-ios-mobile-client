@@ -64,6 +64,7 @@
 		CE81C583275F5E7600F69B74 /* ReceiveNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81C582275F5E7600F69B74 /* ReceiveNotification.swift */; };
 		CE81C5852761107100F69B74 /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81C5842761107100F69B74 /* Registration.swift */; };
 		CE84165527CB9098009463C7 /* main_clientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84165427CB9098009463C7 /* main_clientUITests.swift */; };
+		CE84165727CB954D009463C7 /* call_clientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84165627CB954D009463C7 /* call_clientUITests.swift */; };
 		CE94AC532753E08200C93410 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC522753E08200C93410 /* Settings.swift */; };
 		CE94AC552753F1FE00C93410 /* NotificationSendResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */; };
 		CE94AC572756552900C93410 /* RetryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC562756552900C93410 /* RetryAlert.swift */; };
@@ -154,6 +155,7 @@
 		CE81C582275F5E7600F69B74 /* ReceiveNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveNotification.swift; sourceTree = "<group>"; };
 		CE81C5842761107100F69B74 /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
 		CE84165427CB9098009463C7 /* main_clientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main_clientUITests.swift; sourceTree = "<group>"; };
+		CE84165627CB954D009463C7 /* call_clientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = call_clientUITests.swift; sourceTree = "<group>"; };
 		CE94AC522753E08200C93410 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSendResult.swift; sourceTree = "<group>"; };
 		CE94AC562756552900C93410 /* RetryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryAlert.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 			children = (
 				CE1D5CA2271C4AAB007EA5AC /* loginLogout_clientUITests.swift */,
 				CE84165427CB9098009463C7 /* main_clientUITests.swift */,
+				CE84165627CB954D009463C7 /* call_clientUITests.swift */,
 			);
 			path = "praxisruf-ios-mobile-clientUITests";
 			sourceTree = "<group>";
@@ -718,6 +721,7 @@
 			files = (
 				CE1D5CA3271C4AAB007EA5AC /* loginLogout_clientUITests.swift in Sources */,
 				CE84165527CB9098009463C7 /* main_clientUITests.swift in Sources */,
+				CE84165727CB954D009463C7 /* call_clientUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
