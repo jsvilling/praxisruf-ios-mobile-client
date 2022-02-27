@@ -102,10 +102,12 @@ class CallClient : NSObject {
     }
     
     func endConnection(signal: Signal) {
+        self.peerConnections[signal.sender]?.close()
         self.peerConnections.removeValue(forKey: signal.sender)
         if (self.peerConnections.isEmpty) {
             self.delegate?.onCallEnded()
         }
+        delegate?.updateState(clientId: signal.sender, state: .DISCONNECTED)
     }
     
     func receive(signal: Signal) {
