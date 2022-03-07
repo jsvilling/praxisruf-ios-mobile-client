@@ -12,6 +12,7 @@ protocol PraxisrufApiSignalingDelegate {
     func onConnectionLost()
     func onSignalReceived(_ signal: Signal)
     func onErrorReceived(error: Error)
+    func onConnectionRestored()
 }
 
 extension PraxisrufApi {
@@ -38,6 +39,7 @@ extension PraxisrufApi {
         let task = URLSession(configuration: .default).webSocketTask(with: request)
         task.resume()
         PraxisrufApi.signalingWebSocket = task
+        PraxisrufApi.signalingDelegate?.onConnectionRestored()
     }
     
     func disconnectSignalingService() {

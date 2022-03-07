@@ -28,5 +28,6 @@
 "error.errorResponse" = "Es ist ein Fehler aufgetreten. Bitte wiederholen Sie die Aktion.";
 "error.invalidCredential" = "Ihre Anmeldedaten sind ungültig. Bitte melden Sie sich erneut an.";
 "error.invalidData" = "Es wurde eine ungültige Antwort empfangen. Bitte wiederholen Sie die Aktion.";
+"error.callError" = "Die Verbindung konnte nicht hergestellt werden. Bitte versuchen Sie es erneut.";
 "error.error.unknown" = "Unbekannter Fehler. \n Bitte melden Sie sich erneut an.";
 "Selection incomplete" = "Bitte wählen Sie eines der verfügbaren Zimmer aus.";

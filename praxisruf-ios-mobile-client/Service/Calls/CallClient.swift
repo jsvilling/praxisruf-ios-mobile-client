@@ -14,6 +14,7 @@ protocol CallClientDelegate {
     func onIncommingCallPending(signal: Signal)
     func onIncomingCallDeclined(signal: Signal)
     func onCallEnded()
+    func onCallError()
 }
 
 class CallClient : NSObject {
@@ -39,12 +40,12 @@ class CallClient : NSObject {
         RTCInitializeSSL()
     }
     
-    private func initNextPeerConnection(targetId: String) -> RTCPeerConnection {
+    private func initNextPeerConnection(targetId: String) -> RTCPeerConnection? {
         guard let peerConnection = factory.peerConnection(with: config, constraints: constraints, delegate: nil)
         else {
             delegate?.updateState(clientId: targetId, state: .DISCONNECTED)
-            // TODO: Handle this properly
-            fatalError("Could not create new RTCPeerConnection")
+            delegate?.onCallError()
+            return nil
         }
         self.peerConnections[targetId.uppercased()] = peerConnection
         self.createMediaSenders(targetId: targetId)
@@ -75,12 +76,12 @@ class CallClient : NSObject {
     
     func offer(targetId: String) {
         let peerConnection = initNextPeerConnection(targetId: targetId)
-        peerConnection.offer(for: constraints) { (sdp, error) in
+        peerConnection?.offer(for: constraints) { (sdp, error) in
             guard let sdp = sdp else {
-                print("No sdp")
+                self.delegate?.onCallError()
                 return
             }
-            peerConnection.setLocalDescription(sdp) { error in
+            peerConnection?.setLocalDescription(sdp) { error in
                 let sdpWrapper = SessionDescription(from: sdp)
                 let payloadData = try? JSONEncoder().encode(sdpWrapper)
                 let payloadString = String(data: payloadData!, encoding: .utf8)
@@ -132,7 +133,10 @@ class CallClient : NSObject {
     }
     
     func accept(signal: Signal) {
-        let peerConnection = initNextPeerConnection(targetId: signal.sender)
+        guard let peerConnection = initNextPeerConnection(targetId: signal.sender) else {
+            self.delegate?.onCallError()
+            return
+        }
         setRemoteSdp(signal: signal, peerConnection: peerConnection)
         answer(targetId: signal.sender, peerConnection: peerConnection)
     }

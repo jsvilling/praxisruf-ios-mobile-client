@@ -16,6 +16,7 @@ class CallService : ObservableObject {
     @Published var callTypeId: String = ""
     @Published var states: [String:(String, ConnectionStatus)] = [:]
     @Published var callPartnerName: String = ""
+    var errorCount = 0
     var settings: Settings
     
     private var pending: Signal? = nil
@@ -129,6 +130,12 @@ extension CallService : CallClientDelegate {
         }
     }
     
+    func onCallError() {
+        DispatchQueue.main.async {
+            self.error = PraxisrufApiError.connectionClosedPerm
+        }
+    }
+    
     func updateState(clientId: String, state: ConnectionStatus) {
         DispatchQueue.main.async {
             self.states[clientId]?.1 = state
@@ -146,8 +153,10 @@ extension CallService : CallClientDelegate {
 extension CallService : PraxisrufApiSignalingDelegate {
     
     func onConnectionLost() {
-        praxisrufApi.disconnectSignalingService()
-        listen()
+        if (self.errorCount <= 10) {
+            praxisrufApi.disconnectSignalingService()
+            listen()
+        }
     }
     
     func onSignalReceived(_ signal: Signal) {
@@ -159,7 +168,19 @@ extension CallService : PraxisrufApiSignalingDelegate {
     }
     
     func onErrorReceived(error: Error) {
+        self.errorCount += 1
         print(error.localizedDescription)
+        if (self.errorCount > 10) {
+            disconnect()
+            DispatchQueue.main.async {
+                self.error = PraxisrufApiError.connectionClosedPerm
+                self.errorCount = 0
+            }
+        }
+    }
+    
+    func onConnectionRestored() {
+        self.errorCount = 0
     }
     
 }
