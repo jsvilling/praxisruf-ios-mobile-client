@@ -59,6 +59,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UISceneDelegate {
         }
         
         let sender = userInfo["senderName"] as? String ?? "UNKNOWN"
+        let senderId = userInfo["senderId"] as? String ?? ""
         let title = alert["title"] as? String ?? sender
         let body = alert["body"] as? String ?? ""
         let version = userInfo["version"] as? String ?? "UNKNOWN"
@@ -66,7 +67,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UISceneDelegate {
         let notificationType = userInfo["notificationType"] as? String ?? "UNKNOWN"
 
         completionHandler(UIBackgroundFetchResult.newData)
-        let notification = ReceiveNotification(notificationType, version, title, body, sender, textToSpeech)
+        let notification = ReceiveNotification(notificationType, version, title, body, sender, senderId, textToSpeech)
         NotificationService().receive(notification)
     }
     

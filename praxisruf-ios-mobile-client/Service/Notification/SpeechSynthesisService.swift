@@ -15,12 +15,12 @@ class SpeechSynthesisService {
         let version = notification.version
         let fileManager = FileManager.default
         let cacheUrl = fileManager.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-        let destinationUrl = cacheUrl.appendingPathExtension("\(notificationType)-\(version)")
+        let destinationUrl = cacheUrl.appendingPathExtension("\(notificationType)-\(version)\(notification.senderId)")
         
-        if (fileManager.fileExists(atPath: destinationUrl.path)) {
+        if (false && fileManager.fileExists(atPath: destinationUrl.path)) {
             playSpeechAudioFromCache(filePath: destinationUrl.path)
         } else {
-            PraxisrufApi().synthesize(notificationType: notificationType) { result in
+            PraxisrufApi().synthesize(notificationType: notificationType, sender: notification.senderId) { result in
                 switch result {
                     case .success(let audioUrl):
                         try? FileManager.default.removeItem(at: destinationUrl)

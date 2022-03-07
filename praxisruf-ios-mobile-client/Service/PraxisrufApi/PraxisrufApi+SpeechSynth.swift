@@ -10,7 +10,7 @@ import AVFAudio
 
 extension PraxisrufApi {
     
-    func synthesize(notificationType: String, completion: @escaping (Result<URL, PraxisrufApiError>) -> Void) {
-        download("/speech/\(notificationType)", completion: completion)
+    func synthesize(notificationType: String, sender: String, completion: @escaping (Result<URL, PraxisrufApiError>) -> Void) {
+        download("/speech/\(notificationType)?sender=\(sender)", completion: completion)
     }
 }

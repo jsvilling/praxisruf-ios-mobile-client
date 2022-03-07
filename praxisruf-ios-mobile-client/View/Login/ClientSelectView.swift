@@ -21,7 +21,7 @@ struct ClientSelectView: View {
                 Text("noClients")
             } else {
                 NavigationLink(destination: HomeView().environmentObject(auth), isActive: $selectionComplete) {EmptyView()}.hidden()
-                List(clientsService.availableClients, selection: $selection) { client in
+                List(clientsService.availableClients.sorted(by: compareClients), selection: $selection) { client in
                     Text("\(client.name)")
                 }
             }
@@ -36,6 +36,10 @@ struct ClientSelectView: View {
     private func confirm() {
         clientsService.confirm(selection: selection)
         selectionComplete = clientsService.error == nil
+    }
+    
+    private func compareClients(_ c1: Client, _ c2: Client) -> Bool {
+        return c1.name < c2.name
     }
 }
 

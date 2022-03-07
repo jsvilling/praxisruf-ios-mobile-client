@@ -22,7 +22,7 @@ struct SettingsView: View {
                     HStack {
                         Text("settings.userName")
                         Spacer()
-                        Text(auth.userName)
+                        Text("user")
                     }
                     HStack {
                         Text("settings.clientName")

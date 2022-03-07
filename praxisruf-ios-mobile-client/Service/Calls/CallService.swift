@@ -105,7 +105,7 @@ extension CallService : CallClientDelegate {
     func onIncomingCallDeclined(signal: Signal) {
         let content = UNMutableNotificationContent()
         content.title = signal.description
-        content.body = "Automatically declined call"
+        content.body = "Abgelehnter Anruf"
         content.categoryIdentifier = "local"
         content.sound = UNNotificationSound.default
 

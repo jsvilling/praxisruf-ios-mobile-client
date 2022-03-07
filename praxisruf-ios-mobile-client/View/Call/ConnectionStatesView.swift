@@ -18,7 +18,7 @@ struct ConnectionStatesView: View {
         } else {
             ForEach(states.sorted { $0.key > $1.key }, id: \.key) { _, v in
                 HStack {
-                    Text("\(v.0)").font(.title)
+                    Text("\(v.0)")
                     Spacer()
                     StatusIndicator(status: v.1)
                 }
