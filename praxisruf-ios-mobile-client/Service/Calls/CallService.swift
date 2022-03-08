@@ -98,6 +98,7 @@ extension CallService : CallClientDelegate {
         DispatchQueue.main.async {
             self.pending = signal
             self.active = true
+            self.states[signal.sender] = (signal.description, .PROCESSING)
             self.callPartnerName = signal.description
             Inbox.shared.receiveCall(signal)
         }
