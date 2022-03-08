@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Praxisruf.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>buildNumber</key>
+			<string>1</string>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>6CD0FC538395CFA638272A46ADF59B69DA4D3DD0</string>
+				<key>dateExpires</key>
+				<string>05.03.23</string>
+				<key>type</key>
+				<string>Cloud Managed Apple Distribution</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1.0</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6CD0FC538395CFA638272A46ADF59B69DA4D3DD0</string>
+						<key>dateExpires</key>
+						<string>05.03.23</string>
+						<key>type</key>
+						<string>Cloud Managed Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>WebRTC.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>RU33URRU8B</string>
+						<key>name</key>
+						<string>Daniel Jossen</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>1.0</string>
+				</dict>
+			</array>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>RU33URRU8B.ch.fhnw.ip5.praxisintercom.client</string>
+				<key>aps-environment</key>
+				<string>production</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>RU33URRU8B</string>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>Praxisruf.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>660edd2a-d635-46a1-a1fb-e0462de07bee</string>
+				<key>dateExpires</key>
+				<string>05.03.23</string>
+				<key>name</key>
+				<string>iOS Team Ad Hoc Provisioning Profile: ch.fhnw.ip5.praxisintercom.client</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>RU33URRU8B</string>
+				<key>name</key>
+				<string>Daniel Jossen</string>
+			</dict>
+			<key>versionNumber</key>
+			<string>1.0</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -54,6 +54,8 @@ extension PraxisrufApi {
         PraxisrufApi.signalingWebSocket?.sendPing() { error in
             if (error != nil) {
                 PraxisrufApi.signalingDelegate?.onErrorReceived(error: error!)
+            } else {
+                PraxisrufApi.signalingDelegate?.onConnectionRestored()
             }
         }
     }
