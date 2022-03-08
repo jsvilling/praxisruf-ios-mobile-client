@@ -119,9 +119,11 @@ class CallClient : NSObject {
             case .some(.END):
                 endConnection(signal: signal)
             case .some(.UNAVAILABLE):
+                self.peerConnections.removeValue(forKey: signal.sender)
                 delegate?.updateState(clientId: signal.sender.uppercased(), state: .DISCONNECTED)
             case .some(.DECLINE):
                 self.peerConnections[signal.sender]?.close()
+                self.peerConnections.removeValue(forKey: signal.sender)
                 self.delegate?.updateState(clientId: signal.sender, state: .DISCONNECTED)
             case .none:
                 print("Unknown Signal Type \(signal.type)")
