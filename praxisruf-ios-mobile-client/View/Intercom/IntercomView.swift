@@ -21,12 +21,18 @@ struct IntercomView: View {
     
     var body: some View {
         VStack {
-            Section(header: Text("intercom").font(.title2)) {
+            Section(header: HStack {
+                Text("intercom").font(.title2).padding(.leading, 50)
+                Spacer()
+            }) {
                 ButtonGridView(entries: $configuration.callTypes, action: callService.initCall)
                     .onError(callService.error)
             }
             
-            Section(header: Text("notifications").font(.title2)) {
+            Section(header: HStack {
+                Text("notifications").font(.title2).padding(.leading, 50)
+                Spacer()
+            }) {
                 ButtonGridView(entries: $configuration.notificationTypes, action: notificationService.sendNotification)
                     .onError(notificationService.error)
                 RetryAlert(isPresented: $notificationService.hasDeliveryFailed, id: $notificationService.notificationSendResult.notificationId, action: notificationService.retryNotification)
@@ -58,7 +64,7 @@ struct IntercomView: View {
     private func pingSingalingConnection(_ input: Any? = nil) {
         if (auth.isAuthenticated) {
             callService.ping()
-        }
+        } 
     }
 }
 
