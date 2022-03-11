@@ -17,10 +17,13 @@ struct InboxItem: Identifiable {
     var sender: String
     
     func fullBody() -> String {
-        if (title != "") {
-            return "\(title) - \(body)"
+        if (title == "") {
+            return body
         }
-        return body
+        if (body == "") {
+            return title
+        }
+        return "\(title) - \(body)"
     }
 }
 
