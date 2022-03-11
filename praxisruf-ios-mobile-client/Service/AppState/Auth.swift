@@ -60,6 +60,7 @@ class AuthService : ObservableObject {
         PraxisrufApi().disconnectSignalingService()
         DispatchQueue.main.async {
             Settings.reset()
+            Inbox.shared.clear()
             self.isAuthenticated = false
         }
         KeychainWrapper.standard.removeObject(forKey: UserDefaultKeys.authToken)

@@ -372,7 +372,6 @@
 			isa = PBXGroup;
 			children = (
 				CE01406127317EF600B71AB7 /* AudioPlayer.swift */,
-				CE94AC5827566B6900C93410 /* InboxReminderService.swift */,
 				CE53ABFE271EFAFC00BAD1F1 /* NotificationService.swift */,
 				CE01405F27317ACF00B71AB7 /* SpeechSynthesisService.swift */,
 			);
@@ -487,6 +486,7 @@
 			isa = PBXGroup;
 			children = (
 				CE01404A2726C81400B71AB7 /* Inbox.swift */,
+				CE94AC5827566B6900C93410 /* InboxReminderService.swift */,
 			);
 			path = Inbox;
 			sourceTree = "<group>";

@@ -35,6 +35,10 @@ class Inbox: ObservableObject {
             self.content.append(call)
         }
     }
+    
+    func clear() {
+        content.removeAll()
+    }
 }
 
 extension Inbox {
