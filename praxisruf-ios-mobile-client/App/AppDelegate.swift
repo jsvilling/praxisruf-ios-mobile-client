@@ -61,7 +61,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UISceneDelegate {
         let sender = userInfo["senderName"] as? String ?? "UNKNOWN"
         let senderId = userInfo["senderId"] as? String ?? ""
         let title = alert["title"] as? String ?? sender
-        let body = alert["body"] as? String ?? ""
+        let body = userInfo["body"] as? String ?? ""
         let version = userInfo["version"] as? String ?? "UNKNOWN"
         let textToSpeech = userInfo["isTextToSpeech"] as? String ?? "false"
         let notificationType = userInfo["notificationType"] as? String ?? "UNKNOWN"

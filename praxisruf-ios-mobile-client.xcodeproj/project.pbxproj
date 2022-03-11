@@ -454,7 +454,6 @@
 		CE51D0442726921A000D09C1 /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
-				CE01404A2726C81400B71AB7 /* Inbox.swift */,
 				CE51D0452726922B000D09C1 /* InboxItem.swift */,
 				CE01404C2726DC8400B71AB7 /* Date+ToString.swift */,
 			);
@@ -464,6 +463,7 @@
 		CE53ABE6271EA76B00BAD1F1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				CE84165827DBB440009463C7 /* Inbox */,
 				CE068135277F4E7000E8D4BE /* AppState */,
 				CE413BC9276115BD009F2B3F /* Calls */,
 				CE30F7BB2783689A00B0F12C /* Configuration */,
@@ -481,6 +481,14 @@
 				CE61552A276E170E007798C6 /* ActiveCallView.swift */,
 			);
 			path = Call;
+			sourceTree = "<group>";
+		};
+		CE84165827DBB440009463C7 /* Inbox */ = {
+			isa = PBXGroup;
+			children = (
+				CE01404A2726C81400B71AB7 /* Inbox.swift */,
+			);
+			path = Inbox;
 			sourceTree = "<group>";
 		};
 		CE94AC5D2756889A00C93410 /* InitialView */ = {
