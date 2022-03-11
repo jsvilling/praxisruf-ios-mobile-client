@@ -14,10 +14,15 @@ struct InboxItemView: View {
     
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
-            ItemIndicator
+            Rectangle()
+                .fill(inboxItem.ack ? Color.blue : Color.red)
+                .frame(width: 4, height: 40)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+            
             Image(systemName: inboxItem.type)
                 .padding(.leading)
                 .frame(width: 25, height: 40, alignment: .center)
+            
             VStack(alignment: .leading) {
                 Text("\(inboxItem.sender)")
                      .font(.headline)
@@ -35,23 +40,15 @@ struct InboxItemView: View {
             Spacer()
             
             VStack {
+                Spacer()
                 Text(inboxItem.receivedAt.toString())
                     .font(.caption)
                     .opacity(0.54)
+                Spacer()
                 
-                if !inboxItem.ack {
-                    Text("")
-                        .frame(width: 8, height: 8)
-                        .background(Color.blue)
-                        .clipShape(Circle())
-                        .padding(.top)
-                }
             }
         }
         .padding()
-        .onTapGesture {
-            action(inboxItem)
-        }
         .swipeActions(edge: .trailing) {
                         Button(role: .destructive) {
                             action(inboxItem)
@@ -60,13 +57,6 @@ struct InboxItemView: View {
                         }
                     }
     }
-}
-
-private var ItemIndicator: some View {
-    Rectangle()
-        .fill(Color.red)
-        .frame(width: 4, height: 40)
-        .clipShape(RoundedRectangle(cornerRadius: 8))
 }
 
 struct InboxItemView_Previews: PreviewProvider {
