@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+/// Represents a button on the IntercomView that is used to start a call.
 struct DisplayCallType: IntercomItem, Hashable, Codable, Identifiable {
     let id: UUID
     let displayText: String

@@ -4,9 +4,9 @@
 //
 //  Created by J. Villing on 19.10.21.
 //
-
 import Foundation
 
+/// Represents a button on the IntercomView that is used to stend a notification.
 struct NotificationType: IntercomItem, Hashable, Codable, Identifiable {
     let id: UUID
     let displayText: String
@@ -32,5 +32,3 @@ extension NotificationType {
         NotificationType(id: UUID(), displayText: "Nächster Patient", title: "Nächster Patient", body: "Nächster Patient", description: "Nächster Patient")
     ]
 }
-
-

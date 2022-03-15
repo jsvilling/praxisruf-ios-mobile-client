@@ -7,6 +7,9 @@
 
 import Foundation
 
+/// This DTO represents the current client configuration
+/// It contains the notificationTypes and callTypes that are used to display
+/// buttons on the IntercomView. 
 struct Configuration : Hashable, Codable {
     var notificationTypes: [NotificationType]
     var callTypes: [DisplayCallType]

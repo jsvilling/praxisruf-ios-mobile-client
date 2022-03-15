@@ -66,6 +66,7 @@
 		CE84165A27E08EF6009463C7 /* CallClientDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84165927E08EF6009463C7 /* CallClientDelegate.swift */; };
 		CE84165C27E08F36009463C7 /* SignalingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84165B27E08F36009463C7 /* SignalingDelegate.swift */; };
 		CE84165E27E08F70009463C7 /* RegistrationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84165D27E08F70009463C7 /* RegistrationDelegate.swift */; };
+		CE84166027E096B1009463C7 /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84165F27E096B1009463C7 /* NotificationType.swift */; };
 		CE94AC532753E08200C93410 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC522753E08200C93410 /* Settings.swift */; };
 		CE94AC552753F1FE00C93410 /* NotificationSendResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */; };
 		CE94AC572756552900C93410 /* RetryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC562756552900C93410 /* RetryAlert.swift */; };
@@ -158,6 +159,7 @@
 		CE84165927E08EF6009463C7 /* CallClientDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallClientDelegate.swift; sourceTree = "<group>"; };
 		CE84165B27E08F36009463C7 /* SignalingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalingDelegate.swift; sourceTree = "<group>"; };
 		CE84165D27E08F70009463C7 /* RegistrationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationDelegate.swift; sourceTree = "<group>"; };
+		CE84165F27E096B1009463C7 /* NotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationType.swift; sourceTree = "<group>"; };
 		CE94AC522753E08200C93410 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSendResult.swift; sourceTree = "<group>"; };
 		CE94AC562756552900C93410 /* RetryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryAlert.swift; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 				CE212BBC276DCB6D001131BF /* CallType.swift */,
 				CE94AC64275BC1C100C93410 /* Configuration.swift */,
 				CE94AC66275BC1D800C93410 /* DisplayCallType.swift */,
+				CE84165F27E096B1009463C7 /* NotificationType.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -677,6 +680,7 @@
 				CE53ABED271EAF3200BAD1F1 /* PraxisrufApi+Auth.swift in Sources */,
 				CE61552B276E170E007798C6 /* ActiveCallView.swift in Sources */,
 				CE94AC552753F1FE00C93410 /* NotificationSendResult.swift in Sources */,
+				CE84166027E096B1009463C7 /* NotificationType.swift in Sources */,
 				CE94AC572756552900C93410 /* RetryAlert.swift in Sources */,
 				CE068137277F4E7F00E8D4BE /* Auth.swift in Sources */,
 				CE53ABF1271EB15E00BAD1F1 /* ClientSelectView.swift in Sources */,
