@@ -64,6 +64,9 @@
 		CE81C5852761107100F69B74 /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81C5842761107100F69B74 /* Registration.swift */; };
 		CE84165527CB9098009463C7 /* main_clientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84165427CB9098009463C7 /* main_clientUITests.swift */; };
 		CE84165727CB954D009463C7 /* call_clientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84165627CB954D009463C7 /* call_clientUITests.swift */; };
+		CE84165A27E08EF6009463C7 /* CallClientDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84165927E08EF6009463C7 /* CallClientDelegate.swift */; };
+		CE84165C27E08F36009463C7 /* SignalingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84165B27E08F36009463C7 /* SignalingDelegate.swift */; };
+		CE84165E27E08F70009463C7 /* RegistrationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84165D27E08F70009463C7 /* RegistrationDelegate.swift */; };
 		CE94AC532753E08200C93410 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC522753E08200C93410 /* Settings.swift */; };
 		CE94AC552753F1FE00C93410 /* NotificationSendResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */; };
 		CE94AC572756552900C93410 /* RetryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC562756552900C93410 /* RetryAlert.swift */; };
@@ -154,6 +157,9 @@
 		CE81C5842761107100F69B74 /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
 		CE84165427CB9098009463C7 /* main_clientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main_clientUITests.swift; sourceTree = "<group>"; };
 		CE84165627CB954D009463C7 /* call_clientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = call_clientUITests.swift; sourceTree = "<group>"; };
+		CE84165927E08EF6009463C7 /* CallClientDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallClientDelegate.swift; sourceTree = "<group>"; };
+		CE84165B27E08F36009463C7 /* SignalingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalingDelegate.swift; sourceTree = "<group>"; };
+		CE84165D27E08F70009463C7 /* RegistrationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationDelegate.swift; sourceTree = "<group>"; };
 		CE94AC522753E08200C93410 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSendResult.swift; sourceTree = "<group>"; };
 		CE94AC562756552900C93410 /* RetryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryAlert.swift; sourceTree = "<group>"; };
@@ -346,6 +352,7 @@
 				CE53ABF4271EB30100BAD1F1 /* ClientsService.swift */,
 				CE94AC68275BCCB700C93410 /* ConfigurationService.swift */,
 				CE51D02F2725431B000D09C1 /* RegistrationService.swift */,
+				CE84165D27E08F70009463C7 /* RegistrationDelegate.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -364,6 +371,7 @@
 			children = (
 				CE413BC72761156F009F2B3F /* CallService.swift */,
 				CE212BAB27674AC3001131BF /* CallClient.swift */,
+				CE84165927E08EF6009463C7 /* CallClientDelegate.swift */,
 			);
 			path = Calls;
 			sourceTree = "<group>";
@@ -389,6 +397,7 @@
 				CE01405D2731787500B71AB7 /* PraxisrufApi+SpeechSynth.swift */,
 				CE61552C276E6CA8007798C6 /* PraxisrufApi+Signaling.swift */,
 				CE61552E27732B81007798C6 /* PraxisrufApiError.swift */,
+				CE84165B27E08F36009463C7 /* SignalingDelegate.swift */,
 			);
 			path = PraxisrufApi;
 			sourceTree = "<group>";
@@ -676,6 +685,8 @@
 				CE53ABF1271EB15E00BAD1F1 /* ClientSelectView.swift in Sources */,
 				CE51D02C2723DAA9000D09C1 /* IntercomItem.swift in Sources */,
 				CE01404B2726C81400B71AB7 /* Inbox.swift in Sources */,
+				CE84165C27E08F36009463C7 /* SignalingDelegate.swift in Sources */,
+				CE84165E27E08F70009463C7 /* RegistrationDelegate.swift in Sources */,
 				CE51D0462726922B000D09C1 /* InboxItem.swift in Sources */,
 				CE06813B277F81B500E8D4BE /* Signal+WebRTC.swift in Sources */,
 				CE0140512726E2C300B71AB7 /* InboxItemView.swift in Sources */,
@@ -696,6 +707,7 @@
 				CE53ABFF271EFAFC00BAD1F1 /* NotificationService.swift in Sources */,
 				CE212BB3276771AA001131BF /* SessionDescription.swift in Sources */,
 				CE413BC82761156F009F2B3F /* CallService.swift in Sources */,
+				CE84165A27E08EF6009463C7 /* CallClientDelegate.swift in Sources */,
 				CE53ABF3271EB28C00BAD1F1 /* Client.swift in Sources */,
 				CE01406227317EF600B71AB7 /* AudioPlayer.swift in Sources */,
 				CE068139277F5F3600E8D4BE /* Utils.swift in Sources */,

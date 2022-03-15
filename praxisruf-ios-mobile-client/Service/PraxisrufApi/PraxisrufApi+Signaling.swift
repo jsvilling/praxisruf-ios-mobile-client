@@ -8,13 +8,6 @@
 import Foundation
 import SwiftKeychainWrapper
 
-protocol PraxisrufApiSignalingDelegate {
-    func onConnectionLost()
-    func onSignalReceived(_ signal: Signal)
-    func onErrorReceived(error: Error)
-    func onConnectionRestored()
-}
-
 extension PraxisrufApi {
     
     static var signalingDelegate: PraxisrufApiSignalingDelegate?

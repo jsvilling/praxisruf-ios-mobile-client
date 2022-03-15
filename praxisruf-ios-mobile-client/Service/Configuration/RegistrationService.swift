@@ -8,10 +8,6 @@
 import Foundation
 import SwiftKeychainWrapper
 
-protocol RegistrationDelegate {
-    func unregister()
-}
-
 class RegistrationService: ObservableObject {
     
     let settings = Settings()
