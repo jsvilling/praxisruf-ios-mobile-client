@@ -139,6 +139,7 @@ class CallClient : NSObject {
     
     private func setRemoteSdp(signal: Signal) {
         guard let peerConnection = self.peerConnections[signal.sender.uppercased()] else {
+            self.delegate?.onCallError()
             return
         }
         setRemoteSdp(signal: signal, peerConnection: peerConnection)
@@ -149,15 +150,16 @@ class CallClient : NSObject {
             delegate?.onCallError()
             return
         }
-        peerConnection.setRemoteDescription(sdpWrapper.rtcSessionDescription, completionHandler: self.printError)
+        peerConnection.setRemoteDescription(sdpWrapper.rtcSessionDescription, completionHandler: self.processError)
     }
     
     private func answer(targetId: String, peerConnection: RTCPeerConnection) {
         peerConnection.answer(for: constraints) { (sdp, error) in
             guard let sdp = sdp else {
+                self.delegate?.onCallError()
                 return
             }
-            peerConnection.setLocalDescription(sdp, completionHandler: self.printError)
+            peerConnection.setLocalDescription(sdp, completionHandler: self.processError)
             let sdpWrapper = SessionDescription(from: sdp)
             let payloadData = try? JSONEncoder().encode(sdpWrapper)
             let payloadString = String(data: payloadData!, encoding: .utf8)
@@ -167,14 +169,18 @@ class CallClient : NSObject {
     }
     
     private func addIceCandidate(signal: Signal) {
-        let iceWrapper = try? JSONDecoder().decode(IceCandidate.self, from: signal.payload.data(using: .utf8)!)
-        self.peerConnections[signal.sender.uppercased()]?.add(iceWrapper!.rtcIceCandidate, completionHandler: self.printError)
+        guard let iceWrapper = try? JSONDecoder().decode(IceCandidate.self, from: signal.payload.data(using: .utf8)!) else {
+            self.delegate?.onCallError()
+            return
+        }
+        self.peerConnections[signal.sender.uppercased()]?.add(iceWrapper.rtcIceCandidate, completionHandler: self.processError)
     }
     
-    private func printError(error: Error?) {
+    private func processError(error: Error?) {
         if (error != nil) {
             print("Error in CallClient")
             print(error!)
+            self.delegate?.onCallError()
         }
     }
     
