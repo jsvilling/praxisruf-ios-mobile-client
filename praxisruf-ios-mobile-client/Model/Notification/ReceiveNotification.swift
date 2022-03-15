@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// Represents a notification that was sent by the Cloudservice and
+/// received via the Firebase Cloud Messaging integration.
 struct ReceiveNotification {
     let notificationType: String
     let version: String

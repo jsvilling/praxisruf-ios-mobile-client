@@ -145,8 +145,11 @@ class CallClient : NSObject {
     }
     
     private func setRemoteSdp(signal: Signal, peerConnection: RTCPeerConnection) {
-        let sdpWrapper = try? JSONDecoder().decode(SessionDescription.self, from: signal.payload.data(using: .utf8)!)
-        peerConnection.setRemoteDescription(sdpWrapper!.rtcSessionDescription, completionHandler: self.printError)
+        guard let sdpWrapper = try? JSONDecoder().decode(SessionDescription.self, from: signal.payload.data(using: .utf8)!) else {
+            delegate?.onCallError()
+            return
+        }
+        peerConnection.setRemoteDescription(sdpWrapper.rtcSessionDescription, completionHandler: self.printError)
     }
     
     private func answer(targetId: String, peerConnection: RTCPeerConnection) {
