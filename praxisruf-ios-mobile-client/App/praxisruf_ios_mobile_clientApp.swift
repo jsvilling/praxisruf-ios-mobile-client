@@ -9,6 +9,9 @@ import SwiftUI
 import UIKit
 import Firebase
 
+
+/// Main class for the Praxisruf App.
+/// On startup it registers the AppDelegate and shows the InitialView
 @main
 struct praxisruf_ios_mobile_clientApp: App {
     

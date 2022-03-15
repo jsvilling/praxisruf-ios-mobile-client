@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Represents a CallType which is displayed as a button in the intercom view
 protocol IntercomItem {
     var id: UUID { get }
     var displayText: String { get }

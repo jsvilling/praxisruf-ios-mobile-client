@@ -7,7 +7,11 @@
 
 import Foundation
 
-enum WebRTCSignalType: String {
+/// This enum describes the types of Signals known in Praxisruf
+/// This contains the Signals OFFER, ANSWER and ICE_CANDIDATE which are mandatory for WebRTC.
+/// It also contains the Signals END, UNAVAILABLE and DECLINE which are specific to Praxisruf.
+/// Signals are processed according to their type in the CallClient service. 
+enum PraxisrufSignalType: String {
     
     case OFFER = "OFFER"
     case ANSWER = "ANSWER"

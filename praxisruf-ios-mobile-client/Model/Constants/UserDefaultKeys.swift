@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// UserDefaultKeys wraps static string values that are used for properties stored in the UserDefaults or KeyChain
 struct UserDefaultKeys {
     
     static let authToken: String = "authToken"

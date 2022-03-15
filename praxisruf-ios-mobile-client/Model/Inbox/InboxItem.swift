@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// Represents an entry stored in the Inbox service and displayed in the InboxView
+/// This can either be a received notification a past call
 struct InboxItem: Identifiable {
     var id: UUID = UUID()
     var type: String
@@ -16,6 +18,7 @@ struct InboxItem: Identifiable {
     var receivedAt = Date()
     var sender: String
     
+    /// Constructs the display text for a InboxItem
     func fullBody() -> String {
         if (title == "") {
             return body

@@ -7,8 +7,10 @@
 
 import Foundation
 
+/// Extension of the Date class to provide a simple String representation in the format DD.MM.YY, hh.mm
 extension Date {
 
+    /// Creates a string representing the given date in the format DD.MM.YY, hh.mm
     func toString() -> String {
         return formatter().string(from: self)
     }

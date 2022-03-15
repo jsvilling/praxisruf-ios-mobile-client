@@ -7,7 +7,8 @@
 
 import Foundation
 
-
+/// This enum represents the connection states that are relevant in Praxisruf
+/// This is used in the ActiveCallView to display the state of a connection
 enum ConnectionStatus {
  
     // The connection is established

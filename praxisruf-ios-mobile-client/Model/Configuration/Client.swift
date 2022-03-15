@@ -7,6 +7,9 @@
 
 import Foundation
 
+/// Represents the client that has been selected for the running instance of the PraxisrufApp
+/// This determines which buttons are available and which notifications or calls can be received
+/// The name of this client is displayed as title in the IntercomView
 struct Client: Decodable, Identifiable, Hashable {
     let id: UUID
     let name: String

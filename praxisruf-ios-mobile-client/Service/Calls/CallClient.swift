@@ -96,7 +96,7 @@ class CallClient : NSObject {
     }
     
     func receive(signal: Signal) {
-        let type = WebRTCSignalType.init(rawValue: signal.type)
+        let type = PraxisrufSignalType.init(rawValue: signal.type)
         switch(type) {
             case .some(.OFFER):
                 delegate?.onIncommingCallPending(signal: signal)
@@ -128,7 +128,7 @@ class CallClient : NSObject {
     }
     
     func decline(signal: Signal) {
-        if (WebRTCSignalType.OFFER.equals(value: signal.type)) {
+        if (PraxisrufSignalType.OFFER.equals(value: signal.type)) {
             let declineSignal = Signal.decline(recipient: signal.sender)
             self.delegate?.send(declineSignal)
             self.delegate?.onIncomingCallDeclined(signal: signal)

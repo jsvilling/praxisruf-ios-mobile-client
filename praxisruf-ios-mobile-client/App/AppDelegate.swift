@@ -10,6 +10,8 @@ import Firebase
 import UIKit
 import SwiftKeychainWrapper
 
+/// AppDelegate implementation
+/// The AppDelegate is used to implement the integration of Firebase Cloud Messaging as Messaging Service
 class AppDelegate: NSObject, UIApplicationDelegate, UISceneDelegate {
     
     private let gcmMessageIDKey = "gcm.message_id"

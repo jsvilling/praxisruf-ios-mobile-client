@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+
+/// Provides an operator to negate the value of a boolean bindings
 prefix func ! (value: Binding<Bool>) -> Binding<Bool> {
     Binding<Bool>(
         get: { !value.wrappedValue },
