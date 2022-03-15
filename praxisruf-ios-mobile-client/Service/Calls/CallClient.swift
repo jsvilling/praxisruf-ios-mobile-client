@@ -25,8 +25,6 @@ class CallClient : NSObject {
     private let constraints: RTCMediaConstraints = RTCMediaConstraints(mandatoryConstraints: [kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueTrue, kRTCMediaConstraintsOfferToReceiveVideo: kRTCMediaConstraintsValueFalse], optionalConstraints: ["DtlsSrtpKeyAgreement":kRTCMediaConstraintsValueTrue])
     
     private var peerConnections: [String: RTCPeerConnection] = [:]
-    private var audioEnabled = true;
-    
     var delegate: CallClientDelegate?
     
     override required init() {
