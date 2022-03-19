@@ -7,8 +7,18 @@
 
 import Foundation
 
+/// Extension for PraxisrufApi to enable login with basic authentication.
+///
+/// This service does not use the http methods of PraxisrufApi.
+/// The login request cannot be made with an token as this token is only received after the login.
 extension PraxisrufApi {
     
+    /// Creates a http get request for "<baseUrl>/users/login"
+    /// The request will be created with an basic auth header containing the given username and password.
+    ///
+    /// On completion of the request the completion callback is called with either the received token or an error.
+    ///
+    /// This is used by the LoginView upon login as well as the IntercomView to refresh the token regularly.
     func login(username: String, password: String, completion: @escaping (Result<String, PraxisrufApiError>) -> Void) {
         let url = URL(string: "\(PraxisrufApi.httpBaseUrlValue)/users/login")!
         let loginString = "\(username):\(password)"
