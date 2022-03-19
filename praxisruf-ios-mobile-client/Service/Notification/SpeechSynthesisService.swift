@@ -22,6 +22,8 @@ class SpeechSynthesisService {
     /// This request returns the desired speech data.
     /// The received data is sotred in a file with name ''notificationTypeId-version-senderId'' and then played.
     ///
+    /// If an error occurs during communication with the cloudservice an error is published. 
+    ///
     /// This is called by the NotificationSerivce upon receiving a notification.
     func synthesize(_ notification: ReceiveNotification, _ errorHandler: @escaping (Error) -> Void) {
         let notificationType = notification.notificationType
@@ -50,7 +52,7 @@ class SpeechSynthesisService {
         }
     }
     
-    /// Delegates the playing of an audio file to AudioPlayer. 
+    /// Delegates the playing of an audio file to AudioPlayer.
     private func playSpeechAudioFromCache(filePath: String) {
         AudioPlayer.playSounds(filePath: filePath)
     }
