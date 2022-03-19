@@ -41,7 +41,9 @@ class SpeechSynthesisService {
                         try? FileManager.default.removeItem(at: destinationUrl)
                         do {
                             try FileManager.default.copyItem(at: audioUrl, to: destinationUrl)
-                            AudioPlayer.playSounds(filePath: destinationUrl.path)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                AudioPlayer.playSounds(filePath: destinationUrl.path)
+                            }
                         } catch let error {
                             errorHandler(error)
                         }

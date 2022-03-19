@@ -304,27 +304,19 @@ extension CallClient : RTCPeerConnectionDelegate {
     /// During this phase signaling messages are exchanged via the signaling service.
     /// The state displayed in the UI will always be PROCESSING in this case.
     /// This menas, that there is nothing to do in this case but the method has to be implemented to satisfy RTCPeerConnectionDelegate
-    func peerConnection(_ peerConnection: RTCPeerConnection, didChange stateChanged: RTCSignalingState) {
-        print("-1")
-    }
+    func peerConnection(_ peerConnection: RTCPeerConnection, didChange stateChanged: RTCSignalingState) {}
     
     /// This is called when an RTCMediaStream is added.
     /// There is nothing to do in this case because connections in Praxisruf will never change after initialization.
     /// However this method has to be implemented to satisfy RTCPeerConnectionDelegate.
-    func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {
-        print("0")
-    }
+    func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {}
     
     /// This is called when an RTCMediaStream is removed.
     /// There is nothing to do in this case because connections in Praxisruf will never change after initialization.
     /// However this method has to be implemented to satisfy RTCPeerConnectionDelegate.
-    func peerConnection(_ peerConnection: RTCPeerConnection, didRemove stream: RTCMediaStream) {
-        print("1")
-    }
+    func peerConnection(_ peerConnection: RTCPeerConnection, didRemove stream: RTCMediaStream) {}
     
-    func peerConnectionShouldNegotiate(_ peerConnection: RTCPeerConnection) {
-        print("2")
-    }
+    func peerConnectionShouldNegotiate(_ peerConnection: RTCPeerConnection) {}
     
     /// This is called when an RTCIceConnectionState changes.
     ///
@@ -355,9 +347,7 @@ extension CallClient : RTCPeerConnectionDelegate {
     /// This is called when the RTCIceGatheringState changes.
     /// There is nothing to do in this case.
     /// However this method has to be implemented to satisfy RTCPeerConnectionDelegate.
-    func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceGatheringState) {
-        debugPrint("peerConnection new gathering state: \(newState)")
-    }
+    func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceGatheringState) {}
     
     /// This is called when a new RTCIceCandidate is discovered.
     /// In this case a ICE_CANDIDATE signal is created with the Ice Candidate data and sent view CallClientDelegate to the
@@ -378,16 +368,12 @@ extension CallClient : RTCPeerConnectionDelegate {
     /// This is called when a new RTCIceCandidate is removed.
     /// There is nothing to do in this case.
     /// However this method has to be implemented to satisfy RTCPeerConnectionDelegate.
-    func peerConnection(_ peerConnection: RTCPeerConnection, didRemove candidates: [RTCIceCandidate]) {
-        debugPrint("peerConnection did remove candidate(s)")
-    }
+    func peerConnection(_ peerConnection: RTCPeerConnection, didRemove candidates: [RTCIceCandidate]) {}
     
     /// This is called when a new RTCDataChannel is opened.
     /// There is nothing to do in this case.
     /// However this method has to be implemented to satisfy RTCPeerConnectionDelegate.
-    func peerConnection(_ peerConnection: RTCPeerConnection, didOpen dataChannel: RTCDataChannel) {
-        debugPrint("peerConnection did open data channel")
-    }
+    func peerConnection(_ peerConnection: RTCPeerConnection, didOpen dataChannel: RTCDataChannel) {}
 }
 
 
