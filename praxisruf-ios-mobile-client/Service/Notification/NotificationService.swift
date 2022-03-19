@@ -71,7 +71,7 @@ class NotificationService: ObservableObject {
     /// This is called by the AppDelegate upon receiving a notification and upon opening the app after a notification was received in the background.
     func receive(_ notification: ReceiveNotification) {
         Inbox.shared.receive(notification)
-        if (notification.textToSpeech == "true" && settings.isSpeechSynthEnabled) {
+        if (notification.textToSpeech == "true" && !settings.isSpeechSynthDisabled) {
             SpeechSynthesisService().synthesize(notification, onError)
         }
     }

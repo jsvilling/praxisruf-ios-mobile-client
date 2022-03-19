@@ -37,7 +37,7 @@ struct ErrorHandler {
         let message = praxisrufApiError?.localizedDescription ?? error.localizedDescription
         
         return Alert(
-            title: Text("Oops!"),
+            title: Text("Fehler"),
             message: Text(message),
             dismissButton: .default(Text("Ok"), action: presentation.retryHandler)
         )

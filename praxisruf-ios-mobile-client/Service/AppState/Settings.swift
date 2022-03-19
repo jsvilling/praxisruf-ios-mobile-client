@@ -21,9 +21,9 @@ class Settings : ObservableObject {
     }
     
     /// Local settings
-    @Published var isSpeechSynthEnabled: Bool = storedOrFalseBoolFor(UserDefaultKeys.isTextToSpeech) {
+    @Published var isSpeechSynthDisabled: Bool = storedOrFalseBoolFor(UserDefaultKeys.isTextToSpeech) {
         didSet {
-            UserDefaults.standard.set(isSpeechSynthEnabled, forKey: UserDefaultKeys.isTextToSpeech)
+            UserDefaults.standard.set(isSpeechSynthDisabled, forKey: UserDefaultKeys.isTextToSpeech)
         }
     }
     

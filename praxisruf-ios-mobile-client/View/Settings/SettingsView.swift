@@ -37,7 +37,7 @@ struct SettingsView: View {
                     }
                 }
                 Section(header: Text("notifications")) {
-                    Toggle(isOn: $settings.isSpeechSynthEnabled) {
+                    Toggle(isOn: !$settings.isSpeechSynthDisabled) {
                         Text("settings.speechSynthEnabled")
                     }
                 }

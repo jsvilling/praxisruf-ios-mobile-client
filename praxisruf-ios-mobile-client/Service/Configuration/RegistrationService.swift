@@ -33,7 +33,7 @@ class RegistrationService: ObservableObject {
                 case .success(_):
                     print("Registration successful")
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    print(error.localizedDescription ?? "Registration failed")
             }
         }
     }

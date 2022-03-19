@@ -23,7 +23,6 @@
 "settings.incommingCallsEnabled" = "Anrufe empfangen";
 "username" = "Benutzername";
 "welcome" = "Wilkommen bei Praxisruf !";
-"error.connectionClosedTemp" = "Verbindung zum Signaling Server wurde getrennt und wird wieder aufgebaut.";
 "error.connectionClosedPerm" = "Verbindung zum Signaling Server wurde getrennt und kann nicht wieder aufgebaut werden. Bitte melden Sie sich erneut an.";
 "error.errorResponse" = "Es ist ein Fehler aufgetreten. Die Anfrage konnte nicht ausgeführt werden.";
 "error.invalidCredential" = "Ihre Anmeldedaten sind ungültig. Bitte melden Sie sich erneut an.";
