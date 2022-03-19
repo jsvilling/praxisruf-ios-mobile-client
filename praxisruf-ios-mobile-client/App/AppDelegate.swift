@@ -65,9 +65,13 @@ class AppDelegate: NSObject, UIApplicationDelegate, UISceneDelegate {
         let title = alert["body"] as? String ?? sender
         let body = userInfo["body"] as? String ?? ""
         let version = userInfo["version"] as? String ?? "UNKNOWN"
-        let textToSpeech = userInfo["isTextToSpeech"] as? String ?? "false"
         let notificationType = userInfo["notificationType"] as? String ?? "UNKNOWN"
-
+        
+        var textToSpeech = "false"
+        if (application.applicationState == .active) {
+            textToSpeech = userInfo["isTextToSpeech"] as? String ?? "false"
+        }
+        
         completionHandler(UIBackgroundFetchResult.newData)
         let notification = ReceiveNotification(notificationType, version, title, body, sender, senderId, textToSpeech)
         NotificationService().receive(notification)
