@@ -185,11 +185,7 @@ class CallClient : NSObject {
         let type = PraxisrufSignalType.init(rawValue: signal.type)
         switch(type) {
             case .some(.OFFER):
-                if (self.peerConnections.isEmpty) {
-                    delegate?.onIncommingCallPending(signal: signal)
-                } else {
-                    self.decline(signal: signal)
-                }
+                receiveOffer(signal: signal)
             case .some(.ANSWER):
                 setRemoteSdp(signal: signal)
             case .some(.ICE_CANDIDATE):
@@ -206,6 +202,17 @@ class CallClient : NSObject {
             case .none:
                 self.delegate?.onCallError()
                 print("Unknown Signal Type \(signal.type)")
+        }
+    }
+    
+    /// Receives an offer.
+    /// If no active connections are present this notifies CallClientDelegate with onIncommingCallPending.
+    /// Otherwise it declines the incomming offer. 
+    private func receiveOffer(signal: Signal) {
+        if (self.peerConnections.isEmpty) {
+            delegate?.onIncommingCallPending(signal: signal)
+        } else {
+            self.decline(signal: signal)
         }
     }
     
