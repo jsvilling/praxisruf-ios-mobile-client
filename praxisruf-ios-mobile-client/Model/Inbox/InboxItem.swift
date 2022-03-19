@@ -28,11 +28,6 @@ struct InboxItem: Identifiable {
         }
         return "\(title) - \(body)"
     }
-    
-    /// Compares two InboxItems by their receivedAt timestamp
-    static func compare(_ i1: InboxItem, _ i2: InboxItem) -> Bool {
-        return i1.receivedAt < i2.receivedAt
-    }
 }
 
 extension InboxItem {

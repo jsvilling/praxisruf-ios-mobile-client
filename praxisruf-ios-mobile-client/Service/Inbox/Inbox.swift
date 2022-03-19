@@ -25,7 +25,7 @@ class Inbox: ObservableObject {
     func receive(_ notification: ReceiveNotification) {
         let notification = InboxItem(type: "mail", title: notification.title, body: notification.body, sender: notification.sender)
         DispatchQueue.main.async {
-            self.content.append(notification)
+            self.content.insert(notification, at: 0)
         }
     }
     
@@ -33,7 +33,7 @@ class Inbox: ObservableObject {
     func receiveCall(_ signal: Signal) {
         let call = InboxItem(type: "phone.fill.arrow.down.left", body: "Empfangener Anruf", ack: true, sender: signal.description)
         DispatchQueue.main.async {
-            self.content.append(call)
+            self.content.insert(call, at: 0)
         }
     }
     
@@ -41,7 +41,7 @@ class Inbox: ObservableObject {
     func receiveDeclinedCall(_ signal: Signal) {
         let call = InboxItem(type: "phone.arrow.down.left", body: "Abgelehnter Anruf", ack: false, sender: signal.description)
         DispatchQueue.main.async {
-            self.content.append(call)
+            self.content.insert(call, at: 0)
         }
     }
     

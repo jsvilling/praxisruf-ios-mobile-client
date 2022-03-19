@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// This protocol defines methods which can be used by PraxisrufApi+Signaling to publish changes that are relevant outside of the local connection objects. 
 protocol PraxisrufApiSignalingDelegate {
     func onConnectionLost()
     func onSignalReceived(_ signal: Signal)

@@ -36,6 +36,10 @@ struct InboxView: View {
        
     }
     
+    private func compareItems(_ i1: InboxItem, _ i2: InboxItem) -> Bool {
+        return i1.receivedAt < i2.receivedAt
+    }
+    
     private func remove(item: InboxItem) {
         guard let i = inbox.content.firstIndex(where: {$0.id == item.id}) else {
             return
