@@ -207,7 +207,7 @@ class CallClient : NSObject {
     
     /// Receives an offer.
     /// If no active connections are present this notifies CallClientDelegate with onIncommingCallPending.
-    /// Otherwise it declines the incomming offer. 
+    /// Otherwise it declines the incomming offer.
     private func receiveOffer(signal: Signal) {
         if (self.peerConnections.isEmpty) {
             delegate?.onIncommingCallPending(signal: signal)

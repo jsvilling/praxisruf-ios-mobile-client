@@ -152,15 +152,22 @@ extension CallService : CallClientDelegate {
     /// After receiving a pending signal participant states and callParnterName are updated and the ActiveCallView is initiated.
     /// Addtionally the received signal is added to the Inbox to display a received call.
     ///
+    /// If a call is already active, the connection will be denied by calling CallClient.decline.
+    ///
     /// This is called by the CallClient after receiving an OFFER Signal.
     func onIncommingCallPending(signal: Signal) {
-        DispatchQueue.main.async {
-            self.pending = signal
-            self.active = true
-            self.states[signal.sender] = (signal.description, .PROCESSING)
-            self.callPartnerName = signal.description
-            Inbox.shared.receiveCall(signal)
+        if (self.active){
+            self.callClient.decline(signal: signal)
+        } else {
+            DispatchQueue.main.async {
+                self.pending = signal
+                self.active = true
+                self.states[signal.sender] = (signal.description, .PROCESSING)
+                self.callPartnerName = signal.description
+                Inbox.shared.receiveCall(signal)
+            }
         }
+
     }
     
     /// Receives a signal for a declined call.
