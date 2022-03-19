@@ -18,6 +18,15 @@ struct InboxView: View {
                 ForEach($inbox.content) { item in
                     InboxItemView(inboxItem: item, action: remove)
                 }
+                HStack {
+                    Spacer()
+                    Button("emptyInbox") {
+                        DispatchQueue.main.async {
+                            inbox.clear()
+                        }
+                    }
+                    Spacer()
+                }
             }
             .listRowInsets(EdgeInsets())
             .onConditionReplaceWith(inbox.content.isEmpty) {
@@ -33,7 +42,6 @@ struct InboxView: View {
                 }
         }
         .navigationBarBackButtonHidden(true)
-       
     }
     
     private func compareItems(_ i1: InboxItem, _ i2: InboxItem) -> Bool {
