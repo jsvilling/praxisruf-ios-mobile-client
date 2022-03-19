@@ -32,7 +32,7 @@ class SpeechSynthesisService {
         let cacheUrl = fileManager.urls(for: .cachesDirectory, in: .userDomainMask)[0]
         let destinationUrl = cacheUrl.appendingPathExtension("\(notificationType)-\(version)\(notification.senderId)")
         
-        if (false && fileManager.fileExists(atPath: destinationUrl.path)) {
+        if (fileManager.fileExists(atPath: destinationUrl.path)) {
             self.playSpeechAudioFromCache(filePath: destinationUrl.path)
         } else {
             PraxisrufApi().synthesize(notificationType: notificationType, sender: notification.senderId) { result in

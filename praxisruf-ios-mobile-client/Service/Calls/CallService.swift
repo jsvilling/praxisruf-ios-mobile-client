@@ -180,7 +180,7 @@ extension CallService : CallClientDelegate {
         content.title = signal.description
         content.body = "Abgelehnter Anruf"
         content.categoryIdentifier = "local"
-        content.sound = UNNotificationSound.default
+        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "app_assets_signal.mp3"))
 
         let uuidString = UUID().uuidString
         let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: nil)
