@@ -7,11 +7,17 @@
 
 import Foundation
 
+/// A ClientConfiguration represents the configuration of a Device in Praxisruf.
+/// This service allows loading the configuration of a selected client from the configuration api of praxisruf.
+/// The service provides properties to publish loaded configurations and errors during loading of a configuration.
 class ConfigurationService : ObservableObject {
     
     @Published var error: Error? = nil
     @Published var configuration: Configuration = Configuration(notificationTypes: [], callTypes: [])
     
+    /// Calls the praxisruf configuration api to retrieve the ClientConfiguration with the given id.
+    /// A loaded ClinetConfiguration is published via the configuration porperty.
+    /// Any errors during loading are published via the error property. 
     func loadConfiguration(clientId: String) {        
         PraxisrufApi().getDisplayConfiguration(clientId: clientId) {
             result in

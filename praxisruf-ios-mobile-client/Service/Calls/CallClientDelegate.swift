@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// This protocol defines methods which can be used by CallClient to publish changes that are relevant outside of the local connection objects. 
 protocol CallClientDelegate {
     func send(_ signal: Signal)
     func updateState(clientId: String, state: ConnectionStatus)
