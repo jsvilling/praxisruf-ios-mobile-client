@@ -185,7 +185,11 @@ class CallClient : NSObject {
         let type = PraxisrufSignalType.init(rawValue: signal.type)
         switch(type) {
             case .some(.OFFER):
-                delegate?.onIncommingCallPending(signal: signal)
+                if (self.peerConnections.isEmpty) {
+                    delegate?.onIncommingCallPending(signal: signal)
+                } else {
+                    self.decline(signal: signal)
+                }
             case .some(.ANSWER):
                 setRemoteSdp(signal: signal)
             case .some(.ICE_CANDIDATE):
@@ -293,19 +297,27 @@ extension CallClient : RTCPeerConnectionDelegate {
     /// During this phase signaling messages are exchanged via the signaling service.
     /// The state displayed in the UI will always be PROCESSING in this case.
     /// This menas, that there is nothing to do in this case but the method has to be implemented to satisfy RTCPeerConnectionDelegate
-    func peerConnection(_ peerConnection: RTCPeerConnection, didChange stateChanged: RTCSignalingState) {}
+    func peerConnection(_ peerConnection: RTCPeerConnection, didChange stateChanged: RTCSignalingState) {
+        print("-1")
+    }
     
     /// This is called when an RTCMediaStream is added.
     /// There is nothing to do in this case because connections in Praxisruf will never change after initialization.
     /// However this method has to be implemented to satisfy RTCPeerConnectionDelegate.
-    func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {}
+    func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {
+        print("0")
+    }
     
     /// This is called when an RTCMediaStream is removed.
     /// There is nothing to do in this case because connections in Praxisruf will never change after initialization.
     /// However this method has to be implemented to satisfy RTCPeerConnectionDelegate.
-    func peerConnection(_ peerConnection: RTCPeerConnection, didRemove stream: RTCMediaStream) {}
+    func peerConnection(_ peerConnection: RTCPeerConnection, didRemove stream: RTCMediaStream) {
+        print("1")
+    }
     
-    func peerConnectionShouldNegotiate(_ peerConnection: RTCPeerConnection) {}
+    func peerConnectionShouldNegotiate(_ peerConnection: RTCPeerConnection) {
+        print("2")
+    }
     
     /// This is called when an RTCIceConnectionState changes.
     ///
