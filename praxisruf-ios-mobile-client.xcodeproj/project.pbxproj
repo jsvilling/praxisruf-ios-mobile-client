@@ -68,6 +68,8 @@
 		CE84165E27E08F70009463C7 /* RegistrationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84165D27E08F70009463C7 /* RegistrationDelegate.swift */; };
 		CE84166027E096B1009463C7 /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84165F27E096B1009463C7 /* NotificationType.swift */; };
 		CE84166227E5C095009463C7 /* Inbox+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84166127E5C095009463C7 /* Inbox+Shared.swift */; };
+		CE84166827E62944009463C7 /* app_assets_signal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CE84166727E62944009463C7 /* app_assets_signal.mp3 */; };
+		CE84166A27E62B1B009463C7 /* app_assets_signal_sms.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CE84166927E62B1B009463C7 /* app_assets_signal_sms.mp3 */; };
 		CE94AC532753E08200C93410 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC522753E08200C93410 /* Settings.swift */; };
 		CE94AC552753F1FE00C93410 /* NotificationSendResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */; };
 		CE94AC572756552900C93410 /* RetryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC562756552900C93410 /* RetryAlert.swift */; };
@@ -162,6 +164,8 @@
 		CE84165D27E08F70009463C7 /* RegistrationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationDelegate.swift; sourceTree = "<group>"; };
 		CE84165F27E096B1009463C7 /* NotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationType.swift; sourceTree = "<group>"; };
 		CE84166127E5C095009463C7 /* Inbox+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Inbox+Shared.swift"; sourceTree = "<group>"; };
+		CE84166727E62944009463C7 /* app_assets_signal.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = app_assets_signal.mp3; sourceTree = "<group>"; };
+		CE84166927E62B1B009463C7 /* app_assets_signal_sms.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = app_assets_signal_sms.mp3; sourceTree = "<group>"; };
 		CE94AC522753E08200C93410 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSendResult.swift; sourceTree = "<group>"; };
 		CE94AC562756552900C93410 /* RetryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryAlert.swift; sourceTree = "<group>"; };
@@ -331,6 +335,8 @@
 		CE1D5CB6271C4E8E007EA5AC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CE84166927E62B1B009463C7 /* app_assets_signal_sms.mp3 */,
+				CE84166727E62944009463C7 /* app_assets_signal.mp3 */,
 				CE53AC14271F1BC300BAD1F1 /* GoogleService-Info.plist */,
 				CE1D5CB4271C4E88007EA5AC /* Localizable.strings */,
 			);
@@ -635,10 +641,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE84166827E62944009463C7 /* app_assets_signal.mp3 in Resources */,
 				CE1D5C8F271C4AAB007EA5AC /* Preview Assets.xcassets in Resources */,
 				CE53AC15271F1BD600BAD1F1 /* GoogleService-Info.plist in Resources */,
 				CE1D5CB5271C4E88007EA5AC /* Localizable.strings in Resources */,
 				CE1D5C8C271C4AAB007EA5AC /* Assets.xcassets in Resources */,
+				CE84166A27E62B1B009463C7 /* app_assets_signal_sms.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

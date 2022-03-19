@@ -44,7 +44,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UISceneDelegate {
     /// The received userInfo is expected to contain an NSDictionary with key "aps" which in turn is expected to contain an NSDictionary with the key "alert".
     /// If either "aps" or "alert" is missing, processing of the notification is not possible and will be aborted.
     /// Otherwise the content of the "alert" dictionary is converted into the internal Model ReceiveNotification.
-    /// Missing value sin the "alert" will be substituted with default Values.
+    /// Missing values in the "alert" will be substituted with default Values.
     /// The ReceiveNotification is then passed to NotificationService for processing.
     func application(_ application: UIApplication,
                      didReceiveRemoteNotification userInfo: [AnyHashable: Any],

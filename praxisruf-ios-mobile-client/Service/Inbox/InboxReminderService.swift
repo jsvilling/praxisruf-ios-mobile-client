@@ -22,7 +22,7 @@ class InboxReminderService {
         content.title = "Neue Nachrichten"
         content.body = "Inbox enthält nicht bestätigte Nachrichten"
         content.categoryIdentifier = "local"
-        content.sound = UNNotificationSound.defaultCritical
+        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "app_assets_signal_sms.mp3"))
         let uuidString = UUID().uuidString
         let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: nil)
         let notificationCenter = UNUserNotificationCenter.current()
