@@ -8,7 +8,6 @@
 import Foundation
 
 public enum PraxisrufApiError: Error {
-    case connectionClosedTemp
     case connectionClosedPerm
     case callError
     case custom(errorMessage: String)
@@ -18,8 +17,6 @@ public enum PraxisrufApiError: Error {
     
     public var localizedDescription: String? {
         switch self {
-            case .connectionClosedTemp:
-                return NSLocalizedString("error.connectionClosedTemp", comment: "Connection closed, but will be reopened")
             case .connectionClosedPerm:
                 return NSLocalizedString("error.connectionClosedPerm", comment: "Connection closed and cannot be reopened")
             case .custom(errorMessage: let errorMessage):
