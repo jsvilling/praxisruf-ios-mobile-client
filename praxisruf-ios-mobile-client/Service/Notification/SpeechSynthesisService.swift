@@ -12,6 +12,9 @@ import AVFAudio
 /// SpeechSyntesis data can be retrieved either from the praxisruf speech synthesis api or from a local cache.
 class SpeechSynthesisService {
     
+    let lock = NSLock()
+    private let queue = DispatchQueue(label: "WithdrawalQueue", attributes: .concurrent)
+    
     /// Synthesises speech data for the given notification and plays the audio for it.
     ///
     /// When receiving a notification it is checked, whether the speech data is already known.
@@ -33,7 +36,7 @@ class SpeechSynthesisService {
         let destinationUrl = cacheUrl.appendingPathExtension("\(notificationType)-\(version)\(notification.senderId)")
         
         if (false && fileManager.fileExists(atPath: destinationUrl.path)) {
-            playSpeechAudioFromCache(filePath: destinationUrl.path)
+            self.playSpeechAudioFromCache(filePath: destinationUrl.path)
         } else {
             PraxisrufApi().synthesize(notificationType: notificationType, sender: notification.senderId) { result in
                 switch result {
@@ -41,7 +44,7 @@ class SpeechSynthesisService {
                         try? FileManager.default.removeItem(at: destinationUrl)
                         do {
                             try FileManager.default.copyItem(at: audioUrl, to: destinationUrl)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            self.queue.asyncAfter(deadline: .now() + 1) {
                                 AudioPlayer.playSounds(filePath: destinationUrl.path)
                             }
                         } catch let error {
@@ -56,6 +59,9 @@ class SpeechSynthesisService {
     
     /// Delegates the playing of an audio file to AudioPlayer.
     private func playSpeechAudioFromCache(filePath: String) {
-        AudioPlayer.playSounds(filePath: filePath)
+        queue.asyncAfter(deadline: .now() + 1) {
+            AudioPlayer.playSounds(filePath: filePath)
+        }
+        
     }
 }

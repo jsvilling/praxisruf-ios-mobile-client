@@ -5,11 +5,13 @@
 //  Created by J. Villing on 18.12.21.
 //
 
+import Foundation
 import SwiftUI
 
 struct ActiveCallView: View {
     
     @StateObject var callService: CallService
+    private let audioPlayer: AudioPlayer = AudioPlayer()
     
     var body: some View {
         VStack {
@@ -22,7 +24,6 @@ struct ActiveCallView: View {
                 .padding(.horizontal, 300)
                 .padding(.bottom, 50)
 
-
             HStack {
                 Spacer()
                 CallActionButton(image: "mic.slash", width: 35, height: 40, action: callService.toggleMute)
@@ -33,8 +34,8 @@ struct ActiveCallView: View {
         }
         .onAppear() {
             if (self.callService.callTypeId == "") {
-                AudioPlayer.playSystemSound(soundID: 1025)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                audioPlayer.playAppSound(name: "call" )
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) {
                     self.callService.acceptPending()
                 }
             } else {
