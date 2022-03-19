@@ -67,6 +67,7 @@
 		CE84165C27E08F36009463C7 /* SignalingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84165B27E08F36009463C7 /* SignalingDelegate.swift */; };
 		CE84165E27E08F70009463C7 /* RegistrationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84165D27E08F70009463C7 /* RegistrationDelegate.swift */; };
 		CE84166027E096B1009463C7 /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84165F27E096B1009463C7 /* NotificationType.swift */; };
+		CE84166227E5C095009463C7 /* Inbox+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84166127E5C095009463C7 /* Inbox+Shared.swift */; };
 		CE94AC532753E08200C93410 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC522753E08200C93410 /* Settings.swift */; };
 		CE94AC552753F1FE00C93410 /* NotificationSendResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */; };
 		CE94AC572756552900C93410 /* RetryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94AC562756552900C93410 /* RetryAlert.swift */; };
@@ -160,6 +161,7 @@
 		CE84165B27E08F36009463C7 /* SignalingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalingDelegate.swift; sourceTree = "<group>"; };
 		CE84165D27E08F70009463C7 /* RegistrationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationDelegate.swift; sourceTree = "<group>"; };
 		CE84165F27E096B1009463C7 /* NotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationType.swift; sourceTree = "<group>"; };
+		CE84166127E5C095009463C7 /* Inbox+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Inbox+Shared.swift"; sourceTree = "<group>"; };
 		CE94AC522753E08200C93410 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CE94AC542753F1FE00C93410 /* NotificationSendResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSendResult.swift; sourceTree = "<group>"; };
 		CE94AC562756552900C93410 /* RetryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryAlert.swift; sourceTree = "<group>"; };
@@ -496,6 +498,7 @@
 			children = (
 				CE01404A2726C81400B71AB7 /* Inbox.swift */,
 				CE94AC5827566B6900C93410 /* InboxReminderService.swift */,
+				CE84166127E5C095009463C7 /* Inbox+Shared.swift */,
 			);
 			path = Inbox;
 			sourceTree = "<group>";
@@ -689,6 +692,7 @@
 				CE84165C27E08F36009463C7 /* SignalingDelegate.swift in Sources */,
 				CE84165E27E08F70009463C7 /* RegistrationDelegate.swift in Sources */,
 				CE51D0462726922B000D09C1 /* InboxItem.swift in Sources */,
+				CE84166227E5C095009463C7 /* Inbox+Shared.swift in Sources */,
 				CE06813B277F81B500E8D4BE /* Signal+WebRTC.swift in Sources */,
 				CE0140512726E2C300B71AB7 /* InboxItemView.swift in Sources */,
 				CE61552D276E6CA8007798C6 /* PraxisrufApi+Signaling.swift in Sources */,
