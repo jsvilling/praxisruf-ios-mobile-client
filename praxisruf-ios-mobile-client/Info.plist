@@ -2,12 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>BaseUrlWss</key>
-	<string>$(BASE_URL_WSS)</string>
 	<key>BaseUrlHttps</key>
 	<string>$(BASE_URL_HTTPS)</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>App needs Microphone to provide intercom functionality</string>
+	<key>BaseUrlWss</key>
+	<string>$(BASE_URL_WSS)</string>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<false/>
 	<key>UIApplicationSceneManifest</key>
