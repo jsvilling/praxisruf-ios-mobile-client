@@ -40,8 +40,9 @@ struct InitialView: View {
         }.onAppear() {
             let username = KeychainWrapper.standard.string(forKey: UserDefaultKeys.userName)
             let password = KeychainWrapper.standard.string(forKey: UserDefaultKeys.password)
+            let clientId = settings.clientId
             
-            if (username == nil || password == nil) {
+            if (username == nil || password == nil || clientId.isEmpty) {
                 self.showLogin = true
             } else {
                 auth.login(username!, password!)

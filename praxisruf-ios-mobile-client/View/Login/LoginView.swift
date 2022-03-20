@@ -74,6 +74,9 @@ struct LoginView: View {
             .onChange(of: auth.isAuthenticated) { v in
                 self.showClientSelection = self.loginPressed && v
             }
+            .onAppear() {
+                self.auth.isAuthenticated = false
+            }
             .onError(auth.error, retryHandler: login)
         }
 }
