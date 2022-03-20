@@ -9,7 +9,7 @@ import Foundation
 import AVFoundation
 
 /// This class allows playing audio either based on a file locator or the id of a system sound.
-class AudioPlayer : NSObject, AVAudioPlayerDelegate {
+class AudioPlayer {
 
     private var player: AVAudioPlayer?
     
@@ -27,7 +27,6 @@ class AudioPlayer : NSObject, AVAudioPlayerDelegate {
             do {
                 sleep(1)
                 try self.player = AVAudioPlayer(contentsOf: queue.removeFirst())
-                self.player?.delegate = self
                 self.player?.play()
                 sleep(2)
             } catch {
