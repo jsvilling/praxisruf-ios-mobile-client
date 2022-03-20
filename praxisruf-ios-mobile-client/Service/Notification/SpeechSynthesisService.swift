@@ -12,8 +12,6 @@ import AVFAudio
 /// SpeechSyntesis data can be retrieved either from the praxisruf speech synthesis api or from a local cache.
 class SpeechSynthesisService {
     
-    private static var queue: [String] = []
-    
     /// Synthesises speech data for the given notification and plays the audio for it.
     ///
     /// When receiving a notification it is checked, whether the speech data is already known.
@@ -35,8 +33,7 @@ class SpeechSynthesisService {
         let destinationUrl = cacheUrl.appendingPathExtension("\(notificationType)-\(version)\(notification.senderId)")
         
         if (fileManager.fileExists(atPath: destinationUrl.path)) {
-            SpeechSynthesisService.queue.append(destinationUrl.path)
-            playNextInQueue()
+            AudioPlayer.shared.playSounds(filePath: destinationUrl)
         } else {
             PraxisrufApi().synthesize(notificationType: notificationType, sender: notification.senderId) { result in
                 switch result {
@@ -44,8 +41,7 @@ class SpeechSynthesisService {
                         try? FileManager.default.removeItem(at: destinationUrl)
                         do {
                             try FileManager.default.copyItem(at: audioUrl, to: destinationUrl)
-                            SpeechSynthesisService.queue.append(destinationUrl.path)
-                            self.playNextInQueue()
+                            AudioPlayer.shared.playSounds(filePath: destinationUrl)
                         } catch let error {
                             errorHandler(error)
                         }
@@ -55,15 +51,4 @@ class SpeechSynthesisService {
             }
         }
     }
-    
-    private func playNextInQueue() {
-        if (!SpeechSynthesisService.queue.isEmpty) {
-            sleep(1)
-            AudioPlayer.playSounds(filePath: SpeechSynthesisService.queue.removeFirst())
-            sleep(2)
-            playNextInQueue()
-        }
-    }
-    
-    
 }

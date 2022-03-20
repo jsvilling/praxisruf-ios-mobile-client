@@ -9,18 +9,33 @@ import Foundation
 import AVFoundation
 
 /// This class allows playing audio either based on a file locator or the id of a system sound.
-class AudioPlayer {
+class AudioPlayer : NSObject, AVAudioPlayerDelegate {
 
     private var player: AVAudioPlayer?
     
+    private var queue: [URL] = []
+    
     /// Plays the audio file at the given filePath.
     /// No audio will play, if the file does not exist.
-    static func playSounds(filePath: String) {
-        let fileURL = URL(fileURLWithPath: filePath)
-        var soundID:SystemSoundID = 0
-        AudioServicesCreateSystemSoundID(fileURL as CFURL, &soundID)
-        AudioServicesPlaySystemSound(soundID)
+    func playSounds(filePath: URL) {
+        queue.append(filePath)
+        playNextInQueue()
      }
+    
+    private func playNextInQueue() {
+        if (!queue.isEmpty) {
+            do {
+                sleep(1)
+                try self.player = AVAudioPlayer(contentsOf: queue.removeFirst())
+                self.player?.delegate = self
+                self.player?.play()
+                sleep(2)
+            } catch {
+                print("Could not play audio")
+            }
+        }
+    }
+    
     
     func playAppSound(name: String) {
         guard let url = Bundle.main.url(forResource: name, withExtension: "mp3") else {
@@ -34,5 +49,8 @@ class AudioPlayer {
             print("Could not play audio for \(name)")
         }
     }
-        
+}
+
+extension AudioPlayer  {
+    static let shared = AudioPlayer()
 }
