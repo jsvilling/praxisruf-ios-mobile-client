@@ -207,7 +207,7 @@ class CallClient : NSObject {
     
     /// Receives an offer and notifies CallClientDelegate with onIncommingCallPending.
     private func receiveOffer(signal: Signal) {
-        delegate?.onIncommingCallPending(signal: signal)
+            delegate?.onIncommingCallPending(signal: signal)
     }
     
     /// This is is closes the connection of the sender of the given signal.

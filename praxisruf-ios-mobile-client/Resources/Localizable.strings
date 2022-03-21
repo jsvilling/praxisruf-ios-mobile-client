@@ -23,7 +23,7 @@
 "settings.incommingCallsEnabled" = "Anrufe empfangen";
 "username" = "Benutzername";
 "welcome" = "Wilkommen bei Praxisruf !";
-"error.connectionClosedPerm" = "Die Verbindung zum Server wurde getrennt. Sie wird in 60s automatisch wiederhergestellt. Bis dahin können keine Anrufe empfangen werden. \n Sie Verbindung wird früher repariert, wenn Sie die App neustarten oder einen Anruf beginnen.";
+"error.connectionClosedPerm" = "Die Verbindung zum Server wurde getrennt. Sie wird in automatisch wiederhergestellt. Bis dahin können keine Anrufe empfangen werden. \n Die Verbindung wird früher repariert, wenn Sie die App neustarten oder einen Anruf beginnen.";
 "error.errorResponse" = "Es ist ein Fehler aufgetreten. Die Anfrage konnte nicht ausgeführt werden.";
 "error.invalidCredential" = "Ihre Anmeldedaten sind ungültig. Bitte melden Sie sich erneut an.";
 "error.invalidData" = "Es wurde eine ungültige Antwort empfangen. Bitte wiederholen Sie die Aktion.";

@@ -180,7 +180,7 @@ extension CallService : CallClientDelegate {
         content.title = signal.description
         content.body = "Abgelehnter Anruf"
         content.categoryIdentifier = "local"
-        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "app_assets_signal.mp3"))
+        content.sound = UNNotificationSound.default
 
         let uuidString = UUID().uuidString
         let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: nil)
@@ -258,6 +258,7 @@ extension CallService : PraxisrufApiSignalingDelegate {
     /// * An error message was received, indicating the connection is closed
     /// * Starting to receive signals is not possible because the connection is closed. 
     func onConnectionLost() {
+        self.errorCount += 1
         if (self.errorCount <= 10) {
             praxisrufApi.disconnectSignalingService()
             listen()
@@ -287,7 +288,6 @@ extension CallService : PraxisrufApiSignalingDelegate {
     /// or the user tries to start a call.
     func onErrorReceived(error: Error) {
         self.errorCount += 1
-        print(error.localizedDescription)
         if (self.errorCount > 10) {
             disconnect()
             DispatchQueue.main.async {
@@ -306,6 +306,8 @@ extension CallService : PraxisrufApiSignalingDelegate {
     /// * Before a ping or signalingMessage is sent. 
     func onConnectionRestored() {
         self.errorCount = 0
+        DispatchQueue.main.async {
+            self.error = nil
+        }
     }
-    
 }
