@@ -10,7 +10,7 @@ import AVFoundation
 
 struct IntercomView: View {
     
-    let keepAliveSignalingConnection = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
+    let keepAliveSignalingConnection = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
     
     @Environment(\.scenePhase) var scenePhase
     @Binding var configuration: Configuration
