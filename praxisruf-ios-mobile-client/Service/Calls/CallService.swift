@@ -244,6 +244,8 @@ extension CallService : PraxisrufApiSignalingDelegate {
     
     /// Evaluates whether a closed connection should be restored.
     ///
+    /// Before evaluation, the error counter is increased by one.  
+    ///
     /// If the last ten attempts of restoring a connection or sending/receiving a singal have failed, no more attempts are made.
     /// The connection remains closed. Displaying an error message is in the responsibility of any
     /// instance that increases the errorCount to the threshold.
